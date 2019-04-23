@@ -1,5 +1,6 @@
 import yaml
 import sys
+import CommandRunner as cmdRunner
 
 
 class Command:
@@ -20,5 +21,6 @@ if __name__ == '__main__':
                 if command is not None:
                     print "executing " + command["description"]
                     print command["cmd"]
+                    cmdRunner.run(command["cmd"])
         except yaml.YAMLError as exc:
             print(exc)
