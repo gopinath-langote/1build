@@ -10,12 +10,12 @@ def run(arguments):
         project = parse_project_config()
         command_name = command_to_run(arguments)
         if command_name.lower() == "help":
-            print help_message(project)
+            print(help_message(project))
         else:
             command = project.get_command(command_name)
             execute(command)
     except ValueError as error:
-        print error
+        print(error)
 
 
 class Project:
