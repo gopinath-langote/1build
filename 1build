@@ -8,8 +8,12 @@ import sys
 def run(arguments):
     try:
         project = parse_project_config()
-        command = project.get_command(command_to_run(arguments))
-        execute(command)
+        command_name = command_to_run(arguments)
+        if command_name.lower() == "help":
+            print help_message(project)
+        else:
+            command = project.get_command(command_name)
+            execute(command)
     except ValueError as error:
         print error
 
@@ -25,9 +29,8 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command " + command_name + " found in config file `1build.yaml` \n" +
-                             "Available commands:" + "\n" +
-                             self.available_commands()
+            raise ValueError("No command " + command_name + " found in config file `1build.yaml` \n\n" +
+                             help_message(self)
                              )
 
     def __has_command__(self, command_name):
@@ -83,6 +86,10 @@ def parse_project_config():
                 "Error in parsing `1build.yaml` config file. Make sure file is in correct format. \n\n" + exc.__str__()
             )
         return Project(name=(content["project"]), commands=(get_command_list_from_config(content["commands"])))
+
+
+def help_message(project):
+    return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
 def command_to_run(arguments):
