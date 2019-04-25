@@ -1,4 +1,6 @@
-import Builder as builder
+#!/usr/bin/env python
+
+import builder
 import sys
 
 if __name__ == '__main__':
