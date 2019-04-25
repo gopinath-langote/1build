@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# !/usr/bin/env python
 
 import yaml
 import sys
@@ -11,10 +12,10 @@ class Command:
         self.description = description
 
 
-def getCommandName():
-    if len(sys.argv) is 1:
+def getCommandName(arguments):
+    if len(arguments) is 1:
         return "build"
-    return sys.argv[1]
+    return arguments[1]
 
 
 def execute(cmdObject):
@@ -23,14 +24,14 @@ def execute(cmdObject):
     cmdRunner.run(cmdObject["cmd"])
 
 
-if __name__ == '__main__':
-    commandToExecute = getCommandName()
+def run(arguments):
+    command_to_execute = getCommandName(arguments)
     with open("1build.yaml", 'r') as stream:
         try:
             content = yaml.safe_load(stream)
             project = content["project"]
             for cmd in content["commands"]:
-                command = cmd.get(commandToExecute)
+                command = cmd.get(command_to_execute)
                 if command is not None:
                     execute(command)
         except yaml.YAMLError as exc:
