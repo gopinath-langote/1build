@@ -82,11 +82,12 @@ def parse_project_config():
         with open("1build.yaml", 'r') as stream:
             try:
                 content = yaml.safe_load(stream)
-            except yaml.YAMLError, exc:
+                return Project(name=(content["project"]), commands=(get_command_list_from_config(content["commands"])))
+            except:
                 raise ValueError(
-                    "Error in parsing `1build.yaml` config file. Make sure file is in correct format. \n\n" + exc.__str__()
+                    "Error in parsing `1build.yaml` config file. Make sure file is in correct format. \nSample format is: \n\n" +
+                    "---------------------------------------------------\n" + sample_yaml_file() + "---------------------------------------------------\n"
                 )
-            return Project(name=(content["project"]), commands=(get_command_list_from_config(content["commands"])))
     else:
         raise ValueError("No `1build.yaml` file found in current directory.")
 
@@ -100,6 +101,18 @@ def command_to_run(arguments):
         return "build"
     else:
         return arguments[1]
+
+
+def sample_yaml_file():
+    return "project: JUnit5" + "\n" + \
+           "commands:" + "\n" + \
+           "  - build:" + "\n" + \
+           "      description: build the project" + "\n" + \
+           "      cmd: ./gradlew clean build" + "\n" + \
+           "  - lint:" + "\n" + \
+           "      description: fix the lint" + "\n" + \
+           "      cmd: ./gradlew spotlessApply" + "\n" + \
+           ""
 
 
 run(sys.argv)
