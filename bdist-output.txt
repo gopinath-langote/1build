@@ -1,0 +1,51 @@
+running bdist
+running bdist_dumb
+running build
+running build_scripts
+creating build
+creating build/scripts-3.7
+copying and adjusting 1build -> build/scripts-3.7
+changing mode of build/scripts-3.7/1build from 644 to 755
+installing to build/bdist.macosx-10.13-x86_64/dumb
+running install
+running install_egg_info
+running egg_info
+creating gopitest.egg-info
+writing gopitest.egg-info/PKG-INFO
+writing dependency_links to gopitest.egg-info/dependency_links.txt
+writing requirements to gopitest.egg-info/requires.txt
+writing top-level names to gopitest.egg-info/top_level.txt
+writing manifest file 'gopitest.egg-info/SOURCES.txt'
+reading manifest file 'gopitest.egg-info/SOURCES.txt'
+writing manifest file 'gopitest.egg-info/SOURCES.txt'
+Copying gopitest.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/gopitest-0.0.1-py3.7.egg-info
+running install_scripts
+creating build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/bin
+copying build/scripts-3.7/1build -> build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/bin
+changing mode of build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/bin/1build to 755
+creating /Users/gopinathlangote/Tech/1build/dist
+Creating tar archive
+removing 'build/bdist.macosx-10.13-x86_64/dumb' (and everything under it)
+running bdist_wheel
+installing to build/bdist.macosx-10.13-x86_64/wheel
+running install
+running install_egg_info
+Copying gopitest.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/gopitest-0.0.1-py3.7.egg-info
+running install_scripts
+running build_scripts
+copying and adjusting 1build -> build/scripts-3.7
+creating build/bdist.macosx-10.13-x86_64/wheel
+creating build/bdist.macosx-10.13-x86_64/wheel/gopitest-0.0.1.data
+creating build/bdist.macosx-10.13-x86_64/wheel/gopitest-0.0.1.data/scripts
+copying build/scripts-3.7/1build -> build/bdist.macosx-10.13-x86_64/wheel/gopitest-0.0.1.data/scripts
+changing mode of build/bdist.macosx-10.13-x86_64/wheel/gopitest-0.0.1.data/scripts/1build to 755
+adding license file "LICENSE" (matched pattern "LICEN[CS]E*")
+creating build/bdist.macosx-10.13-x86_64/wheel/gopitest-0.0.1.dist-info/WHEEL
+creating 'dist/gopitest-0.0.1-py3-none-any.whl' and adding 'build/bdist.macosx-10.13-x86_64/wheel' to it
+adding 'gopitest-0.0.1.data/scripts/1build'
+adding 'gopitest-0.0.1.dist-info/LICENSE'
+adding 'gopitest-0.0.1.dist-info/METADATA'
+adding 'gopitest-0.0.1.dist-info/WHEEL'
+adding 'gopitest-0.0.1.dist-info/top_level.txt'
+adding 'gopitest-0.0.1.dist-info/RECORD'
+removing build/bdist.macosx-10.13-x86_64/wheel
