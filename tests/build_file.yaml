@@ -1,0 +1,8 @@
+project: Sample Project
+commands:
+  - build:
+      description: build the project
+      cmd: ls
+  - lint:
+      description: fix the lint
+      cmd: ls
