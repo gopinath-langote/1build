@@ -7,19 +7,6 @@ import sys
 BUILD_FILE_NAME = "1build.yaml"
 
 
-def run(arguments):
-    try:
-        project = parse_project_config()
-        command_name = command_to_run(arguments)
-        if command_name.lower() == "help":
-            print(help_message(project))
-        else:
-            command = project.get_command(command_name)
-            execute(command)
-    except ValueError as error:
-        print(error)
-
-
 class Project:
     def __init__(self, name, commands):
         self.name = name
@@ -31,8 +18,8 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command " + command_name + " found in config file " + buildFileName() + "\n\n" +
-                             help_message(self)
+            raise ValueError("No command " + command_name + " found in config file " + __buildFileName__() + "\n\n" +
+                             __help_message__(self)
                              )
 
     def __has_command__(self, command_name):
@@ -58,6 +45,19 @@ class Command:
         return "Name: " + self.name + " | command: " + self.cmd + " | description: " + self.description
 
 
+def __run__(arguments):
+    try:
+        project = __parse_project_config__()
+        command_name = command_to_run(arguments)
+        if command_name.lower() == "help":
+            print(__help_message__(project))
+        else:
+            command = project.get_command(command_name)
+            execute(command)
+    except ValueError as error:
+        print(error)
+
+
 def execute(command):
     print("---------------------------------------------------")
     print ("Name: " + command.name)
@@ -67,39 +67,39 @@ def execute(command):
     os.system(command.cmd)
 
 
-def parse_command(raw_string):
+def __parse_command__(raw_string):
     command_name = next(iter(raw_string), None)
     return Command(name=command_name, cmd=raw_string.get(command_name)["cmd"],
                    description=raw_string.get(command_name)["description"])
 
 
-def get_command_list_from_config(raw_string):
+def __get_command_list_from_config__(raw_string):
     commands = []
-    for cmd in raw_string: commands.append(parse_command(cmd))
+    for cmd in raw_string: commands.append(__parse_command__(cmd))
     return commands
 
 
-def parse_project_config():
+def __parse_project_config__():
     if os.path.exists(BUILD_FILE_NAME):
         with open(BUILD_FILE_NAME, 'r') as stream:
             try:
                 yaml = YAML(typ="safe")
                 content = yaml.load(stream)
-                return Project(name=(content["project"]), commands=(get_command_list_from_config(content["commands"])))
+                return Project(name=(content["project"]), commands=(__get_command_list_from_config__(content["commands"])))
             except:
                 raise ValueError(
-                    "Error in parsing " + buildFileName() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
+                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
                     "---------------------------------------------------\n" + sample_yaml_file() + "---------------------------------------------------\n"
                 )
     else:
-        raise ValueError("No " + buildFileName() + " file found in current directory.")
+        raise ValueError("No " + __buildFileName__() + " file found in current directory.")
 
 
-def help_message(project):
+def __help_message__(project):
     return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
-def buildFileName(): return "'" + BUILD_FILE_NAME + "'"
+def __buildFileName__(): return "'" + BUILD_FILE_NAME + "'"
 
 
 def command_to_run(arguments):
@@ -121,4 +121,4 @@ def sample_yaml_file():
            ""
 
 
-run(sys.argv)
+__run__(sys.argv)
