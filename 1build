@@ -4,6 +4,8 @@ from ruamel.yaml import YAML
 import os
 import sys
 
+BUILD_FILE_NAME = "1build.yaml"
+
 
 def run(arguments):
     try:
@@ -29,7 +31,7 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command " + command_name + " found in config file `1build.yaml` \n\n" +
+            raise ValueError("No command " + command_name + " found in config file " + buildFileName() + "\n\n" +
                              help_message(self)
                              )
 
@@ -78,23 +80,26 @@ def get_command_list_from_config(raw_string):
 
 
 def parse_project_config():
-    if os.path.exists("1build.yaml"):
-        with open("1build.yaml", 'r') as stream:
+    if os.path.exists(BUILD_FILE_NAME):
+        with open(BUILD_FILE_NAME, 'r') as stream:
             try:
                 yaml = YAML(typ="safe")
                 content = yaml.load(stream)
                 return Project(name=(content["project"]), commands=(get_command_list_from_config(content["commands"])))
             except:
                 raise ValueError(
-                    "Error in parsing `1build.yaml` config file. Make sure file is in correct format. \nSample format is: \n\n" +
+                    "Error in parsing " + buildFileName() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
                     "---------------------------------------------------\n" + sample_yaml_file() + "---------------------------------------------------\n"
                 )
     else:
-        raise ValueError("No `1build.yaml` file found in current directory.")
+        raise ValueError("No " + buildFileName() + " file found in current directory.")
 
 
 def help_message(project):
     return "Usage: 1build <command_name> \n\n" + project.__str__()
+
+
+def buildFileName(): return "'" + BUILD_FILE_NAME + "'"
 
 
 def command_to_run(arguments):
