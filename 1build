@@ -45,7 +45,14 @@ class Command:
         return "Name: " + self.name + " | command: " + self.cmd + " | description: " + self.description
 
 
-def __run__(arguments):
+def run(build_file_name, arguments):
+    """
+    :param build_file_name: parameterize build file name & update the global BUILD_FILE_NAME variable with this value
+    :param arguments: command line arguments will be passed here
+    """
+    global BUILD_FILE_NAME
+    BUILD_FILE_NAME = build_file_name
+
     try:
         project = __parse_project_config__()
         command_name = command_to_run(arguments)
@@ -85,7 +92,9 @@ def __parse_project_config__():
             try:
                 yaml = YAML(typ="safe")
                 content = yaml.load(stream)
-                return Project(name=(content["project"]), commands=(__get_command_list_from_config__(content["commands"])))
+                return Project(
+                    name=(content["project"]), commands=(__get_command_list_from_config__(content["commands"]))
+                )
             except:
                 raise ValueError(
                     "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
@@ -121,4 +130,4 @@ def sample_yaml_file():
            ""
 
 
-__run__(sys.argv)
+run(BUILD_FILE_NAME, sys.argv)
