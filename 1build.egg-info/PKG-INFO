@@ -5,7 +5,7 @@ Summary: Unified build tool for all project needs.
 Home-page: https://github.com/gopinath-langote/1build
 Author: Gopinath Langote
 Author-email: gopinathlangote11@gmail.com
-License: UNKNOWN
+License: MIT License
 Description: # 1build
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 2.7
