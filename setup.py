@@ -6,6 +6,7 @@ setuptools.setup(
     name='1build',
     version='0.0.1',
     scripts=['1build'],
+    license="MIT License",
     author="Gopinath Langote",
     install_requires=[
         'ruamel.yaml>=0.15.94'
