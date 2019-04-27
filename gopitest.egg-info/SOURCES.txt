@@ -1,8 +1,0 @@
-1build
-README.md
-setup.py
-gopitest.egg-info/PKG-INFO
-gopitest.egg-info/SOURCES.txt
-gopitest.egg-info/dependency_links.txt
-gopitest.egg-info/requires.txt
-gopitest.egg-info/top_level.txt
