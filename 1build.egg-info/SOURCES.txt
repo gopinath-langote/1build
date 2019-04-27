@@ -1,8 +1,0 @@
-1build
-README.md
-setup.py
-1build.egg-info/PKG-INFO
-1build.egg-info/SOURCES.txt
-1build.egg-info/dependency_links.txt
-1build.egg-info/requires.txt
-1build.egg-info/top_level.txt

@@ -10,15 +10,15 @@ installing to build/bdist.macosx-10.13-x86_64/dumb
 running install
 running install_egg_info
 running egg_info
-creating 1build.egg-info
-writing 1build.egg-info/PKG-INFO
-writing dependency_links to 1build.egg-info/dependency_links.txt
-writing requirements to 1build.egg-info/requires.txt
-writing top-level names to 1build.egg-info/top_level.txt
-writing manifest file '1build.egg-info/SOURCES.txt'
-reading manifest file '1build.egg-info/SOURCES.txt'
-writing manifest file '1build.egg-info/SOURCES.txt'
-Copying 1build.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/1build-0.0.1-py3.7.egg-info
+creating gopinathr1.egg-info
+writing gopinathr1.egg-info/PKG-INFO
+writing dependency_links to gopinathr1.egg-info/dependency_links.txt
+writing requirements to gopinathr1.egg-info/requires.txt
+writing top-level names to gopinathr1.egg-info/top_level.txt
+writing manifest file 'gopinathr1.egg-info/SOURCES.txt'
+reading manifest file 'gopinathr1.egg-info/SOURCES.txt'
+writing manifest file 'gopinathr1.egg-info/SOURCES.txt'
+Copying gopinathr1.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/gopinathr1-0.0.2-py3.7.egg-info
 running install_scripts
 creating build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/bin
 copying build/scripts-3.7/1build -> build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/bin
@@ -30,22 +30,22 @@ running bdist_wheel
 installing to build/bdist.macosx-10.13-x86_64/wheel
 running install
 running install_egg_info
-Copying 1build.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/1build-0.0.1-py3.7.egg-info
+Copying gopinathr1.egg-info to build/bdist.macosx-10.13-x86_64/dumb/Users/gopinathlangote/Tech/1build/venv/lib/python3.7/site-packages/gopinathr1-0.0.2-py3.7.egg-info
 running install_scripts
 running build_scripts
 copying and adjusting 1build -> build/scripts-3.7
 creating build/bdist.macosx-10.13-x86_64/wheel
-creating build/bdist.macosx-10.13-x86_64/wheel/1build-0.0.1.data
-creating build/bdist.macosx-10.13-x86_64/wheel/1build-0.0.1.data/scripts
-copying build/scripts-3.7/1build -> build/bdist.macosx-10.13-x86_64/wheel/1build-0.0.1.data/scripts
-changing mode of build/bdist.macosx-10.13-x86_64/wheel/1build-0.0.1.data/scripts/1build to 755
+creating build/bdist.macosx-10.13-x86_64/wheel/gopinathr1-0.0.2.data
+creating build/bdist.macosx-10.13-x86_64/wheel/gopinathr1-0.0.2.data/scripts
+copying build/scripts-3.7/1build -> build/bdist.macosx-10.13-x86_64/wheel/gopinathr1-0.0.2.data/scripts
+changing mode of build/bdist.macosx-10.13-x86_64/wheel/gopinathr1-0.0.2.data/scripts/1build to 755
 adding license file "LICENSE" (matched pattern "LICEN[CS]E*")
-creating build/bdist.macosx-10.13-x86_64/wheel/1build-0.0.1.dist-info/WHEEL
-creating 'dist/1build-0.0.1-py3-none-any.whl' and adding 'build/bdist.macosx-10.13-x86_64/wheel' to it
-adding '1build-0.0.1.data/scripts/1build'
-adding '1build-0.0.1.dist-info/LICENSE'
-adding '1build-0.0.1.dist-info/METADATA'
-adding '1build-0.0.1.dist-info/WHEEL'
-adding '1build-0.0.1.dist-info/top_level.txt'
-adding '1build-0.0.1.dist-info/RECORD'
+creating build/bdist.macosx-10.13-x86_64/wheel/gopinathr1-0.0.2.dist-info/WHEEL
+creating 'dist/gopinathr1-0.0.2-py3-none-any.whl' and adding 'build/bdist.macosx-10.13-x86_64/wheel' to it
+adding 'gopinathr1-0.0.2.data/scripts/1build'
+adding 'gopinathr1-0.0.2.dist-info/LICENSE'
+adding 'gopinathr1-0.0.2.dist-info/METADATA'
+adding 'gopinathr1-0.0.2.dist-info/WHEEL'
+adding 'gopinathr1-0.0.2.dist-info/top_level.txt'
+adding 'gopinathr1-0.0.2.dist-info/RECORD'
 removing build/bdist.macosx-10.13-x86_64/wheel
