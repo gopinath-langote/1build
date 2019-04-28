@@ -32,17 +32,16 @@ class Project:
         return "\n".join(map(str, self.commands))
 
     def __str__(self):
-        return "Project Name: " + self.name + " \nAvailable commands:\n" + self.available_commands()
+        return "Project: " + self.name + " \ncommands:\n" + self.available_commands()
 
 
 class Command:
-    def __init__(self, name, cmd, description):
+    def __init__(self, name, cmd):
         self.name = name
         self.cmd = cmd
-        self.description = description
 
     def __str__(self):
-        return "Name: " + self.name + " | command: " + self.cmd + " | description: " + self.description
+        return self.name + " | " + self.cmd
 
 
 def run(build_file_name, arguments):
@@ -69,15 +68,13 @@ def execute(command):
     print("---------------------------------------------------")
     print ("Name: " + command.name)
     print ("Command: " + command.cmd)
-    print ("Description: " + command.description)
     print("---------------------------------------------------")
     os.system(command.cmd)
 
 
 def __parse_command__(raw_string):
     command_name = next(iter(raw_string), None)
-    return Command(name=command_name, cmd=raw_string.get(command_name)["cmd"],
-                   description=raw_string.get(command_name)["description"])
+    return Command(name=command_name, cmd=raw_string.get(command_name)["cmd"])
 
 
 def __get_command_list_from_config__(raw_string):
@@ -121,12 +118,8 @@ def command_to_run(arguments):
 def sample_yaml_file():
     return "project: JUnit5" + "\n" + \
            "commands:" + "\n" + \
-           "  - build:" + "\n" + \
-           "      description: build the project" + "\n" + \
-           "      cmd: ./gradlew clean build" + "\n" + \
-           "  - lint:" + "\n" + \
-           "      description: fix the lint" + "\n" + \
-           "      cmd: ./gradlew spotlessApply" + "\n" + \
+           "  - build: ./gradlew clean build" + "\n" + \
+           "  - lint: ./gradlew spotlessApply" + "\n" + \
            ""
 
 

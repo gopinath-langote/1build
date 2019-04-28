@@ -12,6 +12,5 @@ def test_build_successful_command(capsys):
     expected_message = "---------------------------------------------------\n" \
                        "Name: build\n" \
                        "Command: ls\n" \
-                       "Description: build the project\n" \
                        "---------------------------------------------------\n"
     assert expected_message in captured.out
