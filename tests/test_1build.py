@@ -56,3 +56,17 @@ def test_should_print_help_if_no_command_specified(capsys):
                                  "lint | ls"
 
     assert invalid_file_error_message in captured.out
+
+
+def test_should_print_command_not_found_if_no_command_found_with_given_name(capsys):
+    build.run("tests/build_file.yaml", ['file_name', 'random'])
+    captured = capsys.readouterr()
+
+    invalid_file_error_message = "No command 'random' found in config file 'tests/build_file.yaml'\n\n" \
+                                 "Usage: 1build <command_name> \n\n" \
+                                 "project: Sample Project\n" + \
+                                 "commands:\n" + \
+                                 "build | ls\n" + \
+                                 "lint | ls"
+
+    assert invalid_file_error_message in captured.out

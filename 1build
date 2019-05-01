@@ -18,7 +18,7 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command " + command_name + " found in config file " + __buildFileName__() + "\n\n" +
+            raise ValueError("No command '" + command_name + "' found in config file " + __buildFileName__() + "\n\n" +
                              __help_message__(self)
                              )
 
