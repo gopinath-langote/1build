@@ -43,3 +43,16 @@ def test_should_print_help_on_help_command(capsys):
                                  "lint | ls"
 
     assert invalid_file_error_message in captured.out
+
+
+def test_should_print_help_if_no_command_specified(capsys):
+    build.run("tests/build_file.yaml", ['file_name'])
+    captured = capsys.readouterr()
+
+    invalid_file_error_message = "Usage: 1build <command_name> \n\n" \
+                                 "project: Sample Project\n" + \
+                                 "commands:\n" + \
+                                 "build | ls\n" + \
+                                 "lint | ls"
+
+    assert invalid_file_error_message in captured.out
