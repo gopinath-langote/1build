@@ -32,7 +32,7 @@ class Project:
         return "\n".join(map(str, self.commands))
 
     def __str__(self):
-        return "Project: " + self.name + " \ncommands:\n" + self.available_commands()
+        return "project: " + self.name + "\ncommands:\n" + self.available_commands()
 
 
 class Command:
@@ -90,7 +90,7 @@ def __parse_project_config__():
                                commands=__get_command_list_from_config__(content["commands"]))
             except:
                 raise ValueError(
-                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is: \n\n" +
+                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
                     "---------------------------------------------------\n" + sample_yaml_file() + "\n---------------------------------------------------\n"
                 )
     else:
@@ -112,7 +112,7 @@ def command_to_run(arguments):
 
 
 def sample_yaml_file():
-    return "project: JUnit5" + "\n" + \
+    return "project: Sample Project" + "\n" + \
            "commands:" + "\n" + \
            "  - build: ./gradlew clean build" + "\n" + \
            "  - lint: ./gradlew spotlessApply"
