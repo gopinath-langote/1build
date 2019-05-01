@@ -106,7 +106,7 @@ def __buildFileName__(): return "'" + BUILD_FILE_NAME + "'"
 
 def command_to_run(arguments):
     if len(arguments) is 1:
-        return "build"
+        return "help"
     else:
         return arguments[1]
 
