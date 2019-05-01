@@ -1,4 +1,7 @@
 .idea
 venv
 1buildc
+1build.egg-info/
+build/
+dist/
 __pycache__/

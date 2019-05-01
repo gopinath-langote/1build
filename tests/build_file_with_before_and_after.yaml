@@ -1,4 +1,6 @@
 project: Sample Project
+before: echo 'Running some setup script'
+after: echo 'Running some cleanup script'
 commands:
   - build: echo 'Running build'
   - lint: echo 'Running lint'
