@@ -5,14 +5,16 @@ import imp
 
 build = imp.load_source('1build', '1build')
 
+dash = '-' * 50
+
 
 def test_build_successful_command(capsys):
     build.run("tests/build_file.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
-    expected_message = "---------------------------------------------------\n" \
-                       "Name: build\n" \
-                       "Command: ls\n" \
-                       "---------------------------------------------------\n"
+    expected_message = "" + dash + "\n" \
+                                   "Name: build\n" \
+                                   "Command: ls\n" \
+                       + dash + "\n"
     assert expected_message in captured.out
 
 
@@ -22,12 +24,12 @@ def test_should_fail_with_invalid_file_message_if_file_is_not_in_correct_yaml_fo
 
     invalid_file_error_message = "Error in parsing 'tests/invalid_yaml_file.yaml' config file. Make sure file is in correct format.\n" \
                                  "Sample format is:\n\n" \
-                                 "---------------------------------------------------\n" \
-                                 "project: Sample Project\n" \
-                                 "commands:\n" \
-                                 "  - build: ./gradlew clean build\n" \
-                                 "  - lint: ./gradlew spotlessApply\n" \
-                                 "---------------------------------------------------"
+                                 + dash + "\n" \
+                                          "project: Sample Project\n" \
+                                          "commands:\n" \
+                                          "  - build: ./gradlew clean build\n" \
+                                          "  - lint: ./gradlew spotlessApply\n" \
+                                 + dash
 
     assert invalid_file_error_message in captured.out
 

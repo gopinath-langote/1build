@@ -65,10 +65,10 @@ def run(build_file_name, arguments):
 
 
 def execute(command):
-    print("---------------------------------------------------")
-    print ("Name: " + command.name)
-    print ("Command: " + command.cmd)
-    print("---------------------------------------------------")
+    print(dash)
+    print("Name: " + command.name)
+    print("Command: " + command.cmd)
+    print(dash)
     os.system(command.cmd)
 
 
@@ -91,7 +91,7 @@ def __parse_project_config__():
             except:
                 raise ValueError(
                     "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
-                    "---------------------------------------------------\n" + sample_yaml_file() + "\n---------------------------------------------------\n"
+                    dash + "\n" + sample_yaml_file() + "\n" + dash + "\n"
                 )
     else:
         raise ValueError("No " + __buildFileName__() + " file found in current directory.")
@@ -117,5 +117,7 @@ def sample_yaml_file():
            "  - build: ./gradlew clean build" + "\n" + \
            "  - lint: ./gradlew spotlessApply"
 
+
+dash = '-' * 50
 
 run(BUILD_FILE_NAME, sys.argv)
