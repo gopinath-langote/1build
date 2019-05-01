@@ -18,7 +18,7 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command " + command_name + " found in config file " + __buildFileName__() + "\n\n" +
+            raise ValueError("No command '" + command_name + "' found in config file " + __buildFileName__() + "\n\n" +
                              __help_message__(self)
                              )
 
@@ -32,7 +32,7 @@ class Project:
         return "\n".join(map(str, self.commands))
 
     def __str__(self):
-        return "Project: " + self.name + " \ncommands:\n" + self.available_commands()
+        return "project: " + self.name + "\ncommands:\n" + self.available_commands()
 
 
 class Command:
@@ -65,10 +65,10 @@ def run(build_file_name, arguments):
 
 
 def execute(command):
-    print("---------------------------------------------------")
-    print ("Name: " + command.name)
-    print ("Command: " + command.cmd)
-    print("---------------------------------------------------")
+    print(dash)
+    print("Name: " + command.name)
+    print("Command: " + command.cmd)
+    print(dash)
     os.system(command.cmd)
 
 
@@ -90,8 +90,8 @@ def __parse_project_config__():
                                commands=__get_command_list_from_config__(content["commands"]))
             except:
                 raise ValueError(
-                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
-                    "---------------------------------------------------\n" + sample_yaml_file() + "---------------------------------------------------\n"
+                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
+                    dash + "\n" + sample_yaml_file() + "\n" + dash + "\n"
                 )
     else:
         raise ValueError("No " + __buildFileName__() + " file found in current directory.")
@@ -106,17 +106,18 @@ def __buildFileName__(): return "'" + BUILD_FILE_NAME + "'"
 
 def command_to_run(arguments):
     if len(arguments) is 1:
-        return "build"
+        return "help"
     else:
         return arguments[1]
 
 
 def sample_yaml_file():
-    return "project: JUnit5" + "\n" + \
+    return "project: Sample Project" + "\n" + \
            "commands:" + "\n" + \
            "  - build: ./gradlew clean build" + "\n" + \
-           "  - lint: ./gradlew spotlessApply" + "\n" + \
-           ""
+           "  - lint: ./gradlew spotlessApply"
 
+
+dash = '-' * 50
 
 run(BUILD_FILE_NAME, sys.argv)

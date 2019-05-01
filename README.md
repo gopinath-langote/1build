@@ -13,13 +13,13 @@ With the support of preparatory and clean up steps – you can include various 
 ## Install
 
 ```bash
-pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.python.org/simple gopinathr1
+pip install 1build
 ```
 
 or
 
 ```bash
-pip3 install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.python.org/simple gopinathr1
+pip3 install 1build
 ```
 
 ## Usage
