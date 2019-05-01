@@ -90,8 +90,8 @@ def __parse_project_config__():
                                commands=__get_command_list_from_config__(content["commands"]))
             except:
                 raise ValueError(
-                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format. \nSample format is: \n\n" +
-                    "---------------------------------------------------\n" + sample_yaml_file() + "---------------------------------------------------\n"
+                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is: \n\n" +
+                    "---------------------------------------------------\n" + sample_yaml_file() + "\n---------------------------------------------------\n"
                 )
     else:
         raise ValueError("No " + __buildFileName__() + " file found in current directory.")
@@ -115,8 +115,7 @@ def sample_yaml_file():
     return "project: JUnit5" + "\n" + \
            "commands:" + "\n" + \
            "  - build: ./gradlew clean build" + "\n" + \
-           "  - lint: ./gradlew spotlessApply" + "\n" + \
-           ""
+           "  - lint: ./gradlew spotlessApply"
 
 
 run(BUILD_FILE_NAME, sys.argv)
