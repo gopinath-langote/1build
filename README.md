@@ -3,6 +3,7 @@
 [![PyPi Version](https://img.shields.io/pypi/v/1build.svg)](https://pypi.org/project/1build/)
 [![Build Status](https://travis-ci.org/gopinath-langote/1build.svg?branch=master)](https://travis-ci.org/gopinath-langote/1build)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/gopinath-langote/1build.svg)](https://codecov.io/gh/gopinath-langote/1build)
+[![Requirements Status](https://requires.io/github/gopinath-langote/1build/requirements.svg?branch=master)](https://requires.io/github/gopinath-langote/1build/requirements/?branch=master)
 
 A simple way to unify build commands across all your projects running original building steps with all their specifics under the hood. It is agnostic to the underlying build tool, and environment preparatory steps are supported too.
 
