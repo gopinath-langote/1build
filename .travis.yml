@@ -7,5 +7,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - pytest -v
+  - pytest -v --cov-report term --cov=tests/
+after_success:
+    - codecov
 
