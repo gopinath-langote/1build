@@ -1,4 +1,6 @@
-# 1build
+![Logo](docs/assets/1build-logo.png)
+
+---
 
 [![PyPi Version](https://img.shields.io/pypi/v/1build.svg)](https://pypi.org/project/1build/)
 [![Build Status](https://travis-ci.org/gopinath-langote/1build.svg?branch=master)](https://travis-ci.org/gopinath-langote/1build)
