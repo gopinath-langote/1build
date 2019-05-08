@@ -55,12 +55,14 @@ Running 1build for above sample project:
 ```
 
 # `before` and `after` setup
-Consider you use `java 8` for you company projects and other open source project you contribute to uses `java 11`.
-And you want switch to `java 11` whenever you run the this project and switch back to`java 8` when command execution done.
+Consider one of your project `X` need `java 11` and all other needs `java 8`.
+You want to switch to `java 11` when you work on project `X` and switch back to `java 8` when done with command.
+Or one other project needs docker to be up before running a command or you need to clean database after running a command.
 That can be achieved by using `before` & `after` configuration. 
 
 **NOTE: both `before` and `after` commands are optional**
-
+### Examples:
+1. Project which need `java 11` 
 ```yaml
 project: Sample JVM Project Name
 before: ./switch_to_java_11.sh
@@ -69,4 +71,21 @@ commands:
   - build: mvn clean package
   - lint: mvn antrun:run@ktlint-format
 ```
- 
+
+2. Project which need docker to be up
+```yaml
+project: Containerized Project
+before: ./docker_run.sh
+commands:
+  - build: ./gradlew clean 
+  - test: ./gradlew test
+```
+
+3. Project which need Switching directory
+ ```yaml
+project: Containerized Project
+after: ./clean_database.sh
+commands:
+  - build: ./gradlew clean 
+  - test: ./gradlew test
+```
