@@ -72,12 +72,12 @@ def execute(command, before=None, after=None):
     print(dash)
     print("Name: " + command.name)
     print("Command: " + command.cmd)
-    if before is not None:
+    if before:
         print("Before: " + before)
-        cmd = before + "&&" + cmd
-    if after is not None:
+        cmd = before + " && " + cmd
+    if after:
         print("After: " + after)
-        cmd = cmd + "&&" + after
+        cmd = cmd + " && " + after
     print(dash)
     os.system(cmd)
 
