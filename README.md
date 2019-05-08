@@ -53,3 +53,20 @@ Running 1build for above sample project:
 ```bash
 1build lint
 ```
+
+# `before` and `after` setup
+Consider you use `java 8` for you company projects and other open source project you contribute to uses `java 11`.
+And you want switch to `java 11` whenever you run the this project and switch back to`java 8` when command execution done.
+That can be achieved by using `before` & `after` configuration. 
+
+**NOTE: both are optional**
+
+```yaml
+project: Sample JVM Project Name
+before: ./switch_to_java_11.sh
+after: ./switch_to_java_8.sh
+commands:
+  - build: mvn clean package
+  - lint: mvn antrun:run@ktlint-format
+```
+ 
