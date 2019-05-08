@@ -59,7 +59,7 @@ Consider you use `java 8` for you company projects and other open source project
 And you want switch to `java 11` whenever you run the this project and switch back to`java 8` when command execution done.
 That can be achieved by using `before` & `after` configuration. 
 
-**NOTE: both are optional**
+**NOTE: both `before` and `after` commands are optional**
 
 ```yaml
 project: Sample JVM Project Name
