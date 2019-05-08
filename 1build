@@ -20,7 +20,7 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command '" + command_name + "' found in config file " + __buildFileName__() + "\n\n" +
+            raise ValueError("No command '" + command_name + "' found in config file " + __build_file_name__() + "\n\n" +
                              __help_message__(self)
                              )
 
@@ -104,18 +104,18 @@ def __parse_project_config__():
                                commands=__get_command_list_from_config__(content["commands"]))
             except:
                 raise ValueError(
-                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
+                    "Error in parsing " + __build_file_name__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
                     dash + "\n" + sample_yaml_file() + "\n" + dash + "\n"
                 )
     else:
-        raise ValueError("No " + __buildFileName__() + " file found in current directory.")
+        raise ValueError("No " + __build_file_name__() + " file found in current directory.")
 
 
 def __help_message__(project):
     return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
-def __buildFileName__(): return "'" + BUILD_FILE_NAME + "'"
+def __build_file_name__(): return "'" + BUILD_FILE_NAME + "'"
 
 
 def command_to_run(arguments):
