@@ -69,7 +69,6 @@ before: ./switch_to_java_11.sh
 after: ./switch_to_java_8.sh
 commands:
   - build: mvn clean package
-  - lint: mvn antrun:run@ktlint-format
 ```
 
 2. Project which need docker to be up
@@ -78,7 +77,6 @@ project: Containerized Project
 before: ./docker_run.sh
 commands:
   - build: ./gradlew clean 
-  - test: ./gradlew test
 ```
 
 3. Project which need Switching directory
@@ -87,5 +85,4 @@ project: Containerized Project
 after: ./clean_database.sh
 commands:
   - build: ./gradlew clean 
-  - test: ./gradlew test
 ```
