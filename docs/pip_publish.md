@@ -13,4 +13,12 @@
 
 ## Uploading distribution to PyPi 
 3. Upload distribution to PyP.
-`twine upload dist/* --verbose`  
+`twine upload dist/* --verbose`
+
+## References
+1. Packaging Python Projects –  
+https://packaging.python.org/tutorials/packaging-projects/
+
+2. Python Packaging User Guide – 
+https://packaging.python.org/
+  
