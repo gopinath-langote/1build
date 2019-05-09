@@ -43,7 +43,7 @@ commands:
   - lint: mvn antrun:run@ktlint-format
 ```
 
-Running 1build for above sample project:
+Running 1build for the above sample project:
 
 - building the project
 ```bash
@@ -53,4 +53,35 @@ Running 1build for above sample project:
 - reformat the code lint
 ```bash
 1build lint
+```
+
+# Using `before` and `after` commands
+Consider that your project `X` requires `Java 11` and the other project requires `Java 8`. It is a headache to always remember to switch the java version. What you want is to switch to `Java 11` automatically when you build the project `X` and switch it back to `Java 8` when the build is complete. Another example – a project requires `Docker` to be up and running or you need to clean up the database after running a test harness.
+
+This is where `before` & `after` commands are useful. These commands are both optional – you can use one of them, both or neither.
+
+### Examples:
+1. Switching to `Java 11` and then back to `Java 8`
+```yaml
+project: Sample JVM Project Name
+before: ./switch_to_java_11.sh
+after: ./switch_to_java_8.sh
+commands:
+  - build: mvn clean package
+```
+
+2. Ensure that `Docker` is up and running
+```yaml
+project: Containerized Project
+before: ./docker_run.sh
+commands:
+  - build: ./gradlew clean 
+```
+
+3. Clean up database on exit
+ ```yaml
+project: Containerized Project
+after: ./clean_database.sh
+commands:
+  - build: ./gradlew clean 
 ```

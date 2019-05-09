@@ -8,8 +8,10 @@ BUILD_FILE_NAME = "1build.yaml"
 
 
 class Project:
-    def __init__(self, name, commands):
+    def __init__(self, name, before, after, commands):
         self.name = name
+        self.before = before
+        self.after = after
         self.commands = commands
 
     def get_command(self, command_name):
@@ -18,7 +20,7 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command '" + command_name + "' found in config file " + __buildFileName__() + "\n\n" +
+            raise ValueError("No command '" + command_name + "' found in config file " + __build_file_name__() + "\n\n" +
                              __help_message__(self)
                              )
 
@@ -59,17 +61,25 @@ def run(build_file_name, arguments):
             print(__help_message__(project))
         else:
             command = project.get_command(command_name)
-            execute(command)
+            execute(command, project.before, project.after)
     except ValueError as error:
         print(error)
 
 
-def execute(command):
+def execute(command, before=None, after=None):
+    cmd = command.cmd
+
     print(dash)
     print("Name: " + command.name)
     print("Command: " + command.cmd)
+    if before:
+        print("Before: " + before)
+        cmd = before + " && " + cmd
+    if after:
+        print("After: " + after)
+        cmd = cmd + " && " + after
     print(dash)
-    os.system(command.cmd)
+    os.system(cmd)
 
 
 def __get_command_list_from_config__(raw_string):
@@ -86,22 +96,26 @@ def __parse_project_config__():
             try:
                 yaml = YAML(typ="safe")
                 content = yaml.load(stream)
+                before = content.get("before", None)
+                after = content.get("after", None)
                 return Project(name=(content["project"]),
+                               before=before,
+                               after=after,
                                commands=__get_command_list_from_config__(content["commands"]))
             except:
                 raise ValueError(
-                    "Error in parsing " + __buildFileName__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
+                    "Error in parsing " + __build_file_name__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
                     dash + "\n" + sample_yaml_file() + "\n" + dash + "\n"
                 )
     else:
-        raise ValueError("No " + __buildFileName__() + " file found in current directory.")
+        raise ValueError("No " + __build_file_name__() + " file found in current directory.")
 
 
 def __help_message__(project):
     return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
-def __buildFileName__(): return "'" + BUILD_FILE_NAME + "'"
+def __build_file_name__(): return "'" + BUILD_FILE_NAME + "'"
 
 
 def command_to_run(arguments):
