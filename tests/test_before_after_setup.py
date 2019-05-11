@@ -1,7 +1,7 @@
 import imp
 
 build = imp.load_source('1build', '1build')
-dash = '-' * 50
+from test_utils import dash
 
 
 def test_build_successful_with_before_and_after_command(capsys):

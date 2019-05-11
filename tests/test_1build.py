@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
 import imp
+from test_utils import dash
 
 build = imp.load_source('1build', '1build')
-
-dash = '-' * 50
 
 
 def test_build_successful_command(capsys):
@@ -73,4 +72,3 @@ def test_should_print_command_not_found_if_no_command_found_with_given_name(caps
                                  "lint | echo 'Running lint'"
 
     assert invalid_file_error_message in captured.out
-
