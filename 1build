@@ -20,9 +20,10 @@ class Project:
                 if cmd.name == command_name:
                     return cmd
         else:
-            raise ValueError("No command '" + command_name + "' found in config file " + __build_file_name__() + "\n\n" +
-                             __help_message__(self)
-                             )
+            raise ValueError(
+                "No command '" + command_name + "' found in config file " + __build_file_name__() + "\n\n" +
+                __help_message__(self)
+            )
 
     def __has_command__(self, command_name):
         for cmd in self.commands:
@@ -47,17 +48,12 @@ class Command:
 
 
 def run(build_file_name, arguments):
-    """
-    :param build_file_name: parametrize build file name & update the global BUILD_FILE_NAME variable with this value
-    :param arguments: command line arguments will be passed here
-    """
     global BUILD_FILE_NAME
     BUILD_FILE_NAME = build_file_name
-
     try:
         project = __parse_project_config__()
         command_name = command_to_run(arguments)
-        if command_name.lower() == "help":
+        if command_name == "help":
             print(__help_message__(project))
         else:
             command = project.get_command(command_name)
@@ -68,10 +64,7 @@ def run(build_file_name, arguments):
 
 def execute(command, before=None, after=None):
     cmd = command.cmd
-
-    print(dash)
-    print("Name: " + command.name)
-    print("Command: " + command.cmd)
+    print(dash + "\nName: " + command.name + "\nCommand: " + command.cmd)
     if before:
         print("Before: " + before)
         cmd = before + " && " + cmd
@@ -119,10 +112,7 @@ def __build_file_name__(): return "'" + BUILD_FILE_NAME + "'"
 
 
 def command_to_run(arguments):
-    if len(arguments) is 1:
-        return "help"
-    else:
-        return arguments[1]
+    return "help" if len(arguments) == 1 else arguments[1]
 
 
 def sample_yaml_file():
