@@ -49,12 +49,12 @@ pip3 install 1build
 ### Running 1build for the above sample project:
 
 - building the project
-  ```bash
+  ```console
   1build build
   ```
 
 - fix the coding guidelinges lint
-  ```bash
+  ```console
   1build lint
   ```
 
