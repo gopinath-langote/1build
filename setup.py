@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name='1build',
-    version='0.0.3',
+    version='0.0.4',
     scripts=['1build'],
     license="MIT License",
     author="Gopinath Langote",
@@ -12,7 +12,7 @@ setuptools.setup(
         'ruamel.yaml>=0.15.94'
     ],
     author_email="gopinathlangote11@gmail.com",
-    description="Unified build command for all project using underlying different build tools.",
+    description="Frictionless way of managing project-specific commands.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/gopinath-langote/1build",

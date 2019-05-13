@@ -1,4 +1,4 @@
-![Logo](docs/assets/1build-logo.png)
+![Logo](https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true)
 
 
 [![PyPi Version](https://img.shields.io/pypi/v/1build.svg)](https://pypi.org/project/1build/)
