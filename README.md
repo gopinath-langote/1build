@@ -10,10 +10,10 @@
 1build is an automation tool that arms you with the convenience to configure project-local command line aliases – and then 
 run the commands quickly and easily. It is particularly helpful when you deal with multiple projects and switch between 
 them all the time. It is often the fact that different projects use different build tools and have different environment 
-requirements – and then switching from project to another is becoming increasingly cumbersome. That is where 1build comes 
+requirements – and then switching from one project to another is becoming increasingly cumbersome. That is where 1build comes 
 into play.
 
-With 1build you can create simple and easy memorable command aliases for commonly used project commands such as build, 
+With 1build you can create simple and easyly memorable command aliases for commonly used project commands such as build, 
 test, run or anything else. These aliases will have a project-local scope which means that they will be accessible only 
 within the project directory. This way you can unify all your projects to build with the same simple command disregarding 
 of what build tool they use. It will remove the hassle of remembering all those commands improving the mental focus for 
