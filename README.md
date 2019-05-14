@@ -13,7 +13,7 @@ them all the time. It is often the fact that different projects use different bu
 requirements – and then switching from one project to another is becoming increasingly cumbersome. That is where 1build comes 
 into play.
 
-With 1build you can create simple and easyly memorable command aliases for commonly used project commands such as build, 
+With 1build you can create simple and easily memorable command aliases for commonly used project commands such as build, 
 test, run or anything else. These aliases will have a project-local scope which means that they will be accessible only 
 within the project directory. This way you can unify all your projects to build with the same simple command disregarding 
 of what build tool they use. It will remove the hassle of remembering all those commands improving the mental focus for 
