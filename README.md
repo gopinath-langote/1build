@@ -85,7 +85,7 @@ you can use one of them, both or neither.
       - build: ./gradlew clean 
     ```
 
-3. Clean up database after some commans
+3. Clean up database after some commands
      ```yaml
     project: Containerized Project
     after: ./clean_database.sh
