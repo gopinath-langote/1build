@@ -68,7 +68,7 @@ def run(build_file_name, arguments):
 def execute_cmds(cmds):
     for cmd in cmds:
         try:
-            process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, shell=True)
+            process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
             while True:
                 output_line = process.stdout.readline().rstrip()
                 if not output_line:
