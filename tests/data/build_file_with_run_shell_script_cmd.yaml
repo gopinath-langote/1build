@@ -1,0 +1,3 @@
+project: Sample Project
+commands:
+  - run_file: sh tests/data/test_shell_script.sh
