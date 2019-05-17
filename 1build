@@ -68,12 +68,12 @@ def run(build_file_name, arguments):
 def execute_cmds(cmds):
     for cmd in cmds:
         try:
-            process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
+            process = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, shell=True)
             while True:
                 output_line = process.stdout.readline().rstrip()
                 if not output_line:
                     break
-                yield output_line
+                print(output_line.decode())
         except Exception as e:
             raise Exception("Unable to execute command : {cmd}".format(cmd=cmd))
 
