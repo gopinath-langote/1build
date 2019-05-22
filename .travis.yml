@@ -1,22 +1,13 @@
+dist: xenial   # required for Python >= 3.7
 language: python
-matrix:
-  include:
-    - name: "Python 3.7.1 on Xenial Linux"
-      python: 3.7           # this works for Linux but is ignored on macOS or Windows
-      dist: xenial          # required for Python >= 3.7
-    - name: "Python 3.7.2 on macOS"
-      os: osx
-      osx_image: xcode10.2  # Python 3.7.2 running on macOS 10.14.3
-      language: shell       # 'language: python' is an error on Travis CI macOS
-    - name: "Python 3.7.3 on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install: choco install python
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-#python:
-#  - "2.7"
-#  - "3.6"
-#  - "3.7"
+python:
+  - "2.7"
+  - "3.6"
+  - "3.7"
+os:
+  - linux
+  - osx
+  - windows
 install:
   - pip install -r requirements.txt
   - pip install safety
@@ -24,4 +15,5 @@ script:
   - pytest -v --cov-report term --cov=tests/
   - safety check -r requirements.txt
 after_success:
-  - codecov
+    - codecov
+
