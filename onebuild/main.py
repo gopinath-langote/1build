@@ -1,0 +1,131 @@
+#!/usr/bin/env python
+
+# !/usr/bin/env python
+from ruamel.yaml import YAML
+
+import os
+import sys
+
+BUILD_FILE_NAME = "1build.yaml"
+
+
+class Project:
+    def __init__(self, name, before, after, commands):
+        self.name = name
+        self.before = before
+        self.after = after
+        self.commands = commands
+
+    def get_command(self, command_name):
+        if self.__has_command__(command_name):
+            for cmd in self.commands:
+                if cmd.name == command_name:
+                    return cmd
+        else:
+            raise ValueError(
+                "No command '" + command_name + "' found in config file " + __build_file_name__() + "\n\n" +
+                __help_message__(self)
+            )
+
+    def __has_command__(self, command_name):
+        for cmd in self.commands:
+            if cmd.name == command_name:
+                return True
+        return False
+
+    def available_commands(self):
+        return "\n".join(map(str, self.commands))
+
+    def __str__(self):
+        return "project: " + self.name + "\ncommands:\n" + self.available_commands()
+
+
+class Command:
+    def __init__(self, name, cmd):
+        self.name = name
+        self.cmd = cmd
+
+    def __str__(self):
+        return self.name + " | " + self.cmd
+
+
+def run(build_file_name, arguments):
+    global BUILD_FILE_NAME
+    BUILD_FILE_NAME = build_file_name
+    try:
+        project = __parse_project_config__()
+        command_name = command_to_run(arguments)
+        if command_name == "help":
+            print(__help_message__(project))
+        else:
+            command = project.get_command(command_name)
+            execute(command, project.before, project.after)
+    except ValueError as error:
+        print(error)
+
+
+def execute(command, before=None, after=None):
+    cmd = command.cmd
+    print(dash + "\nName: " + command.name + "\nCommand: " + command.cmd)
+    if before:
+        print("Before: " + before)
+        cmd = before + " && " + cmd
+    if after:
+        print("After: " + after)
+        cmd = cmd + " && " + after
+    print(dash)
+    os.system(cmd)
+
+
+def __get_command_list_from_config__(raw_string):
+    commands = []
+    for cmd in raw_string:
+        for key, val in cmd.items():
+            commands.append(Command(name=key, cmd=val))
+    return commands
+
+
+def __parse_project_config__():
+    if os.path.exists(BUILD_FILE_NAME):
+        with open(BUILD_FILE_NAME, 'r') as stream:
+            try:
+                yaml = YAML(typ="safe")
+                content = yaml.load(stream)
+                before = content.get("before", None)
+                after = content.get("after", None)
+                return Project(name=(content["project"]),
+                               before=before,
+                               after=after,
+                               commands=__get_command_list_from_config__(content["commands"]))
+            except:
+                raise ValueError(
+                    "Error in parsing " + __build_file_name__() + " config file. Make sure file is in correct format.\nSample format is:\n\n" +
+                    dash + "\n" + sample_yaml_file() + "\n" + dash + "\n"
+                )
+    else:
+        raise ValueError("No " + __build_file_name__() + " file found in current directory.")
+
+
+def __help_message__(project):
+    return "Usage: 1build <command_name> \n\n" + project.__str__()
+
+
+def __build_file_name__(): return "'" + BUILD_FILE_NAME + "'"
+
+
+def command_to_run(arguments):
+    return "help" if len(arguments) == 1 else arguments[1]
+
+
+def sample_yaml_file():
+    return "project: Sample Project" + "\n" + \
+           "commands:" + "\n" + \
+           "  - build: ./gradlew clean build" + "\n" + \
+           "  - lint: ./gradlew spotlessApply"
+
+
+dash = '-' * 50
+
+
+def main():
+    run(BUILD_FILE_NAME, sys.argv)
