@@ -26,8 +26,8 @@ class Project:
                     return cmd
         else:
             raise ValueError(
-                "No command '" + command_name + "' found in config file" + "\n\n" +
-                help_message(self)
+                "No command '" + command_name + "' found in config file" +
+                "\n\n" + help_message(self)
             )
 
     def __has_command__(self, command_name):
@@ -40,4 +40,5 @@ class Project:
         return "\n".join(map(str, self.commands))
 
     def __str__(self):
-        return "project: " + self.name + "\ncommands:\n" + self.available_commands()
+        return "project: " + self.name + "\ncommands:\n" + \
+               self.available_commands()
