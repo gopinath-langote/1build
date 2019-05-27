@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name='1build',
-    version='0.0.4',
+    version='0.0.5',
     scripts=['1build'],
     license="MIT License",
     author="Gopinath Langote",
