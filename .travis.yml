@@ -16,7 +16,6 @@ matrix:
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 install:
   - pip install -r requirements.txt
-  - pip install safety
 script:
   - pytest -v --cov-report term --cov=tests/
   - safety check -r requirements.txt

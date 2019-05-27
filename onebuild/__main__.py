@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-u''.encode('idna')
 import sys
 
 from .main import main
