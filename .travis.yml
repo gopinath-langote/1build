@@ -30,11 +30,15 @@ matrix:
       language: shell
       before_install: choco install python --version 3.6.7
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    - name: "Python 3.1 on Xenial Linux"
-      python: 3.1
-    - name: "Python 3.4 on macOS"
+    - name: "Python 3.2 Linux"
+      python: 3.2
+    - name: "Python 3.2 Linux"
+        python: 3.3
+    - name: "Python 3.2 Linux"
+        python: 3.4
+    - name: "Python 3.5 on macOS"
       os: osx
-      python: 3.4
+      python: 3.5
       osx_image: xcode10.2
       language: shell
 
