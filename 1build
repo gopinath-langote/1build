@@ -2,12 +2,7 @@
 
 import sys
 
-import onebuild.main
-
-
-def main1():
-    return onebuild.main.main()
-
+from onebuild.main import main
 
 if __name__ == '__main__':
-    sys.exit(main1())
+    sys.exit(main())

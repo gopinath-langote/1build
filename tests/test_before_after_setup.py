@@ -1,11 +1,12 @@
 import imp
 
 build = imp.load_source('1build', '1build')
-from test_utils import dash
+from .test_utils import dash
+from onebuild.main import run
 
 
 def test_build_successful_with_before_and_after_command(capsys):
-    build.run("tests/data/build_file_with_before_and_after.yaml", ['file_name', 'build'])
+    run("tests/data/build_file_with_before_and_after.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + dash + "\n" \
                                        "Name: build\n" \
@@ -23,7 +24,7 @@ def test_build_successful_with_before_and_after_command(capsys):
 
 
 def test_should_work_with_only_before_command(capsys):
-    build.run("tests/data/build_file_with_before_only.yaml", ['file_name', 'build'])
+    run("tests/data/build_file_with_before_only.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + dash + "\n" \
                                        "Name: build\n" \
@@ -38,7 +39,7 @@ def test_should_work_with_only_before_command(capsys):
 
 
 def test_should_work_with_only_after_command(capsys):
-    build.run("tests/data/build_file_with_after_only.yaml", ['file_name', 'build'])
+    run("tests/data/build_file_with_after_only.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + dash + "\n" \
                                        "Name: build\n" \
