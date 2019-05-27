@@ -3,11 +3,13 @@ language: python
 jobs:
   include:
     - stage: lint
+      name: "Lint Check"
       install:
         - pip install pycodestyle
       script:
         - pycodestyle tests onebuild
     - stage: test
+      name: "Integration Tests"
       matrix:
         include:
           - name: "Python 3.7.1 on Xenial Linux"
@@ -46,4 +48,6 @@ jobs:
         - pycodestyle tests onebuild
       after_success:
         - codecov
-
+stages:
+  - lint
+  - test
