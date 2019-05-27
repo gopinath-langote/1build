@@ -1,4 +1,3 @@
-dist: xenial   # required for Python >= 3.7
 language: python
 matrix:
   include:
@@ -30,23 +29,9 @@ matrix:
       language: shell
       before_install: choco install python --version 3.6.7
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-jobs:
-  include:
-    - stage: lint
-      name: "Lint Check"
-      install:
-        - pip install pycodestyle
-      script:
-        - pycodestyle tests onebuild
-    - stage: test
-      name: "Integration Tests"
-      install:
-        - pip install -r requirements.txt
-        - pip install pycodestyle
-      script:
-        - pytest -v --cov-report term --cov=tests/
-      after_success:
-        - codecov
-stages:
-  - lint
-  - test
+install:
+  - pip install -r requirements.txt
+script:
+  - pytest -v --cov-report term --cov=tests/
+after_success:
+  - codecov
