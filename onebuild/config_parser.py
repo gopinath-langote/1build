@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-
 from ruamel.yaml import YAML
 
 from .project import Command, Project
@@ -41,7 +40,5 @@ def __file_not_found_error_message__(build_file_name):
 
 
 def __parsing_error_message__(build_file_name):
-    return "Error in parsing '" + build_file_name + "' config file." + \
-           " Make sure file is in correct format." + \
-           "\nSample format is:\n\n" + DASH + "\n" + sample_yaml_file() + \
+    return "Error in parsing '" + build_file_name + "' config file." + " Make sure file is in correct format." + "\nSample format is:\n\n" + DASH + "\n" + sample_yaml_file() + \
            "\n" + DASH + "\n"
