@@ -31,6 +31,7 @@ matrix:
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
 install:
   - pip install -r requirements.txt
+  - pip install pycodestyle
 script:
   - pytest -v --cov-report term --cov=tests/
   - pycodestyle tests onebuild
