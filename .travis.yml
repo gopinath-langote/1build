@@ -30,7 +30,7 @@ matrix:
       language: shell
       before_install: choco install python --version 3.6.7
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    - name: "Python 3.5 on macOS"
+    - name: "Python 3.5 on Linux"
       python: 3.5
 
 install:
