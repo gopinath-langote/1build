@@ -18,6 +18,7 @@ setuptools.setup(
     url="https://github.com/gopinath-langote/1build",
     packages=['onebuild'],
     classifiers=[
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
