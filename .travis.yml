@@ -1,39 +1,49 @@
 dist: xenial   # required for Python >= 3.7
 language: python
-matrix:
+jobs:
   include:
-    - name: "Python 3.7.1 on Xenial Linux"
-      python: 3.7
-      dist: xenial
-    - name: "Python 3.7.2 on macOS"
-      os: osx
-      python: 3.7
-      osx_image: xcode10.2
-      language: shell
-    - name: "Python 3.7.3 on Windows"
-      os: windows
-      python: 3.7
-      language: shell
-      before_install: choco install python --version 3.7.3
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-    - name: "Python 3.6 on Xenial Linux"
-      python: 3.6
-      dist: xenial
-    - name: "Python 3.6 on macOS"
-      os: osx
-      python: 3.6
-      osx_image: xcode10.2
-      language: shell
-    - name: "Python 3.6 on Windows"
-      os: windows
-      python: 3.6
-      language: shell
-      before_install: choco install python --version 3.6.7
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-install:
-  - pip install -r requirements.txt
-script:
-  - pytest -v --cov-report term --cov=tests/
-after_success:
-    - codecov
+    - stage: lint
+      install:
+        - pip install pycodestyle
+      script:
+        - pycodestyle tests onebuild
+    - stage: test
+      matrix:
+        include:
+          - name: "Python 3.7.1 on Xenial Linux"
+            python: 3.7
+            dist: xenial
+          - name: "Python 3.7.2 on macOS"
+            os: osx
+            python: 3.7
+            osx_image: xcode10.2
+            language: shell
+          - name: "Python 3.7.3 on Windows"
+            os: windows
+            python: 3.7
+            language: shell
+            before_install: choco install python --version 3.7.3
+            env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+          - name: "Python 3.6 on Xenial Linux"
+            python: 3.6
+            dist: xenial
+          - name: "Python 3.6 on macOS"
+            os: osx
+            python: 3.6
+            osx_image: xcode10.2
+            language: shell
+          - name: "Python 3.6 on Windows"
+            os: windows
+            python: 3.6
+            language: shell
+            before_install: choco install python --version 3.6.7
+            env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+      install:
+        - pip install -r requirements.txt
+        - pip install pycodestyle
+      script:
+        - pytest -v --cov-report term --cov=tests/
+        - pycodestyle tests onebuild
+      after_success:
+        - codecov
 
