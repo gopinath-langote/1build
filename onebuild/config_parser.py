@@ -41,7 +41,6 @@ def __file_not_found_error_message__(build_file_name):
 
 
 def __parsing_error_message__(build_file_name):
-    return "Error in parsing '" + build_file_name + "' config file." + \
-           " Make sure file is in correct format." + \
+    return "Error in parsing '" + build_file_name + "' config file." + " Make sure file is in correct format." + \
            "\nSample format is:\n\n" + DASH + "\n" + sample_yaml_file() + \
            "\n" + DASH + "\n"
