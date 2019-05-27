@@ -7,13 +7,29 @@ matrix:
       dist: xenial
     - name: "Python 3.7.2 on macOS"
       os: osx
+      python: 3.7
       osx_image: xcode10.2
       language: shell
     - name: "Python 3.7.3 on Windows"
       os: windows
+      python: 3.7
       language: shell
       before_install: choco install python
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+    - name: "Python 3.6 on Xenial Linux"
+      python: 3.6
+      dist: xenial
+    - name: "Python 3.6 on macOS"
+      os: osx
+      python: 3.6
+      osx_image: xcode10.2
+      language: shell
+    - name: "Python 3.6 on Windows"
+      os: windows
+      python: 3.6
+      language: shell
+      before_install: choco install python
+      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
 install:
   - pip install -r requirements.txt
 script:
