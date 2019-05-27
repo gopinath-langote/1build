@@ -2,7 +2,7 @@
 
 import imp
 
-from .test_utils import dash
+from .test_utils import DASH
 from onebuild.main import run
 build = imp.load_source('1build', '1build')
 
@@ -10,10 +10,10 @@ build = imp.load_source('1build', '1build')
 def test_build_successful_command(capsys):
     run("tests/data/build_file.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
-    expected_message = "" + dash + "\n" \
+    expected_message = "" + DASH + "\n" \
                                    "Name: build\n" \
                                    "Command: echo 'Running build'\n" \
-                       + dash + "\n"
+                       + DASH + "\n"
     expected_command_output = "Running build"
     assert expected_message in captured.out
     assert expected_command_output in captured.out
@@ -25,12 +25,12 @@ def test_should_fail_with_invalid_file_message_if_file_is_not_in_correct_yaml_fo
 
     invalid_file_error_message = "Error in parsing 'tests/data/invalid_yaml_file.yaml' config file. Make sure file is in correct format.\n" \
                                  "Sample format is:\n\n" \
-                                 + dash + "\n" \
+                                 + DASH + "\n" \
                                           "project: Sample Project\n" \
                                           "commands:\n" \
                                           "  - build: ./gradlew clean build\n" \
                                           "  - lint: ./gradlew spotlessApply\n" \
-                                 + dash
+                                 + DASH
 
     assert invalid_file_error_message in captured.out
 

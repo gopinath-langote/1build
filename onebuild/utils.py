@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 
 
-dash = '-' * 50
+DASH = '-' * 50
 
 
 def sample_yaml_file():
