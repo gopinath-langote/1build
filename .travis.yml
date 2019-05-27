@@ -29,11 +29,13 @@ matrix:
       language: shell
       before_install: choco install python --version 3.6.7
       env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+before_install:
+  - pip install pycodestyle
+before_script:
+  - pycodestyle tests onebuild
 install:
   - pip install -r requirements.txt
-  - pip install pycodestyle
 script:
   - pytest -v --cov-report term --cov=tests/
-  - pycodestyle tests onebuild
 after_success:
   - codecov
