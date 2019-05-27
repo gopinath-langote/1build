@@ -1,74 +1,78 @@
 #!/usr/bin/env python
 
 import imp
-from test_utils import dash
+
+from onebuild.main import run
+from .test_utils import DASH
 
 build = imp.load_source('1build', '1build')
 
 
 def test_build_successful_command(capsys):
-    build.run("tests/data/build_file.yaml", ['file_name', 'build'])
+    run("tests/data/build_file.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
-    expected_message = "" + dash + "\n" \
+    expected_message = "" + DASH + "\n" \
                                    "Name: build\n" \
                                    "Command: echo 'Running build'\n" \
-                       + dash + "\n"
+                       + DASH + "\n"
     expected_command_output = "Running build"
     assert expected_message in captured.out
     assert expected_command_output in captured.out
 
 
-def test_should_fail_with_invalid_file_message_if_file_is_not_in_correct_yaml_format(capsys):
-    build.run("tests/data/invalid_yaml_file.yaml", ['file_name', 'build'])
+def test_should_fail_if_file_is_not_in_correct_yaml_format(capsys):
+    run("tests/data/invalid_yaml_file.yaml", ['file_name', 'build'])
     captured = capsys.readouterr()
 
-    invalid_file_error_message = "Error in parsing 'tests/data/invalid_yaml_file.yaml' config file. Make sure file is in correct format.\n" \
-                                 "Sample format is:\n\n" \
-                                 + dash + "\n" \
-                                          "project: Sample Project\n" \
-                                          "commands:\n" \
-                                          "  - build: ./gradlew clean build\n" \
-                                          "  - lint: ./gradlew spotlessApply\n" \
-                                 + dash
+    invalid_file_error_message = \
+        "Error in parsing 'tests/data/invalid_yaml_file.yaml' config file." \
+        " Make sure file is in correct format.\n" \
+        "Sample format is:\n\n" \
+        + DASH + "\n" \
+                 "project: Sample Project\n" \
+                 "commands:\n" \
+                 "  - build: ./gradlew clean build\n" \
+                 "  - lint: ./gradlew spotlessApply\n" \
+        + DASH
 
     assert invalid_file_error_message in captured.out
 
 
 def test_should_print_help_on_help_command(capsys):
-    build.run("tests/data/build_file.yaml", ['file_name', 'help'])
+    run("tests/data/build_file.yaml", ['file_name', 'help'])
     captured = capsys.readouterr()
 
-    invalid_file_error_message = "Usage: 1build <command_name> \n\n" \
-                                 "project: Sample Project\n" + \
-                                 "commands:\n" + \
-                                 "build | echo 'Running build'\n" + \
-                                 "lint | echo 'Running lint'"
+    help_message = "Usage: 1build <command_name> \n\n" \
+                   "project: Sample Project\n" + \
+                   "commands:\n" + \
+                   "build | echo 'Running build'\n" + \
+                   "lint | echo 'Running lint'"
 
-    assert invalid_file_error_message in captured.out
+    assert help_message in captured.out
 
 
 def test_should_print_help_if_no_command_specified(capsys):
-    build.run("tests/data/build_file.yaml", ['file_name'])
+    run("tests/data/build_file.yaml", ['file_name'])
     captured = capsys.readouterr()
 
-    invalid_file_error_message = "Usage: 1build <command_name> \n\n" \
-                                 "project: Sample Project\n" + \
-                                 "commands:\n" + \
-                                 "build | echo 'Running build'\n" + \
-                                 "lint | echo 'Running lint'"
+    help_message = "Usage: 1build <command_name> \n\n" \
+                   "project: Sample Project\n" + \
+                   "commands:\n" + \
+                   "build | echo 'Running build'\n" + \
+                   "lint | echo 'Running lint'"
 
-    assert invalid_file_error_message in captured.out
+    assert help_message in captured.out
 
 
-def test_should_print_command_not_found_if_no_command_found_with_given_name(capsys):
-    build.run("tests/data/build_file.yaml", ['file_name', 'random'])
+def test_should_fails_if_no_command_found_with_given_name(capsys):
+    run("tests/data/build_file.yaml", ['file_name', 'random'])
     captured = capsys.readouterr()
 
-    invalid_file_error_message = "No command 'random' found in config file 'tests/data/build_file.yaml'\n\n" \
-                                 "Usage: 1build <command_name> \n\n" \
-                                 "project: Sample Project\n" + \
-                                 "commands:\n" + \
-                                 "build | echo 'Running build'\n" + \
-                                 "lint | echo 'Running lint'"
+    invalid_file_error = "No command 'random' found in config file\n\n" \
+                         "Usage: 1build <command_name> \n\n" \
+                         "project: Sample Project\n" + \
+                         "commands:\n" + \
+                         "build | echo 'Running build'\n" + \
+                         "lint | echo 'Running lint'"
 
-    assert invalid_file_error_message in captured.out
+    assert invalid_file_error in captured.out

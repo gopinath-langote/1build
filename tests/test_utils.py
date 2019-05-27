@@ -1,3 +1,3 @@
 #!/usr/bin/env python
 
-dash = '-' * 50
+DASH = '-' * 50
