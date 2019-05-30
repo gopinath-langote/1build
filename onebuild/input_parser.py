@@ -4,30 +4,16 @@ import argparse
 
 
 def parser():
-    # , formatter_class = argparse.ArgumentDefaultsHelpFormatter
-    parser = argparse.ArgumentParser(prog='1build')
-    parser.add_argument('command', nargs='?', default='help',
+    parser = argparse.ArgumentParser(prog='1build', add_help=False)
+    parser.add_argument('command', nargs='?', default="help",
                         help='Command to run from the `1build.yaml` config file',
-                        choices=['a', 'help']
                         )
-    parser.add_argument('--set', nargs='*', help='set new command shortcut to config')
-    # return parser.parse_args()
+    parser.add_argument('-h', '--help', action='store_true', default=False, help="Print this help message")
     return parser
 
 
-def parser1(project):
-    cmds = list(map(lambda x: x.name, project.commands))
-    cmds.append("help")
-    parser = argparse.ArgumentParser(prog='1build')
-    parser.add_argument('command', nargs='?', default='help',
-                        help='Command to run from the `1build.yaml` config file',
-                        choices=cmds
-                        )
-    parser.add_argument('--set', nargs='*', help='set new command shortcut to config')
-    # return parser.parse_args()
-    return parser
-
-
-def command_to_run(args):
-    print(args)
+def command_to_run(argument_parser, arguments):
+    args = argument_parser.parse_args(args=arguments)
+    if args.help is True:
+        return "help"
     return args.command

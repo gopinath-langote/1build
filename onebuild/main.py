@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 
+import sys
+
 from .config_parser import parse_project_config
 from .executor import execute
-import sys
-from .input_parser import command_to_run, parser, parser1
-from .utils import help_message
+from .input_parser import command_to_run, parser
+from .utils import print_help
 
 BUILD_FILE_NAME = "1build.yaml"
 
 
 def run(build_file_name, arguments):
-    global BUILD_FILE_NAME
-    BUILD_FILE_NAME = build_file_name
     try:
+        argument_parser = parser()
+        command_name = command_to_run(argument_parser, arguments)
         project = parse_project_config(build_file_name)
-        command_name = "help"
-        if command_name == "help":
-            print(help_message(project))
+        if command_name is "help":
+            print_help(argument_parser, project)
         else:
             command = project.get_command(command_name)
             execute(command, project.before, project.after)
@@ -25,4 +25,4 @@ def run(build_file_name, arguments):
 
 
 def main():
-    run(BUILD_FILE_NAME, sys.argv)
+    run(BUILD_FILE_NAME, sys.argv[1:])

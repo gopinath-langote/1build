@@ -8,7 +8,7 @@ build = imp.load_source('1build', '1build')
 
 def test_build_successful_with_before_and_after_command(capsys):
     run("tests/data/build_file_with_before_and_after.yaml",
-        ['file_name', 'build'])
+        ['build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + DASH + "\nName: build\n" + \
                            "Command: echo 'Running build'\n" + \
@@ -25,7 +25,7 @@ def test_build_successful_with_before_and_after_command(capsys):
 
 
 def test_should_work_with_only_before_command(capsys):
-    run("tests/data/build_file_with_before_only.yaml", ['file_name', 'build'])
+    run("tests/data/build_file_with_before_only.yaml", ['build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + DASH + "\n" + \
                            "Name: build\n" + \
@@ -40,7 +40,7 @@ def test_should_work_with_only_before_command(capsys):
 
 
 def test_should_work_with_only_after_command(capsys):
-    run("tests/data/build_file_with_after_only.yaml", ['file_name', 'build'])
+    run("tests/data/build_file_with_after_only.yaml", ['build'])
     captured = capsys.readouterr()
     expected_cmd_message = "" + DASH + "\n" + \
                            "Name: build\n" + \
