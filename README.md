@@ -121,11 +121,11 @@ you can use one of them, both or neither.
 usage: 1build [-h] [-l] [command]
 
 positional arguments:
-  command     Command to run – from `1build.yaml` file
+  command     Command to run - from `1build.yaml` file
 
 optional arguments:
   -h, --help  Print this help message
-  -l, --list  Show all available commands – from `1build.yaml` file
+  -l, --list  Show all available commands - from `1build.yaml` file
 ```
 
 ## Contributing
