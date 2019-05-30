@@ -14,10 +14,10 @@ def run(build_file_name, arguments):
     try:
         arg_parser = argument_parser()
         command_name = command_to_run(arg_parser, arguments)
-        project = parse_project_config(build_file_name)
         if command_name is "help":
-            print_help(arg_parser, project)
+            print_help(arg_parser)
         else:
+            project = parse_project_config(build_file_name)
             command = project.get_command(command_name)
             execute(command, project.before, project.after)
     except ValueError as error:

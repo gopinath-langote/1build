@@ -16,10 +16,8 @@ def help_message(project):
     return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
-def print_help(parser, project):
+def print_help(parser):
     parser.print_help()
-    print(NEWLINE)
-    print(config_string(project))
 
 
 def config_string(project):

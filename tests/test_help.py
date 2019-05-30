@@ -9,14 +9,6 @@ USAGE_HELP_MESSAGE = \
     "optional arguments:\n" \
     "  -h, --help  Print this help message\n"
 
-AVAILABLE_COMMANDS_MESSAGE = \
-    "--------------------------------------------------\n" \
-    "project: Sample Project\n" \
-    "commands:\n" \
-    "build | echo 'Running build'\n" \
-    "lint | echo 'Running lint'\n" \
-    "--------------------------------------------------"
-
 
 def test_show_help(capsys):
     run("tests/data/build_file.yaml", ['--help'])
@@ -39,4 +31,3 @@ def assert_usage_and_command_list_help(capsys):
     captured = capsys.readouterr()
 
     assert USAGE_HELP_MESSAGE in captured.out
-    assert AVAILABLE_COMMANDS_MESSAGE in captured.out
