@@ -11,7 +11,7 @@ def argument_parser():
         'command',
         nargs='?',
         default=PredefinedActions.ONEBUILD_HELP.name,
-        help='Command to run from the `1build.yaml` config file',
+        help='Command to run – from `1build.yaml` file',
     )
     parser.add_argument(
         '-h', '--help',
@@ -23,7 +23,7 @@ def argument_parser():
         '-l', '--list',
         action='store_true',
         default=False,
-        help="Show all available project commands from configuration"
+        help="Show all available commands – from `1build.yaml` file"
     )
     return parser
 

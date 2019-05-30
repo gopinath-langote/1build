@@ -5,10 +5,10 @@ from onebuild.main import run
 USAGE_HELP_MESSAGE = \
     "usage: 1build [-h] [-l] [command]\n\n" \
     "positional arguments:\n  " \
-    "command     Command to run from the `1build.yaml` config file\n\n" \
+    "command     Command to run – from `1build.yaml` file\n\n" \
     "optional arguments:\n" \
     "  -h, --help  Print this help message\n"\
-    "  -l, --list  Show all available project commands from configuration\n"
+    "  -l, --list  Show all available commands – from `1build.yaml` file\n"
 
 
 def test_show_help(capsys):
