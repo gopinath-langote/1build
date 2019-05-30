@@ -3,12 +3,20 @@
 import argparse
 
 
-def parser():
+def argument_parser():
     parser = argparse.ArgumentParser(prog='1build', add_help=False)
-    parser.add_argument('command', nargs='?', default="help",
-                        help='Command to run from the `1build.yaml` config file',
-                        )
-    parser.add_argument('-h', '--help', action='store_true', default=False, help="Print this help message")
+    parser.add_argument(
+        'command',
+        nargs='?',
+        default="help",
+        help='Command to run from the `1build.yaml` config file',
+    )
+    parser.add_argument(
+        '-h', '--help',
+        action='store_true',
+        default=False,
+        help="Print this help message"
+    )
     return parser
 
 
