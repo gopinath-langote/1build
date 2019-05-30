@@ -1,13 +1,11 @@
 <h1 align="center">
   <br>
   <a href="https://github.com/gopinath-langote/1build">
-      <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true"
-           alt="1build" width="550">
-    </a>
-  <br>
-  Frictionless way of managing project-specific commands
+    <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true" alt="1build" width="550"></a>
   <br>
 </h1>
+
+<h4 align="center">Frictionless way of managing project-specific commands</h4>
 
 [![PyPi Version](https://img.shields.io/pypi/v/1build.svg)](https://pypi.org/project/1build/)
 [![](https://img.shields.io/pypi/pyversions/1build.svg)](https://pypi.org/project/1build/)
