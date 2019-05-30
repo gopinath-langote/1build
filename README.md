@@ -1,12 +1,34 @@
-![Logo](https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true)
+<h1 align="center">
+  <br>
+  <a href="https://github.com/gopinath-langote/1build">
+    <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true" alt="1build" width="500"></a>
+  <br>
+</h1>
 
+<h4 align="center">Frictionless way of managing project-specific commands</h4>
 
-[![PyPi Version](https://img.shields.io/pypi/v/1build.svg)](https://pypi.org/project/1build/)
-[![](https://img.shields.io/pypi/pyversions/1build.svg)](https://pypi.org/project/1build/)
-[![Build Status](https://travis-ci.org/gopinath-langote/1build.svg?branch=master)](https://travis-ci.org/gopinath-langote/1build)
-[![Code Coverage](https://img.shields.io/codecov/c/gh/gopinath-langote/1build.svg)](https://codecov.io/gh/gopinath-langote/1build)
-[![Requirements Status](https://requires.io/github/gopinath-langote/1build/requirements.svg?branch=master)](https://requires.io/github/gopinath-langote/1build/requirements/?branch=master)
-[![Requirements Status](https://img.shields.io/pypi/dm/1build.svg)](https://pypi.org/project/1build)
+<p align="center">
+  <a href="https://pypi.org/project/1build/">
+    <img src="https://img.shields.io/pypi/v/1build.svg" alt="PyPi Version">
+  </a>
+  <a href="https://pypi.org/project/1build/">
+    <img src="https://img.shields.io/pypi/pyversions/1build.svg" alt="Supported Python Versions">
+  </a>
+  <a href="https://travis-ci.org/gopinath-langote/1build">
+      <img src="https://travis-ci.org/gopinath-langote/1build.svg?branch=master" alt="Build Status">
+  </a>
+  <a href="https://codecov.io/gh/gopinath-langote/1build">
+      <img src="https://img.shields.io/codecov/c/gh/gopinath-langote/1build.svg" alt="Code Coverage">
+  </a>
+  <a href="https://requires.io/github/gopinath-langote/1build/requirements/?branch=master">
+    <img src="https://requires.io/github/gopinath-langote/1build/requirements.svg?branch=master" alt="Requirements Status">
+  </a>
+  <a href="https://pypi.org/project/1build">
+    <img src="https://img.shields.io/pypi/dm/1build.svg" alt="Downloads">
+  </a>
+</p>
+
+<br>
 
 1build is an automation tool that arms you with the convenience to configure project-local command line aliases – and then 
 run the commands quickly and easily. It is particularly helpful when you deal with multiple projects and switch between 
@@ -93,3 +115,25 @@ you can use one of them, both or neither.
     commands:
       - build: ./gradlew clean 
     ```
+
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://github.com/gopinath-langote/1build/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/gopinath-langote/1build/tags). 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Authors
+
+* **Gopinath Langote** - *Initial work & Maintainer* – [Github](https://github.com/gopinath-langote/) –[Twitter](https://twitter.com/GopinathLangote)
+* **Alexander Lukianchuk** - *Maintainer* – [Github](https://github.com/landpro) – [Twitter](https://twitter.com/landpro)
+
+See also the list of [contributors](https://github.com/gopinath-langote/1build/contributors) who participated in this project.
+
