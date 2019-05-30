@@ -11,7 +11,7 @@ def argument_parser():
         'command',
         nargs='?',
         default=PredefinedActions.HELP,
-        help='Command to run – from `1build.yaml` file',
+        help='Command to run - from `1build.yaml` file',
     )
     parser.add_argument(
         '-h', '--help',
@@ -23,7 +23,7 @@ def argument_parser():
         '-l', '--list',
         action='store_true',
         default=False,
-        help="Show all available commands – from `1build.yaml` file"
+        help="Show all available commands - from `1build.yaml` file"
     )
     return parser
 
