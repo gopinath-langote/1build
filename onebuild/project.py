@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 
-from .utils import help_message
+from .utils import config_string
 
 
 class Command:
@@ -27,7 +27,7 @@ class Project:
         else:
             raise ValueError(
                 "No command '" + command_name + "' found in config file" +
-                "\n\n" + help_message(self)
+                "\n\n" + config_string(self)
             )
 
     def __has_command__(self, command_name):
