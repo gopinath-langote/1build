@@ -129,3 +129,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Authors
+
+* **Gopinath Langote** - *Initial work & Maintainer* – [Github](https://github.com/gopinath-langote/) –[Twitter](https://twitter.com/GopinathLangote)
+* **Alexander Lukianchuk** - *Maintainer* – [Github](https://github.com/landpro) – [Twitter](https://twitter.com/landpro)
+
+See also the list of [contributors](https://github.com/gopinath-langote/1build/contributors) who participated in this project.
+
