@@ -2,13 +2,15 @@
 
 import argparse
 
+from .utils import PredefinedActions
+
 
 def argument_parser():
     parser = argparse.ArgumentParser(prog='1build', add_help=False)
     parser.add_argument(
         'command',
         nargs='?',
-        default="help",
+        default=PredefinedActions.ONEBUILD_HELP.name,
         help='Command to run from the `1build.yaml` config file',
     )
     parser.add_argument(
@@ -17,11 +19,19 @@ def argument_parser():
         default=False,
         help="Print this help message"
     )
+    parser.add_argument(
+        '-l', '--list',
+        action='store_true',
+        default=False,
+        help="Show all available project commands from configuration"
+    )
     return parser
 
 
-def command_to_run(argument_parser, arguments):
-    args = argument_parser.parse_args(args=arguments)
+def command_to_run(arg_parser, arguments):
+    args = arg_parser.parse_args(args=arguments)
     if args.help is True:
-        return "help"
+        return PredefinedActions.ONEBUILD_HELP.name
+    if args.list is True:
+        return PredefinedActions.ONEBUILD_LIST.name
     return args.command

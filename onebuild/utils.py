@@ -1,8 +1,14 @@
 # !/usr/bin/env python
+from enum import Enum
 
 
 DASH = '-' * 50
 NEWLINE = "\n"
+
+
+class PredefinedActions(Enum):
+    ONEBUILD_HELP = 1
+    ONEBUILD_LIST = 2
 
 
 def sample_yaml_file():
@@ -10,10 +16,6 @@ def sample_yaml_file():
            "commands:" + "\n" + \
            "  - build: ./gradlew clean build" + "\n" + \
            "  - lint: ./gradlew spotlessApply"
-
-
-def help_message(project):
-    return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
 def print_help(parser):
