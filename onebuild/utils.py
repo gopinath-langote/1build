@@ -1,14 +1,13 @@
 # !/usr/bin/env python
-from enum import Enum
 
 
 DASH = '-' * 50
 NEWLINE = "\n"
 
 
-class PredefinedActions(Enum):
-    ONEBUILD_HELP = 1
-    ONEBUILD_LIST = 2
+class PredefinedActions:
+    HELP = "ONEBUILD_HELP"
+    LIST = "ONEBUILD_LIST"
 
 
 def sample_yaml_file():

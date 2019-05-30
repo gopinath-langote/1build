@@ -14,11 +14,11 @@ def run(build_file_name, arguments):
     try:
         arg_parser = argument_parser()
         command_name = command_to_run(arg_parser, arguments)
-        if command_name is PredefinedActions.ONEBUILD_HELP.name:
+        if command_name is PredefinedActions.HELP:
             print_help(arg_parser)
         else:
             project = parse_project_config(build_file_name)
-            if command_name is PredefinedActions.ONEBUILD_LIST.name:
+            if command_name is PredefinedActions.LIST:
                 print(config_string(project))
             else:
                 command = project.get_command(command_name)

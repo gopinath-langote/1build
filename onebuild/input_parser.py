@@ -10,7 +10,7 @@ def argument_parser():
     parser.add_argument(
         'command',
         nargs='?',
-        default=PredefinedActions.ONEBUILD_HELP.name,
+        default=PredefinedActions.HELP,
         help='Command to run – from `1build.yaml` file',
     )
     parser.add_argument(
@@ -31,7 +31,7 @@ def argument_parser():
 def command_to_run(arg_parser, arguments):
     args = arg_parser.parse_args(args=arguments)
     if args.help is True:
-        return PredefinedActions.ONEBUILD_HELP.name
+        return PredefinedActions.HELP
     if args.list is True:
-        return PredefinedActions.ONEBUILD_LIST.name
+        return PredefinedActions.LIST
     return args.command
