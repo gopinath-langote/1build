@@ -5,15 +5,16 @@ DASH = '-' * 50
 NEWLINE = "\n"
 
 
+class PredefinedActions:
+    HELP = "ONEBUILD_HELP"
+    LIST = "ONEBUILD_LIST"
+
+
 def sample_yaml_file():
     return "project: Sample Project" + "\n" + \
            "commands:" + "\n" + \
            "  - build: ./gradlew clean build" + "\n" + \
            "  - lint: ./gradlew spotlessApply"
-
-
-def help_message(project):
-    return "Usage: 1build <command_name> \n\n" + project.__str__()
 
 
 def print_help(parser):
