@@ -1,6 +1,6 @@
 ruamel.yaml==0.15.96
 
 # Test Dependencies
-pytest==4.6.0
+pytest==4.6.1
 pytest-cov==2.7.1
 codecov==2.0.15
