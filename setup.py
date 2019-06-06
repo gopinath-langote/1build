@@ -9,7 +9,7 @@ setuptools.setup(
     license="MIT License",
     author="Gopinath Langote",
     install_requires=[
-        'ruamel.yaml>=0.15.94'
+        'ruamel.yaml>=0.15.97'
     ],
     author_email="gopinathlangote11@gmail.com",
     description="Frictionless way of managing project-specific commands.",
