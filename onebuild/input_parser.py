@@ -37,10 +37,10 @@ def argument_parser():
 
 def command_to_run(arg_parser, arguments):
     args = arg_parser.parse_args(args=arguments)
-    if args.help is True:
+    if args.help:
         return PredefinedActions.HELP
-    if args.list is True:
-        return PredefinedActions.LIST
     if args.version:
         return PredefinedActions.VERSION
+    if args.list:
+        return PredefinedActions.LIST
     return args.command
