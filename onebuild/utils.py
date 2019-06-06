@@ -1,11 +1,13 @@
 # !/usr/bin/env python
 
+from onebuild import __version__
 
 DASH = '-' * 50
 NEWLINE = "\n"
 
 
 class PredefinedActions:
+    VERSION = "ONEBUILD_VERSION"
     HELP = "ONEBUILD_HELP"
     LIST = "ONEBUILD_LIST"
 
@@ -23,3 +25,7 @@ def print_help(parser):
 
 def config_string(project):
     return "" + DASH + NEWLINE + project.__str__() + NEWLINE + DASH
+
+
+def version_string():
+    return '1build {version} '.format(version=__version__)

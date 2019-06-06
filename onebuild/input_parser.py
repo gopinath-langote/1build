@@ -25,6 +25,13 @@ def argument_parser():
         default=False,
         help="Show all available commands - from `1build.yaml` file"
     )
+    parser.add_argument(
+        '-v', '--version',
+        dest='version',
+        action='store_true',
+        default=False,
+        help="Show version of 1build and exit"
+    )
     return parser
 
 
@@ -34,4 +41,6 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.HELP
     if args.list is True:
         return PredefinedActions.LIST
+    if args.version:
+        return PredefinedActions.VERSION
     return args.command
