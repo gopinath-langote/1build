@@ -8,7 +8,7 @@ USAGE_HELP_MESSAGE = \
     "command        Command to run - from `1build.yaml` file\n\n" \
     "optional arguments:\n" \
     "  -h, --help     Print this help message\n"\
-    "  -l, --list     Show all available commands - from `1build.yaml` file\n" \
+    "  -l, --list     Show all available commands - from `1build.yaml` file\n"\
     "  -v, --version  Show version of 1build and exit\n"
 
 
