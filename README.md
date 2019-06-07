@@ -99,7 +99,7 @@ you can use one of them, both or neither.
     commands:
       - build: mvn clean package
     ```
-
+Command
 2. Ensure that `Docker` is up and running
     ```yaml
     project: Containerized Project
@@ -118,7 +118,7 @@ you can use one of them, both or neither.
 
 ### Command usage
  ```text
-usage: 1build [-h] [-l] [command]
+usage: 1build [-h] [-l] [-v] [command]
 
 positional arguments:
   command     Command to run - from `1build.yaml` file
@@ -126,6 +126,7 @@ positional arguments:
 optional arguments:
   -h, --help  Print this help message
   -l, --list  Show all available commands - from `1build.yaml` file
+  -v, --version  Show version of 1build and exit
 ```
 
 ## Contributing
