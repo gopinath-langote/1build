@@ -1,10 +1,14 @@
+import onebuild
+
 import setuptools
+
+VERSION = onebuild.__version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name='1build',
-    version='0.0.5',
+    version=VERSION,
     scripts=['1build'],
     license="MIT License",
     author="Gopinath Langote",

@@ -5,7 +5,7 @@ import sys
 from .config_parser import parse_project_config
 from .executor import execute
 from .input_parser import command_to_run, argument_parser
-from .utils import print_help, config_string, PredefinedActions
+from .utils import print_help, config_string, PredefinedActions, version_string
 
 BUILD_FILE_NAME = "1build.yaml"
 
@@ -16,6 +16,8 @@ def run(build_file_name, arguments):
         command_name = command_to_run(arg_parser, arguments)
         if command_name is PredefinedActions.HELP:
             print_help(arg_parser)
+        elif command_name is PredefinedActions.VERSION:
+            print(version_string())
         else:
             project = parse_project_config(build_file_name)
             if command_name is PredefinedActions.LIST:
