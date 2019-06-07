@@ -5,7 +5,7 @@
   <br>
 </h1>
 
-<h4 align="center">Frictionless way of managing project-specific commands</h4>
+<br>
 
 <p align="center">
   <a href="https://pypi.org/project/1build/">
