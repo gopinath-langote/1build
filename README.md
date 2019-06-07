@@ -99,7 +99,7 @@ you can use one of them, both or neither.
     commands:
       - build: mvn clean package
     ```
-Command
+
 2. Ensure that `Docker` is up and running
     ```yaml
     project: Containerized Project
