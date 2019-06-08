@@ -26,7 +26,7 @@ def test_should_fail_if_yaml_file_is_not_present(capsys):
     assert invalid_file_error_message in captured.out
 
 
-def test_should_fail_if_file_is_not_in_correct_yaml_format(capsys):
+def test_should_fail_if_yaml_file_is_not_in_correct_yaml_format(capsys):
     run("tests/data/invalid_yaml_file.yaml", ['build'])
     captured = capsys.readouterr()
 
