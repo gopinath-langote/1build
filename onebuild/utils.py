@@ -19,6 +19,12 @@ def sample_yaml_file():
            "  - lint: ./gradlew spotlessApply"
 
 
+def default_yaml_file():
+    return "project: Sample Project" + "\n" + \
+           "commands:" + "\n" + \
+           "  - build: echo 'Running build'"
+
+
 def print_help(parser):
     parser.print_help()
 
