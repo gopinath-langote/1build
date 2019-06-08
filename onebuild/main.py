@@ -20,7 +20,7 @@ def run(build_file_name, arguments):
         elif command_name is PredefinedActions.VERSION:
             print(version_string())
         elif command_name is PredefinedActions.INIT:
-            write_default_config_file()
+            write_default_config_file(arguments[1])
         else:
             project = parse_project_config(build_file_name)
             if command_name is PredefinedActions.LIST:
