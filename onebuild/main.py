@@ -2,6 +2,7 @@
 
 import sys
 
+from onebuild.file_writer import write_default_config_file
 from .config_parser import parse_project_config
 from .executor import execute
 from .input_parser import command_to_run, argument_parser
@@ -18,6 +19,8 @@ def run(build_file_name, arguments):
             print_help(arg_parser)
         elif command_name is PredefinedActions.VERSION:
             print(version_string())
+        elif command_name is PredefinedActions.INIT:
+            write_default_config_file()
         else:
             project = parse_project_config(build_file_name)
             if command_name is PredefinedActions.LIST:

@@ -32,6 +32,12 @@ def argument_parser():
         default=False,
         help="Show version of 1build and exit"
     )
+    parser.add_argument(
+        '-i', '--init',
+        action='store_true',
+        default=False,
+        help="Create default `1build.yaml` file"
+    )
     return parser
 
 
@@ -43,4 +49,6 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.VERSION
     if args.list:
         return PredefinedActions.LIST
+    if args.init:
+        return PredefinedActions.INIT
     return args.command
