@@ -12,4 +12,5 @@ def test_create_default_yaml_file():
         file_writer.write_default_config_file("Some Project")
 
     open_mock.assert_called_with("1build.yaml", "w")
-    open_mock.return_value.write.assert_called_once_with(default_yaml_file("Some Project"))
+    open_mock.return_value.write.assert_called_once_with(
+        default_yaml_file("Some Project"))
