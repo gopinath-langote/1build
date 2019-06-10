@@ -7,13 +7,8 @@ assignees: ''
 
 ---
 
----
-title: 'Bug report'
-assignees: octocat
----
-
 ## Description
 Describe issue here
 
-## Acceptance Criterias
+## Acceptance Criteria
 List outcomes of the issue here.
