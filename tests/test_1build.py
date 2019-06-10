@@ -16,7 +16,17 @@ def test_build_successful_command(capsys):
     assert expected_command_output in captured.out
 
 
-def test_should_fail_if_file_is_not_in_correct_yaml_format(capsys):
+def test_should_fail_if_yaml_file_is_not_present(capsys):
+    run("tests/data/1build.yaml", ['build'])
+    captured = capsys.readouterr()
+
+    invalid_file_error_message = \
+        "No 'tests/data/1build.yaml' file found in current directory.\n"
+
+    assert invalid_file_error_message in captured.out
+
+
+def test_should_fail_if_yaml_file_is_not_in_correct_yaml_format(capsys):
     run("tests/data/invalid_yaml_file.yaml", ['build'])
     captured = capsys.readouterr()
 
