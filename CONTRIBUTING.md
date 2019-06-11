@@ -1,14 +1,14 @@
 # Contribution guidelines
 
-First of all: Thank you! ❤️
+First of all: Thank you! We really appreciate your efforts to make 1build better ❤️
 
-Before sending a Pull Request, please make sure that you're assigned the task on a GitHub issue.
+Create or find an issue you would like to implement:
+- issues with the label `help wanted` are ready to be picked up and implemented
+- review the existing issues and ensure that you are not going to create a duplicate
+- create your issue and wait for comments from maintainers
+- once the issue is discussed and assigned to you – feel free to implement
 
-- If a relevant issue already exists, discuss on the issue and get it assigned to yourself on GitHub.
-- If no relevant issue exists, open a new issue and get it assigned to yourself on GitHub.
-
-
-# Developing the 1build
+# Developing 1build
 
 1. Prepare project
 
@@ -18,12 +18,12 @@ Before sending a Pull Request, please make sure that you're assigned the task on
     pip install -r requirements.txt
     ```
 
-2. Make Sure all existing tests are passing & have new tests needed
+2. Make sure that all the existing tests are passed, extend tests if needed
     ```sh
     pytest 
     ```
 3. Make sure you are following `pep8` guidelines for linting
-4. Update necessary documents if needed (Readme etc) 
+4. Update necessary documents if needed – Readme etc. 
 5. Submit pull request
 6. Make sure all the checks are passing
 7. Wait for maintainers to review the code
