@@ -21,7 +21,7 @@ def test_should_fail_if_yaml_file_is_not_present(capsys):
     captured = capsys.readouterr()
 
     invalid_file_error_message = \
-        "No 'tests/data/1build.yaml' file found in current directory.\n"
+        "No 'tests/data/1build.yaml' file found in working tree.\n"
 
     assert invalid_file_error_message in captured.out
 
