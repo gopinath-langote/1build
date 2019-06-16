@@ -20,10 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 ### Removed
+- Running tests on macOS using Python version 3.6
 
 ### Fixed
 - Missing test for `configuration file not found`
 - Add `.pyc` in `.gitigore`
+- Running tests on macOS using Python version 3.7
 
 ### Security
 
