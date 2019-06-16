@@ -4,3 +4,4 @@ ruamel.yaml==0.15.97
 pytest==4.6.3
 pytest-cov==2.7.1
 codecov==2.0.15
+mock==1.3.0
