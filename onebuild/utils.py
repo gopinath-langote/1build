@@ -10,6 +10,7 @@ class PredefinedActions:
     VERSION = "ONEBUILD_VERSION"
     HELP = "ONEBUILD_HELP"
     LIST = "ONEBUILD_LIST"
+    INIT = "ONEBUILD_INIT"
 
 
 def sample_yaml_file():
