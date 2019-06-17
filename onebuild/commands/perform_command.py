@@ -23,6 +23,6 @@ class PerformCommand(Command):
         if after:
             print("After: " + after)
             cmd = cmd + " && " + after
-            
+
         print(DASH)
         os.system(cmd)

@@ -1,7 +1,5 @@
 # !/usr/bin/env python
 
-from onebuild import __version__
-
 DASH = '-' * 50
 NEWLINE = "\n"
 
@@ -21,7 +19,3 @@ def default_yaml_file(project_name):
 
 def config_string(project):
     return "" + DASH + NEWLINE + project.__str__() + NEWLINE + DASH
-
-
-def version_string():
-    return '1build {version} '.format(version=__version__)
