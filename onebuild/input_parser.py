@@ -36,7 +36,7 @@ def argument_parser():
         '-i', '--init',
         action='store_true',
         default=False,
-        help="Create default `1build.yaml` file"
+        help="Create default `1build.yaml` configuration file"
     )
     return parser
 
