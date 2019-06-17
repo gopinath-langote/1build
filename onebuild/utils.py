@@ -19,10 +19,6 @@ def default_yaml_file(project_name):
            "  - build: echo 'Running build'"
 
 
-def print_help(parser):
-    parser.print_help()
-
-
 def config_string(project):
     return "" + DASH + NEWLINE + project.__str__() + NEWLINE + DASH
 
