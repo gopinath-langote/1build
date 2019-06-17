@@ -2,7 +2,6 @@
 
 from unittest.mock import patch, mock_open
 
-from onebuild.utils import default_yaml_file
 import onebuild.file_writer as file_writer
 
 

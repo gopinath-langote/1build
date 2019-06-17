@@ -11,11 +11,5 @@ def sample_yaml_file():
            "  - lint: ./gradlew spotlessApply"
 
 
-def default_yaml_file(project_name):
-    return "project: " + project_name + "\n" + \
-           "commands:" + "\n" + \
-           "  - build: echo 'Running build'"
-
-
 def config_string(project):
     return "" + DASH + NEWLINE + project.__str__() + NEWLINE + DASH

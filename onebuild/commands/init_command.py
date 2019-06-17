@@ -1,6 +1,11 @@
 from onebuild.commands.command import Command
 from onebuild.file_writer import write
-from onebuild.utils import default_yaml_file
+
+
+def default_yaml_file(project_name):
+    return "project: " + project_name + "\n" + \
+           "commands:" + "\n" + \
+           "  - build: echo 'Running build'"
 
 
 class InitCommand(Command):
