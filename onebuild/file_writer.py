@@ -1,7 +1,4 @@
-from onebuild.utils import default_yaml_file
-
-
-def write_default_config_file(project_name):
-    with open("1build.yaml", "w") as h:
-        h.write(default_yaml_file(project_name))
+def write(file_name, mode, content):
+    with open(file_name, mode) as h:
+        h.write(content)
         h.close()
