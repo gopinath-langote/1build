@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-try:
-    from mock import patch, MagicMock
-except ImportError:
-    from unittest.mock import patch, MagicMock
+
+from unittest.mock import patch, MagicMock
 
 from onebuild.main import run
 
