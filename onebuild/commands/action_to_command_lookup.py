@@ -1,9 +1,9 @@
+from onebuild.actions.predefined_actions import PredefinedActions
 from onebuild.commands.help_command import HelpCommand
 from onebuild.commands.init_command import InitCommand
 from onebuild.commands.list_command import ListCommand
 from onebuild.commands.perform_command import PerformCommand
 from onebuild.commands.version_command import VersionCommand
-from onebuild.utils import PredefinedActions
 
 
 class ActionToCommandLookup:
