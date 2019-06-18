@@ -47,8 +47,9 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.HELP
     if args.version:
         return PredefinedActions.VERSION
-    if args.list:
-        return PredefinedActions.LIST
     if args.init:
         return PredefinedActions.INIT
+    if args.list:
+        return PredefinedActions.LIST
+
     return args.command
