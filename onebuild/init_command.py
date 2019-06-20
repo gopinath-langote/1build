@@ -11,12 +11,10 @@ def default_yaml_file(project_name):
 class InitCommand(Command):
 
     def execute(self, arg_parser, arguments, build_file_name, command_name):
-        try:
+        if len(arguments) < 2:
+            raise ValueError(__project_name_not_found_error_message__())
+        else:
             write("1build.yaml", "w", default_yaml_file(arguments[1]))
-        except IndexError:
-            raise ValueError(
-                __project_name_not_found_error_message__()
-            )
 
 
 def __project_name_not_found_error_message__():
