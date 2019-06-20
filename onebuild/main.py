@@ -2,7 +2,7 @@
 
 import sys
 
-from onebuild.commands.action_to_command_lookup import ActionToCommandLookup
+from onebuild.action_to_command_lookup import ActionToCommandLookup
 from .input_parser import command_to_run, argument_parser
 
 BUILD_FILE_NAME = "1build.yaml"

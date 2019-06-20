@@ -2,7 +2,7 @@
 
 import argparse
 
-from onebuild.actions.predefined_actions import PredefinedActions
+from onebuild.predefined_actions import PredefinedActions
 
 
 def argument_parser():

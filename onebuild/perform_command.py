@@ -1,6 +1,6 @@
 import os
 
-from onebuild.commands.command import Command
+from onebuild.command import Command
 from onebuild.config_parser import parse_project_config
 from onebuild.utils import DASH
 

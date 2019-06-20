@@ -8,7 +8,7 @@ from onebuild.main import run
 def test_create_default_yaml_file():
     mock_file_writer = MagicMock()
 
-    with patch("onebuild.commands.init_command.write",
+    with patch("onebuild.init_command.write",
                mock_file_writer,
                create=True):
         run("", ['--init', 'some project'])

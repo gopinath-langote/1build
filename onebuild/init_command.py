@@ -1,4 +1,4 @@
-from onebuild.commands.command import Command
+from onebuild.command import Command
 from onebuild.file_writer import write
 
 

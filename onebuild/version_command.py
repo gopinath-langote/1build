@@ -1,5 +1,5 @@
 from onebuild import __version__
-from onebuild.commands.command import Command
+from onebuild.command import Command
 
 
 class VersionCommand(Command):
