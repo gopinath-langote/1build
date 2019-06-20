@@ -20,5 +20,5 @@ class InitCommand(Command):
 
 
 def __project_name_not_found_error_message__():
-    return "Please add project name after init command as " \
-           "follows - 1build --init myproject"
+    return "The 'project name' parameter is missing with --init" \
+           "\n\nusage: 1build --init project_name"

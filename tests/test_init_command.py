@@ -21,6 +21,6 @@ def test_create_default_yaml_file():
 def test_error_message_if_file_name_is_not_provided_with_init(capsys):
     run("", ['--init'])
     captured = capsys.readouterr()
-    expected_message = "Please add project name after init command as " \
-                       "follows - 1build --init myproject"
+    expected_message = "The 'project name' parameter is missing with --init" \
+                       "\n\nusage: 1build --init project_name"
     assert expected_message in captured.out
