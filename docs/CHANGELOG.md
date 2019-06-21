@@ -6,13 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## v1.1.0 [DRAFT]
+## v1.2.0 [DRAFT]
+
+
+## [v1.1.0](https://github.com/gopinath-langote/1build/releases/tag/v1.1.0) | 2019-06-21 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/5?closed=1) | [PyPi 1.0.0](https://pypi.org/project/1build/1.1.0/)
 
 ### Added
 - Show 1build package version using `-v` or `--version`
+- Create 1build configuration by `1build --init <project_name>
 - Changelog draft
 - Pull request template
-- Create 1build configuration by `1build --init <project_name>
 
 ### Changed
 - Issue template to custom template
