@@ -127,6 +127,7 @@ optional arguments:
   -h, --help  Print this help message
   -l, --list  Show all available commands - from `1build.yaml` file
   -v, --version  Show version of 1build and exit
+  -i, --init     Create default `1build.yaml` configuration file
 ```
 
 ## Contributing
