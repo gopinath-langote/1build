@@ -2,7 +2,7 @@
 
 import argparse
 
-from .utils import PredefinedActions
+from onebuild.predefined_actions import PredefinedActions
 
 
 def argument_parser():
@@ -32,6 +32,12 @@ def argument_parser():
         default=False,
         help="Show version of 1build and exit"
     )
+    parser.add_argument(
+        '-i', '--init',
+        action='store_true',
+        default=False,
+        help="Create default `1build.yaml` configuration file"
+    )
     return parser
 
 
@@ -41,6 +47,9 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.HELP
     if args.version:
         return PredefinedActions.VERSION
+    if args.init:
+        return PredefinedActions.INIT
     if args.list:
         return PredefinedActions.LIST
+
     return args.command

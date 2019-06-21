@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Show 1build package version using `-v` or `--version`
 - Changelog draft
 - Pull request template
+- Create 1build configuration by `1build --init <project_name>
 
 ### Changed
 - Issue template to custom template
