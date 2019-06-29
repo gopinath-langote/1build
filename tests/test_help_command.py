@@ -2,10 +2,11 @@
 
 from onebuild.main import run
 
-USAGE_HELP_MESSAGE = """usage: 1build [-h] [-l] [-v] [-i] [command]
+USAGE_HELP_MESSAGE \
+    = """usage: 1build [-h] [-l] [-v] [-i] [command [command ...]]
 
 positional arguments:
-  command        Command to run - from `1build.yaml` file
+  command        Command(s) to run - from `1build.yaml` file
 
 optional arguments:
   -h, --help     Print this help message
