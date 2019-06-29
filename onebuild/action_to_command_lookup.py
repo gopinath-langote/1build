@@ -13,9 +13,7 @@ class ActionToCommandLookup:
             PredefinedActions.HELP: HelpCommand(),
             PredefinedActions.INIT: InitCommand(),
             PredefinedActions.LIST: ListCommand(),
-            PredefinedActions.VERSION: VersionCommand(),
-            PredefinedActions.PERFORM: PerformCommand()
-        })
+            PredefinedActions.VERSION: VersionCommand()})
 
     def get_command_for_action(self, action):
         return self._command_to_action_dictionary.get(action, PerformCommand())

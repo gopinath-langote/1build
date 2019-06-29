@@ -9,8 +9,9 @@ def argument_parser():
     parser = argparse.ArgumentParser(prog='1build', add_help=False)
     parser.add_argument(
         'command',
-        nargs='*',
-        help='Command(s) to run - from `1build.yaml` file',
+        nargs='?',
+        default=PredefinedActions.HELP,
+        help='Command to run - from `1build.yaml` file',
     )
     parser.add_argument(
         '-h', '--help',
@@ -50,7 +51,5 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.INIT
     if args.list:
         return PredefinedActions.LIST
-    if len(args.command) == 0:
-        return PredefinedActions.HELP
 
-    return PredefinedActions.PERFORM
+    return args.command
