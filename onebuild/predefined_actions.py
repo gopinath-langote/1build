@@ -3,3 +3,4 @@ class PredefinedActions:
     HELP = "ONEBUILD_HELP"
     LIST = "ONEBUILD_LIST"
     INIT = "ONEBUILD_INIT"
+    PERFORM = "ONEBUILD_PERFROM"
