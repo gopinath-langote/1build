@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## v1.2.0 [DRAFT]
+### Added
+- Bump pytest version from 4.6.3 to 5.0.1 – [changelog](https://github.com/pytest-dev/pytest/blob/master/CHANGELOG.rst#pytest-501-2019-07-04)
 
+### Changed
+
+
+### Deprecated
+
+### Removed
+
+
+### Fixed
+
+
+### Security
 
 ## [v1.1.0](https://github.com/gopinath-langote/1build/releases/tag/v1.1.0) | 2019-06-21 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/5?closed=1) | [PyPi 1.0.0](https://pypi.org/project/1build/1.1.0/)
 
