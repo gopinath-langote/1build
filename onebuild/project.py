@@ -42,3 +42,6 @@ class Project:
     def __str__(self):
         return "project: " + self.name + "\ncommands:\n" + \
                self.available_commands()
+    
+    def get_command_names(self):
+        return "\n".join(map(lambda command: command.name, self.commands))

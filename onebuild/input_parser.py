@@ -25,6 +25,12 @@ def argument_parser():
         help="Show all available commands - from `1build.yaml` file"
     )
     parser.add_argument(
+        '-lr', '--listraw',
+        action='store_true',
+        default=False,
+        help="Show all available command names - from `1build.yaml` file"
+    )
+    parser.add_argument(
         '-v', '--version',
         dest='version',
         action='store_true',
@@ -50,6 +56,8 @@ def command_to_run(arg_parser, arguments):
         return PredefinedActions.INIT
     if args.list:
         return PredefinedActions.LIST
+    if args.listraw:
+        return PredefinedActions.LIST_RAW
     if len(args.command) == 0:
         return PredefinedActions.HELP
 
