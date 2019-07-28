@@ -1,4 +1,4 @@
-ruamel.yaml==0.15.100
+ruamel.yaml==0.16.0
 
 # Test Dependencies
 pytest==5.0.1
