@@ -2,7 +2,7 @@
 
 from onebuild.main import run
 
-VERSION_MESSAGE = "1build 1.1.0"
+VERSION_MESSAGE = "1build 1.1.1"
 
 
 def test_show_version(capsys):
