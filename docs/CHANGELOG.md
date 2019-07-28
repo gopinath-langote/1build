@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Execute multiple 1build commands in one go
 - Bump pytest version from 4.6.3 to 5.0.1 – [changelog](https://github.com/pytest-dev/pytest/blob/master/CHANGELOG.rst#pytest-501-2019-07-04)
+- Bump ruamel-yaml from 0.15.100 to 0.16.0
 
 ### Changed
 
