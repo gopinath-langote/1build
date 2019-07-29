@@ -153,3 +153,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * **Alexander Lukianchuk** - *Maintainer* – [Github](https://github.com/landpro) – [Twitter](https://twitter.com/landpro)
 
 See also the list of [contributors](https://github.com/gopinath-langote/1build/contributors) who participated in this project.
+
+## Sponsors
+
+<a href="https://www.jetbrains.com/?from=github.com/gopinath-langote/1build">
+    <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/jetbrains.png?raw=true" alt="1build" width="100"></a>
+ 
