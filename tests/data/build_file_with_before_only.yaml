@@ -1,5 +1,0 @@
-project: Sample Project
-before: echo 'Running some setup script'
-commands:
-  - build: echo 'Running build'
-  - lint: echo 'Running lint'

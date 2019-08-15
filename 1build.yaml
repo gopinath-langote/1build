@@ -1,0 +1,6 @@
+project: gopi
+before: echo b
+after: echo 1
+commands:
+  - b: echo han
+  - test: go test -v -cover github.com/gopinath-langote/1buildgo/testing -run . GOCACHE=off

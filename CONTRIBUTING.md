@@ -10,19 +10,20 @@ Create or find an issue you would like to implement:
 
 # Developing 1build
 
-1. Prepare project
+1. Prepare project (Install GoLang 1.9.x)
 
     ```sh
     git clone https://github.com/gopinath-langote/1build
     cd 1build
-    pip install -r requirements.txt
+    go get -u github.com/golang/dep/cmd/dep
+    dep ensure
     ```
 
 2. Make sure that all the existing tests are passed, extend tests if needed
     ```sh
-    pytest 
+    go test -v -cover github.com/gopinath-langote/1buildgo/testing -run . 
     ```
-3. Make sure you are following `pep8` guidelines for linting
+3. Project uses major library to build app - [cobra](https://github.com/spf13/cobra)
 4. Update necessary documents if needed – Readme etc. 
 5. Submit pull request
 6. Make sure all the checks are passing

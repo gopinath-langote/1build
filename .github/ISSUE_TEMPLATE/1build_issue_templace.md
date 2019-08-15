@@ -1,6 +1,6 @@
 ---
 name: 1build_issue_templace
-about: All issue in 1build project should follow this templae
+about: All issue in 1build project should follow this template
 title: ''
 labels: ''
 assignees: ''

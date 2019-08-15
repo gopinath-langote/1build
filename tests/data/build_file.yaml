@@ -1,4 +1,0 @@
-project: Sample Project
-commands:
-  - build: echo 'Running build'
-  - lint: echo 'Running lint'

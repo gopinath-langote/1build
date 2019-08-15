@@ -1,8 +1,7 @@
-.idea
-venv
-1buildc
-1build.egg-info/
-build/
+.idea/
+vendor/
+.1buildgo
+1buildgo
 dist/
-__pycache__/
-*.pyc
+
+!1build.yaml

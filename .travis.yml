@@ -1,36 +1,12 @@
-dist: xenial   # required for Python >= 3.7
-language: python
-matrix:
-  include:
-    - name: "Python 3.7 on Xenial Linux"
-      python: 3.7
-      dist: xenial
-    - name: "Python 3.7 on macOS"
-      os: osx
-      python: 3.7
-      osx_image: xcode10.2
-      language: shell
-    - name: "Python 3.7 on Windows"
-      os: windows
-      python: 3.7
-      language: shell
-      before_install: choco install python --version 3.7.3
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-    - name: "Python 3.6 on Xenial Linux"
-      python: 3.6
-      dist: xenial
-    - name: "Python 3.6 on Windows"
-      os: windows
-      python: 3.6
-      language: shell
-      before_install: choco install python --version 3.6.7
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    - name: "Python 3.5 on Linux"
-      python: 3.5
-
-install:
-  - pip3 install -r requirements.txt
+language: go
+os:
+  - linux
+  - osx
+go:
+  - 1.9.x
+before_install:
+  - go get -u --insecure github.com/golang/dep/cmd/dep
+  - dep ensure
 script:
-  - python3 -m pytest -v --cov-report term --cov=tests/ || python -m pytest -v --cov-report term --cov=tests/
-after_success:
-    - codecov
+  - go test -v -cover github.com/gopinath-langote/1buildgo/testing -run .
+

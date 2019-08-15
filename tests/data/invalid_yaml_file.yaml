@@ -1,4 +1,0 @@
-project= Sample Project
-commands=
-  build= ls
-  lint= ls
