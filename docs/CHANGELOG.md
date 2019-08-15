@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v1.2.0](https://github.com/gopinath-langote/1build/releases/tag/v1.2.0) | 2019-07-28 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/7?closed=1)
+### Added
+- Set/Update new command configuration using `1build set` command
+- Unset command configuration using `1build unset` command
+- Get help on each command with example
+
+### Changed
+- Complete rewrite of 1build using [golang](https://golang.org)
+
+### Deprecated
+- 1build versions pushed to PyPi - are anymore maintained by team
+
+### Removed
+
+
+### Fixed
+
+
+### Security
+
 ## [v1.1.1](https://github.com/gopinath-langote/1build/releases/tag/v1.1.1) | 2019-07-28 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/6?closed=1) | [PyPi 1.1.1](https://pypi.org/project/1build/1.1.1/)
 ### Added
 - Execute multiple 1build commands in one go
