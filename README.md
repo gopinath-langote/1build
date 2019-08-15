@@ -73,6 +73,12 @@ the things that actually matter.
    ```console
    1build set lint "eslint server.js"
    ```
+### Remove/Unset existing configuration
+
+- Unset command configuration for `lint`
+   ```console
+   1build unset lint
+   ```
 
 ### Using `before` and `after` commands
 Consider that your project requires some environment variables to set before running any 
