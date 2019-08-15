@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/gopinath-langote/1buildgo/cmd/config"
-	"github.com/gopinath-langote/1buildgo/cmd/utils"
+	"github.com/gopinath-langote/1build/cmd/config"
+	"github.com/gopinath-langote/1build/cmd/utils"
 	"regexp"
 
 	"github.com/spf13/cobra"

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/gopinath-langote/1buildgo/testing/def"
+	"github.com/gopinath-langote/1build/testing/def"
 	"io/ioutil"
 	"os"
 )

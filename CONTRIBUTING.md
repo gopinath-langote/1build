@@ -21,7 +21,7 @@ Create or find an issue you would like to implement:
 
 2. Make sure that all the existing tests are passed, extend tests if needed
     ```sh
-    go test -v -cover github.com/gopinath-langote/1buildgo/testing -run . 
+    go test -v -cover github.com/gopinath-langote/1build/testing -run . 
     ```
 3. Project uses major library to build app - [cobra](https://github.com/spf13/cobra)
 4. Update necessary documents if needed – Readme etc. 

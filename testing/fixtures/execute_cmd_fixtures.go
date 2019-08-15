@@ -1,7 +1,7 @@
 package fixtures
 
 import (
-	"github.com/gopinath-langote/1buildgo/testing/utils"
+	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

@@ -2,7 +2,7 @@ package config
 
 import (
 	"errors"
-	"github.com/gopinath-langote/1buildgo/cmd/utils"
+	"github.com/gopinath-langote/1build/cmd/utils"
 	"gopkg.in/yaml.v3"
 	"strings"
 )

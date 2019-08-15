@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	parse "github.com/gopinath-langote/1buildgo/cmd/config"
-	"github.com/gopinath-langote/1buildgo/cmd/exec"
-	"github.com/gopinath-langote/1buildgo/cmd/utils"
+	parse "github.com/gopinath-langote/1build/cmd/config"
+	"github.com/gopinath-langote/1build/cmd/exec"
+	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
 )
 

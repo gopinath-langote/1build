@@ -26,6 +26,22 @@
   version = "v1.1.1"
 
 [[projects]]
+  branch = "master"
+  digest = "1:c9bd2c9f242015da18e6125068863fd853cc93bcf9d5eb9f264448a2f8ab27e4"
+  name = "github.com/gopinath-langote/1build"
+  packages = [
+    "cmd",
+    "cmd/config",
+    "cmd/exec",
+    "cmd/utils",
+    "testing/def",
+    "testing/fixtures",
+    "testing/utils",
+  ]
+  pruneopts = "UT"
+  revision = "7692ef6782cb2eabafc2cff78b382b7b52c3df83"
+
+[[projects]]
   digest = "1:870d441fe217b8e689d7949fef6e43efbc787e50f200cb1e70dbca9204a1d6be"
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
@@ -78,6 +94,13 @@
   analyzer-version = 1
   input-imports = [
     "github.com/codeskyblue/go-sh",
+    "github.com/gopinath-langote/1build/cmd",
+    "github.com/gopinath-langote/1build/cmd/config",
+    "github.com/gopinath-langote/1build/cmd/exec",
+    "github.com/gopinath-langote/1build/cmd/utils",
+    "github.com/gopinath-langote/1build/testing/def",
+    "github.com/gopinath-langote/1build/testing/fixtures",
+    "github.com/gopinath-langote/1build/testing/utils",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "gopkg.in/yaml.v3",

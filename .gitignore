@@ -1,7 +1,7 @@
 .idea/
 vendor/
-.1buildgo
-1buildgo
+.1build
+1build
 dist/
 
 !1build.yaml

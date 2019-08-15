@@ -3,8 +3,8 @@ package exec
 import (
 	"errors"
 	"github.com/codeskyblue/go-sh"
-	"github.com/gopinath-langote/1buildgo/cmd/config"
-	"github.com/gopinath-langote/1buildgo/cmd/utils"
+	"github.com/gopinath-langote/1build/cmd/config"
+	"github.com/gopinath-langote/1build/cmd/utils"
 )
 
 func ExecuteCommandAndExit(commands ...string) {

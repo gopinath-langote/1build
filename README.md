@@ -17,8 +17,8 @@
   <a href="https://travis-ci.org/gopinath-langote/1build">
       <img src="https://travis-ci.org/gopinath-langote/1build.svg?branch=master" alt="Build Status">
   </a>
-  <a href="https://goreportcard.com/report/github.com/gopinath-langote/1buildgo">
-        <img src="https://goreportcard.com/badge/github.com/gopinath-langote/1buildgo" alt="Go Report Card">
+  <a href="https://goreportcard.com/report/github.com/gopinath-langote/1build">
+        <img src="https://goreportcard.com/badge/github.com/gopinath-langote/1build" alt="Go Report Card">
     </a>
 </p>
 

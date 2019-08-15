@@ -2,16 +2,16 @@ package testing
 
 import (
 	"fmt"
-	utils2 "github.com/gopinath-langote/1buildgo/cmd/utils"
+	utils2 "github.com/gopinath-langote/1build/cmd/utils"
 	"os"
 	"os/exec"
 	"testing"
 
-	"github.com/gopinath-langote/1buildgo/testing/fixtures"
-	"github.com/gopinath-langote/1buildgo/testing/utils"
+	"github.com/gopinath-langote/1build/testing/fixtures"
+	"github.com/gopinath-langote/1build/testing/utils"
 )
 
-var binaryName = "1buildgo"
+var binaryName = "1build"
 var binaryPath string
 var testDirectory string
 
