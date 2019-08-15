@@ -26,8 +26,7 @@
   version = "v1.1.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:c9bd2c9f242015da18e6125068863fd853cc93bcf9d5eb9f264448a2f8ab27e4"
+  digest = "1:e0c52881156d0952d70ebf72b40ab903f008eff3e16b663271d28c7d01d79a88"
   name = "github.com/gopinath-langote/1build"
   packages = [
     "cmd",
@@ -39,7 +38,8 @@
     "testing/utils",
   ]
   pruneopts = "UT"
-  revision = "7692ef6782cb2eabafc2cff78b382b7b52c3df83"
+  revision = "4b2efc50cc9a5538e72e959fd6563b7ba4d86cca"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:870d441fe217b8e689d7949fef6e43efbc787e50f200cb1e70dbca9204a1d6be"
@@ -74,12 +74,20 @@
   version = "v1.0.3"
 
 [[projects]]
-  digest = "1:972c2427413d41a1e06ca4897e8528e5a1622894050e2f527b38ddf0f343f759"
+  digest = "1:8548c309c65a85933a625be5e7d52b6ac927ca30c56869fae58123b8a77a75e1"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
   pruneopts = "UT"
-  revision = "ffdc059bfe9ce6a4e144ba849dbedead332c6053"
-  version = "v1.3.0"
+  revision = "221dbe5ed46703ee255b1da0dec05086f5035f62"
+  version = "v1.4.0"
+
+[[projects]]
+  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
+  name = "gopkg.in/yaml.v2"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+  version = "v2.2.2"
 
 [[projects]]
   branch = "v3"
