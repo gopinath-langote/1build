@@ -3,5 +3,5 @@ vendor/
 .1build
 1build
 dist/
-
+.goreleaser.yml
 !1build.yaml
