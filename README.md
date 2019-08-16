@@ -62,7 +62,7 @@ the things that actually matter.
   1build build
   ```
 
-- fix the coding guidelinges lint and run tests (executing more than one commands at once)
+- fix the coding guidelines lint and run tests (executing more than one commands at once)
   ```console
   1build lint test
   ```
