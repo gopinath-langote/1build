@@ -23,11 +23,12 @@ var rootCmd = &cobra.Command{
 		if len(args) < 1 {
 			listCmd.Run(cmd, args)
 		} else {
-			exec.ExecuteCommandAndExit(args...)
+			exec.ExecuteCommands(args...)
 		}
 	},
 }
 
+// Execute entrypoint for cobra app
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		utils.PrintErr(err)

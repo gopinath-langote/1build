@@ -2,11 +2,13 @@ package config
 
 import (
 	"errors"
-	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
+// ReadFile returns OneBuildConfiguration file content as string.
 func ReadFile() (string, error) {
 	if _, err := os.Stat(OneBuildConfigFileName); os.IsNotExist(err) {
 		return "", errors.New("no '" + OneBuildConfigFileName + "' file found in current directory")
@@ -18,6 +20,7 @@ func ReadFile() (string, error) {
 	return string(yamlFile), nil
 }
 
+// IsConfigFilePresent return whether the config file present or not
 func IsConfigFilePresent() bool {
 	if _, err := os.Stat(OneBuildConfigFileName); err == nil {
 		return true
@@ -28,6 +31,8 @@ func IsConfigFilePresent() bool {
 	}
 }
 
+// WriteConfigFile writes config to the file
+// If there is an error, it will be of type *Error.
 func WriteConfigFile(configuration OneBuildConfiguration) error {
 	yamlData, _ := yaml.Marshal(&configuration)
 	content := string(yamlData)

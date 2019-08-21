@@ -2,12 +2,14 @@ package exec
 
 import (
 	"errors"
+
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
 )
 
-func ExecuteCommandAndExit(commands ...string) {
+// ExecuteCommands executes given command with before and after is present
+func ExecuteCommands(commands ...string) {
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
 		utils.PrintErr(err)

@@ -1,9 +1,10 @@
 package cmd
 
 import (
+	"regexp"
+
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
-	"regexp"
 
 	"github.com/spf13/cobra"
 )
@@ -49,9 +50,9 @@ This will update the current project configuration file.`,
 		if index == -1 {
 			utils.Println("Command '" + commandName + "' not found")
 			return
-		} else {
-			configuration.Commands = removeCommandByIndex(configuration, index)
 		}
+
+		configuration.Commands = removeCommandByIndex(configuration, index)
 		_ = config.WriteConfigFile(configuration)
 	},
 }

@@ -2,13 +2,16 @@ package config
 
 import (
 	"errors"
+	"strings"
+
 	"github.com/gopinath-langote/1build/cmd/utils"
 	"gopkg.in/yaml.v3"
-	"strings"
 )
 
+// OneBuildConfigFileName one global declaration of config file name
 var OneBuildConfigFileName = "1build.yaml"
 
+// OneBuildConfiguration is a representation of yaml configuration as struct
 type OneBuildConfiguration struct {
 	Project  string              `yaml:"project"`
 	Before   string              `yaml:"before,omitempty"`
@@ -16,6 +19,8 @@ type OneBuildConfiguration struct {
 	Commands []map[string]string `yaml:"commands"`
 }
 
+// LoadOneBuildConfiguration returns the config from file as struct.
+// If there is an error, it will be of type *Error.
 func LoadOneBuildConfiguration() (OneBuildConfiguration, error) {
 	var configuration OneBuildConfiguration
 	fileContent, err := ReadFile()
@@ -41,6 +46,7 @@ commands:
 	return configuration, nil
 }
 
+// PrintConfiguration prints the configuration to the console
 func PrintConfiguration(oneBuildConfiguration OneBuildConfiguration) {
 	utils.Println(utils.DASH())
 	utils.Println("project: " + oneBuildConfiguration.Project)
