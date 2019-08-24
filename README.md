@@ -37,6 +37,9 @@ of what build tool they use. It will remove the hassle of remembering all those 
 the things that actually matter.
 
 ## Install
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/11bebd08fe9347ad90f999d490dfd509)](https://app.codacy.com/app/gopinath-langote/1build?utm_source=github.com&utm_medium=referral&utm_content=gopinath-langote/1build&utm_campaign=Badge_Grade_Settings)
+
 1. Download and unzip [latest release v1.2.0](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
 2. Move the `1build` executable to your `$PATH`.
 
