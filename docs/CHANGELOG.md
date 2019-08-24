@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [v2.0.0](https://github.com/gopinath-langote/1build/milestone/7) [DRAFT]
+### Added
+- `Join Slack Chat` button to the Readme file. 
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
 
 ## [v1.2.0](https://github.com/gopinath-langote/1build/releases/tag/v1.2.0) | 2019-07-28 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/7?closed=1)
 ### Added

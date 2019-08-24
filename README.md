@@ -20,6 +20,9 @@
   <a href="https://goreportcard.com/report/github.com/gopinath-langote/1build">
         <img src="https://goreportcard.com/badge/github.com/gopinath-langote/1build" alt="Go Report Card">
     </a>
+  <a href="https://join.slack.com/t/1buildteam/shared_invite/enQtNzI1MDU0OTkxNzY2LTdiOTc1M2YwM2NjZTgwNTRlYWZjYTIxYmU0YWZmY2QzNzVlYTljNmFjMDJlZDcxOTAxN2I0NDNjYWM2YTg5YTg">
+          <img src="https://img.shields.io/badge/slack-@1buildteam-yellow.svg?logo=slack" alt="Join the chat on Slack">
+      </a>  
 </p>
 
 <br>
