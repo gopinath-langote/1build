@@ -8,10 +8,10 @@ import (
 	"testing"
 )
 
-func featureSetTestsData() []test {
+func featureSetTestsData() []Test {
 	feature := "set"
 
-	return []test{
+	return []Test{
 		shouldSetNewCommand(feature),
 		shouldUpdateExistingCommand(feature),
 		shouldFailWhenConfigurationFileIsNotFound(feature),
@@ -19,7 +19,7 @@ func featureSetTestsData() []test {
 	}
 }
 
-func shouldSetNewCommand(feature string) test {
+func shouldSetNewCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -30,13 +30,13 @@ commands:
 	expectedOutput := `project: Sample Project
 commands:
   - build: go build
-  - test: go test
+  - Test: go Test
 `
 
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldSetNewCommand",
-		CmdArgs: []string{"set", "test", "go test"},
+		CmdArgs: []string{"set", "Test", "go Test"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -49,7 +49,7 @@ commands:
 	}
 }
 
-func shouldUpdateExistingCommand(feature string) test {
+func shouldUpdateExistingCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -62,7 +62,7 @@ commands:
   - build: go build -o
 `
 
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldUpdateExistingCommand",
 		CmdArgs: []string{"set", "build", "go build -o"},
@@ -78,8 +78,8 @@ commands:
 	}
 }
 
-func shouldFailWhenConfigurationFileIsNotFound(feature string) test {
-	return test{
+func shouldFailWhenConfigurationFileIsNotFound(feature string) Test {
+	return Test{
 		Feature: feature,
 		Name:    "shouldFailWhenConfigurationFileIsNotFound",
 		CmdArgs: []string{"set", "build", "go build -o"},
@@ -89,8 +89,8 @@ func shouldFailWhenConfigurationFileIsNotFound(feature string) test {
 	}
 }
 
-func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) test {
-	return test{
+func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test {
+	return Test{
 		Feature: feature,
 		Name:    "shouldFailWhenConfigurationFileIsInInvalidFormat",
 		CmdArgs: []string{"set", "build", "go build"},

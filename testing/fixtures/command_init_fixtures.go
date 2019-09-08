@@ -8,20 +8,20 @@ import (
 	"testing"
 )
 
-func featureInitTestsData() []test {
+func featureInitTestsData() []Test {
 	feature := "init"
-	return []test{
+	return []Test{
 		shouldInitialiseNewProject(feature),
 		shouldFailIfFileAlreadyExists(feature),
 	}
 }
 
-func shouldInitialiseNewProject(feature string) test {
+func shouldInitialiseNewProject(feature string) Test {
 	expectedOutput := `project: trial
 commands:
   - build: echo 'Running build'
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldInitialiseNewProject",
 		CmdArgs: []string{"init", "--name", "trial"},
@@ -34,7 +34,7 @@ commands:
 	}
 }
 
-func shouldFailIfFileAlreadyExists(feature string) test {
+func shouldFailIfFileAlreadyExists(feature string) Test {
 	defaultFileContent := `
 project: Sample Project
 commands:
@@ -42,7 +42,7 @@ commands:
   - lint: eslint
 `
 	expectedOutput := "'" + def.ConfigFileName + "' configuration file already exists."
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfFileAlreadyExists",
 		CmdArgs: []string{"init", "--name", "trial"},

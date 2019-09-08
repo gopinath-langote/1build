@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func featureExecuteCmdTestData() []test {
+func featureExecuteCmdTestData() []Test {
 	feature := "exec"
 
-	return []test{
+	return []Test{
 		shouldExecuteAvailableCommand(feature),
 		shouldShowErrorIfCommandNotFound(feature),
 		shouldExecuteBeforeCommand(feature),
@@ -20,7 +20,7 @@ func featureExecuteCmdTestData() []test {
 	}
 }
 
-func shouldExecuteAvailableCommand(feature string) test {
+func shouldExecuteAvailableCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 commands:
@@ -31,7 +31,7 @@ build : echo building project
 --------------------------------------------------
 building project
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
 		CmdArgs: []string{"build"},
@@ -44,7 +44,7 @@ building project
 	}
 }
 
-func shouldShowErrorIfCommandNotFound(feature string) test {
+func shouldShowErrorIfCommandNotFound(feature string) Test {
 	fileContent := `
 project: Sample Project
 commands:
@@ -59,7 +59,7 @@ commands:
 build | echo building project
 --------------------------------------------------
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldShowErrorIfCommandNotFound",
 		CmdArgs: []string{"random"},
@@ -72,7 +72,7 @@ build | echo building project
 	}
 }
 
-func shouldExecuteBeforeCommand(feature string) test {
+func shouldExecuteBeforeCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -87,7 +87,7 @@ build : echo building project
 running pre-command
 building project
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
 		CmdArgs: []string{"build"},
@@ -100,7 +100,7 @@ building project
 	}
 }
 
-func shouldExecuteAfterCommand(feature string) test {
+func shouldExecuteAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 after: echo running post-command
@@ -115,7 +115,7 @@ After: echo running post-command
 building project
 running post-command
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
 		CmdArgs: []string{"build"},
@@ -128,7 +128,7 @@ running post-command
 	}
 }
 
-func shouldExecuteBeforeAndAfterCommand(feature string) test {
+func shouldExecuteBeforeAndAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -147,7 +147,7 @@ running pre-command
 building project
 running post-command
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",
 		CmdArgs: []string{"build"},
@@ -160,7 +160,7 @@ running post-command
 	}
 }
 
-func shouldStopExecutionIfBeforeCommandFailed(feature string) test {
+func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: invalid_command
@@ -178,7 +178,7 @@ After: echo running post-command
 
 Failed to execute 'invalid_command'
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfBeforeCommandFailed",
 		CmdArgs: []string{"build"},
@@ -191,7 +191,7 @@ Failed to execute 'invalid_command'
 	}
 }
 
-func shouldStopExecutionIfCommandFailed(feature string) test {
+func shouldStopExecutionIfCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -210,7 +210,7 @@ running pre-command
 
 Failed to execute 'invalid_command'
 `
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfCommandFailed",
 		CmdArgs: []string{"build"},

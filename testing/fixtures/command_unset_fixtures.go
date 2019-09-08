@@ -8,10 +8,10 @@ import (
 	"testing"
 )
 
-func featureUnsetTestsData() []test {
+func featureUnsetTestsData() []Test {
 	feature := "unset"
 
-	return []test{
+	return []Test{
 		shouldUnsetTheExistingCommand(feature),
 		unsetShouldFailWhenConfigurationFileIsNotFound(feature),
 		unsetShouldFailWhenConfigurationFileIsInInvalidFormat(feature),
@@ -19,7 +19,7 @@ func featureUnsetTestsData() []test {
 	}
 }
 
-func shouldUnsetTheExistingCommand(feature string) test {
+func shouldUnsetTheExistingCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -31,7 +31,7 @@ commands:
 commands: []
 `
 
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetTheExistingCommand",
 		CmdArgs: []string{"unset", "build"},
@@ -47,7 +47,7 @@ commands: []
 	}
 }
 
-func unsetShouldFailWhenCommandIsNotFound(feature string) test {
+func unsetShouldFailWhenCommandIsNotFound(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -55,21 +55,21 @@ commands:
   - build: go build
 `
 
-	return test{
+	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenCommandIsNotFound",
-		CmdArgs: []string{"unset", "test"},
+		CmdArgs: []string{"unset", "Test"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "Command 'test' not found")
+			return assert.Contains(t, actualOutput, "Command 'Test' not found")
 		},
 	}
 }
 
-func unsetShouldFailWhenConfigurationFileIsNotFound(feature string) test {
-	return test{
+func unsetShouldFailWhenConfigurationFileIsNotFound(feature string) Test {
+	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenConfigurationFileIsNotFound",
 		CmdArgs: []string{"unset", "build"},
@@ -79,8 +79,8 @@ func unsetShouldFailWhenConfigurationFileIsNotFound(feature string) test {
 	}
 }
 
-func unsetShouldFailWhenConfigurationFileIsInInvalidFormat(feature string) test {
-	return test{
+func unsetShouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test {
+	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenConfigurationFileIsInInvalidFormat",
 		CmdArgs: []string{"unset", "build"},
