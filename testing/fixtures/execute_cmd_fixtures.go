@@ -6,9 +6,7 @@ import (
 	"testing"
 )
 
-var Execute = "execute"
-
-func FeatureExecuteCmdTestData() []Test {
+func featureExecuteCmdTestData() []Test {
 	feature := "exec"
 
 	return []Test{

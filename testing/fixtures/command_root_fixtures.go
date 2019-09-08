@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func FeatureRootTestData() []Test {
+func featureRootTestData() []Test {
 	feature := "root"
 
 	return []Test{

@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func FeatureSetTestsData() []Test {
+func featureSetTestsData() []Test {
 	feature := "set"
 
 	return []Test{

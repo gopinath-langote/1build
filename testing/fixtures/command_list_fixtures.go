@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func FeatureListTestData() []Test {
+func featureListTestData() []Test {
 	var feature = "list"
 	return []Test{
 		shouldShowListOfCommands(feature),

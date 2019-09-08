@@ -1,3 +1,3 @@
 package def
 
-const ConfigFileName string = "1build.yaml"
+const configFileName string = "1build.yaml"

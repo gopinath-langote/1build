@@ -6,21 +6,21 @@ import (
 	"os"
 )
 
-func CreateConfigFile(dir string, content string) error {
+func createConfigFile(dir string, content string) error {
 	return ioutil.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0777)
 }
 
-func CreateTempDir() (string, error) {
+func createTempDir() (string, error) {
 	return ioutil.TempDir("", "onebuild_test")
 }
 
-func RemoveAllFilesFromDir(dir string) {
+func removeAllFilesFromDir(dir string) {
 	_ = os.RemoveAll(dir)
 }
 
-func RecreateTestResourceDirectory(dir string) string {
+func recreateTestResourceDirectory(dir string) string {
 	restResourceDirectory := dir + "/resources"
-	RemoveAllFilesFromDir(restResourceDirectory)
+	removeAllFilesFromDir(restResourceDirectory)
 	_ = os.Mkdir(restResourceDirectory, 0777)
 	return restResourceDirectory
 }
