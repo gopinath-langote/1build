@@ -6,16 +6,16 @@ import (
 	"testing"
 )
 
-func featureListTestData() []Test {
+func featureListTestData() []test {
 	var feature = "list"
-	return []Test{
+	return []test{
 		shouldShowListOfCommands(feature),
 		shouldNotShowAnyCommandsIfNoCommandsFound(feature),
 		shouldShowCommandsWithBeforeAndAfterIfPresent(feature),
 	}
 }
 
-func shouldShowListOfCommands(feature string) Test {
+func shouldShowListOfCommands(feature string) test {
 	commandListMessage := `--------------------------------------------------
 project: Sample Project
 commands:
@@ -30,7 +30,7 @@ commands:
   - lint: eslint
 `
 
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldShowListOfCommands",
 		CmdArgs: []string{"list"},
@@ -43,13 +43,13 @@ commands:
 	}
 }
 
-func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) Test {
+func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) test {
 	emptyCommandListMessage := `--------------------------------------------------
 project: Sample Project
 commands:
 --------------------------------------------------
 `
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldNotShowAnyCommandsIfNoCommandsFound",
 		CmdArgs: []string{},
@@ -62,7 +62,7 @@ commands:
 	}
 }
 
-func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) Test {
+func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) test {
 	expectedOutput := `--------------------------------------------------
 project: Sample Project
 before: pre_command
@@ -79,7 +79,7 @@ commands:
   - build: npm run build
 `
 
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldShowCommandsWithBeforeAndAfterIfPresent",
 		CmdArgs: []string{"list"},

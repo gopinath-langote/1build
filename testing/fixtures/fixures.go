@@ -6,7 +6,7 @@ type setup func(dir string) error
 type assertion func(dir string, actualOutput string, t *testing.T) bool
 type teardown func(dir string) error
 
-type Test struct {
+type test struct {
 	Feature   string
 	Name      string
 	CmdArgs   []string
@@ -15,9 +15,9 @@ type Test struct {
 	Teardown  teardown
 }
 
-func getFixtures() []Test {
+func getFixtures() []test {
 
-	routes := [][]Test{
+	routes := [][]test{
 		featureRootTestData(),
 		featureExecuteCmdTestData(),
 
@@ -29,7 +29,7 @@ func getFixtures() []Test {
 		featureFlagVersionTestData(),
 	}
 
-	var r1 []Test
+	var r1 []test
 	for _, r := range routes {
 		r1 = append(r1, r...)
 	}
