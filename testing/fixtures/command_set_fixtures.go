@@ -8,10 +8,10 @@ import (
 	"testing"
 )
 
-func FeatureSetTestsData() []Test {
+func featureSetTestsData() []test {
 	feature := "set"
 
-	return []Test{
+	return []test{
 		shouldSetNewCommand(feature),
 		shouldUpdateExistingCommand(feature),
 		shouldFailWhenConfigurationFileIsNotFound(feature),
@@ -19,7 +19,7 @@ func FeatureSetTestsData() []Test {
 	}
 }
 
-func shouldSetNewCommand(feature string) Test {
+func shouldSetNewCommand(feature string) test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -33,7 +33,7 @@ commands:
   - test: go test
 `
 
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldSetNewCommand",
 		CmdArgs: []string{"set", "test", "go test"},
@@ -49,7 +49,7 @@ commands:
 	}
 }
 
-func shouldUpdateExistingCommand(feature string) Test {
+func shouldUpdateExistingCommand(feature string) test {
 
 	defaultFileContent := `
 project: Sample Project
@@ -62,7 +62,7 @@ commands:
   - build: go build -o
 `
 
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldUpdateExistingCommand",
 		CmdArgs: []string{"set", "build", "go build -o"},
@@ -78,8 +78,8 @@ commands:
 	}
 }
 
-func shouldFailWhenConfigurationFileIsNotFound(feature string) Test {
-	return Test{
+func shouldFailWhenConfigurationFileIsNotFound(feature string) test {
+	return test{
 		Feature: feature,
 		Name:    "shouldFailWhenConfigurationFileIsNotFound",
 		CmdArgs: []string{"set", "build", "go build -o"},
@@ -89,8 +89,8 @@ func shouldFailWhenConfigurationFileIsNotFound(feature string) Test {
 	}
 }
 
-func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test {
-	return Test{
+func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) test {
+	return test{
 		Feature: feature,
 		Name:    "shouldFailWhenConfigurationFileIsInInvalidFormat",
 		CmdArgs: []string{"set", "build", "go build"},

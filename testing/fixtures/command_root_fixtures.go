@@ -7,18 +7,18 @@ import (
 	"testing"
 )
 
-func FeatureRootTestData() []Test {
+func featureRootTestData() []test {
 	feature := "root"
 
-	return []Test{
+	return []test{
 		shouldFailIfYamlFileIsNotPresent(feature),
 		shouldFailIfYamlFileIsNotInCorrectYamlFormat(feature),
 		shouldShowListOfCommandsIfNoCommandSpecified(feature),
 	}
 }
 
-func shouldFailIfYamlFileIsNotPresent(feature string) Test {
-	return Test{
+func shouldFailIfYamlFileIsNotPresent(feature string) test {
+	return test{
 		Feature: feature,
 		Name:    "shouldFailIfYamlFileIsNotPresent",
 		CmdArgs: []string{},
@@ -28,7 +28,7 @@ func shouldFailIfYamlFileIsNotPresent(feature string) Test {
 	}
 }
 
-func shouldFailIfYamlFileIsNotInCorrectYamlFormat(feature string) Test {
+func shouldFailIfYamlFileIsNotInCorrectYamlFormat(feature string) test {
 	erroredFileMessage :=
 		`Unable to parse '1build.yaml' config file. Make sure file is in correct format.
 Sample format is:
@@ -40,7 +40,7 @@ commands:
   - lint: eslint
 --------------------------------------------------
 `
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldFailIfYamlFileIsNotInCorrectYamlFormat",
 		CmdArgs: []string{},
@@ -53,7 +53,7 @@ commands:
 	}
 }
 
-func shouldShowListOfCommandsIfNoCommandSpecified(feature string) Test {
+func shouldShowListOfCommandsIfNoCommandSpecified(feature string) test {
 	commandListMessage := `--------------------------------------------------
 project: Sample Project
 commands:
@@ -68,7 +68,7 @@ commands:
   - lint: eslint
 `
 
-	return Test{
+	return test{
 		Feature: feature,
 		Name:    "shouldShowListOfCommandsIfNoCommandSpecified",
 		CmdArgs: []string{},

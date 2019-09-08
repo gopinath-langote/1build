@@ -5,15 +5,15 @@ import (
 	"testing"
 )
 
-func FeatureFlagVersionTestData() []Test {
+func featureFlagVersionTestData() []test {
 	feature := "version"
-	return []Test{
+	return []test{
 		shouldPrintCurrentVersion(feature),
 	}
 }
 
-func shouldPrintCurrentVersion(feature string) Test {
-	return Test{
+func shouldPrintCurrentVersion(feature string) test {
+	return test{
 		Feature: feature,
 		Name:    "shouldPrintCurrentVersion",
 		CmdArgs: []string{"--version"},
