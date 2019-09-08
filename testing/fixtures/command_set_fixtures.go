@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func FeatureSetTestsData() []Test {
+func featureSetTestsData() []Test {
 	feature := "set"
 
 	return []Test{
@@ -30,13 +30,13 @@ commands:
 	expectedOutput := `project: Sample Project
 commands:
   - build: go build
-  - test: go test
+  - Test: go Test
 `
 
 	return Test{
 		Feature: feature,
 		Name:    "shouldSetNewCommand",
-		CmdArgs: []string{"set", "test", "go test"},
+		CmdArgs: []string{"set", "Test", "go Test"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},

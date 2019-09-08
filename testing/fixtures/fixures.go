@@ -2,31 +2,33 @@ package fixtures
 
 import "testing"
 
-type Setup func(dir string) error
-type Assertion func(dir string, actualOutput string, t *testing.T) bool
-type Teardown func(dir string) error
+type setup func(dir string) error
+type assertion func(dir string, actualOutput string, t *testing.T) bool
+type teardown func(dir string) error
 
+//Test represents all the necessary information to run the test case
 type Test struct {
 	Feature   string
 	Name      string
 	CmdArgs   []string
-	Setup     Setup
-	Assertion Assertion
-	Teardown  Teardown
+	Setup     setup
+	Assertion assertion
+	Teardown  teardown
 }
 
+// GetFixtures returns all the fixtures to be tested
 func GetFixtures() []Test {
 
 	routes := [][]Test{
-		FeatureRootTestData(),
-		FeatureExecuteCmdTestData(),
+		featureRootTestData(),
+		featureExecuteCmdTestData(),
 
-		FeatureInitTestsData(),
-		FeatureListTestData(),
-		FeatureSetTestsData(),
-		FeatureUnsetTestsData(),
+		featureInitTestsData(),
+		featureListTestData(),
+		featureSetTestsData(),
+		featureUnsetTestsData(),
 
-		FeatureFlagVersionTestData(),
+		featureFlagVersionTestData(),
 	}
 
 	var r1 []Test

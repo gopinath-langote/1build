@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func FeatureFlagVersionTestData() []Test {
+func featureFlagVersionTestData() []Test {
 	feature := "version"
 	return []Test{
 		shouldPrintCurrentVersion(feature),

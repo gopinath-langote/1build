@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func FeatureInitTestsData() []Test {
+func featureInitTestsData() []Test {
 	feature := "init"
 	return []Test{
 		shouldInitialiseNewProject(feature),
