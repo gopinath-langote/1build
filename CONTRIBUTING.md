@@ -15,17 +15,21 @@ Create or find an issue you would like to implement:
     ```sh
     git clone https://github.com/gopinath-langote/1build
     cd 1build
-    go get -u github.com/golang/dep/cmd/dep
-    dep ensure
+    
+    go build 
     ```
 
 2. Make sure that all the existing tests are passed, extend tests if needed
     ```sh
     go test -v -cover github.com/gopinath-langote/1build/testing -run . 
     ```
+    
+    - Alternatively `install` 1build from releases to get `1build` configuration for this project
+    
 3. Project uses major library to build app - [cobra](https://github.com/spf13/cobra)
-4. Update necessary documents if needed – Readme etc. 
-5. Submit pull request
-6. Make sure all the checks are passing
-7. Wait for maintainers to review the code
-8. Thanks for you contribution :smile:
+4. Project uses - [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
+5. Update necessary documents if needed – Readme etc. 
+6. Submit pull request
+7. Make sure all the checks are passing
+8. Wait for maintainers to review the code
+9. Thanks for you contribution :smile:

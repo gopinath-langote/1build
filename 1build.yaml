@@ -1,3 +1,4 @@
 project: gopi
 commands:
   - test: go test -v -cover github.com/gopinath-langote/1build/testing -run . GOCACHE=off
+  - build: go build
