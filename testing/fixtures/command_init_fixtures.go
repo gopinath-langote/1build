@@ -1,11 +1,12 @@
 package fixtures
 
 import (
+	"io/ioutil"
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func featureInitTestsData() []Test {

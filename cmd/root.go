@@ -23,7 +23,7 @@ var rootCmd = &cobra.Command{
 		if len(args) < 1 {
 			listCmd.Run(cmd, args)
 		} else {
-			exec.ExecuteCommands(args...)
+			exec.ExecutePlan(args...)
 		}
 	},
 }
