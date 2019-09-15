@@ -27,7 +27,7 @@ project: Sample Project
 commands:
   - build: echo building project
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 -----    ---------------------
 Phase    Command
 -----    ---------------------
@@ -85,7 +85,7 @@ before: echo running pre-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 ------    ------------------------
 Phase     Command
 ------    ------------------------
@@ -118,7 +118,7 @@ after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 -----    -------------------------
 Phase    Command
 -----    -------------------------
@@ -152,7 +152,7 @@ after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 ------    -------------------------
 Phase     Command
 ------    -------------------------
@@ -188,7 +188,7 @@ after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 ------    -------------------------
 Phase     Command
 ------    -------------------------
@@ -223,7 +223,7 @@ after: echo running post-command
 commands:
   - build: invalid_command
 `
-	expectedOutput := `Execution plan
+	expectedOutput := `
 ------    -------------------------
 Phase     Command
 ------    -------------------------

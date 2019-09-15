@@ -131,7 +131,7 @@ func (executionPlan *OneBuildExecutionPlan) hasCommands() bool {
 
 func (executionPlan *OneBuildExecutionPlan) print() {
 	fmt.Println()
-	boldGreeen.Println("Execution plan")
+	boldGreeen.Println("Execution plan (executed in ordered sequence)")
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	maxPhaseName := "Phase"
