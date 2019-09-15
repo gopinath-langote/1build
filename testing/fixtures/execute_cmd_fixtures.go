@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
+	"github.com/logrusorgru/aurora"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -36,7 +37,7 @@ build    echo building project
 
 building project
 
-SUCCESS
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -58,7 +59,7 @@ commands:
   - build: echo building project
 `
 
-	expectedOutput := `Error building exectuion plan. Command "random" not found.
+	expectedOutput := aurora.Red("\nError building exectuion plan. Command \"random\" not found.").Bold().String() + `
 --------------------------------------------------
 project: Sample Project
 commands:
@@ -96,7 +97,7 @@ build     echo building project
 running pre-command
 building project
 
-SUCCESS
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -129,7 +130,7 @@ after    echo running post-command
 building project
 running post-command
 
-SUCCESS
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -165,7 +166,7 @@ running pre-command
 building project
 running post-command
 
-SUCCESS
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -199,7 +200,7 @@ after     echo running post-command
 
 
 -----------------------------------------------------------------------------------------------------------
-Execution failed during phase "before" - Execution of the script "exit 10" returned non-zero exit code : 10
+` + aurora.Red("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10").Bold().String() + `
 -----------------------------------------------------------------------------------------------------------
 `
 	return Test{
@@ -235,7 +236,7 @@ after     echo running post-command
 running pre-command
 
 -------------------------------------------------------------------------------------------------------------------
-Execution failed during phase "build" - Execution of the script "invalid_command" returned non-zero exit code : 127
+` + aurora.Red("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127").Bold().String() + `
 -------------------------------------------------------------------------------------------------------------------
 `
 	return Test{

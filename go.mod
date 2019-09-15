@@ -6,8 +6,8 @@ require (
 	github.com/codegangsta/inject v0.0.0-20140425184007-37d7f8432a3e
 	github.com/codeskyblue/go-sh v0.0.0-20170112005953-b097669b1569
 	github.com/davecgh/go-spew v1.1.1
-	github.com/fatih/color v1.7.0
 	github.com/inconshreveable/mousetrap v1.0.0
+	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/mattn/go-runewidth v0.0.4

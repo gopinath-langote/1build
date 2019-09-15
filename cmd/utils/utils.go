@@ -5,12 +5,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/fatih/color"
+	"github.com/logrusorgru/aurora"
 	rune "github.com/mattn/go-runewidth"
 )
-
-var red = color.New(color.FgRed)
-var boldRed = red.Add(color.Bold)
 
 // DASH return dashes with fixed lenght
 func DASH() string {
@@ -34,12 +31,12 @@ func Println(text string) {
 
 // PrintErr prints error on the console
 func PrintErr(err error) {
-	boldRed.Println(err)
+	fmt.Println(err)
 }
 
 // PrintlnErr prints error line to console in bold Red
 func PrintlnErr(text string) {
-	boldRed.Println("\n" + text)
+	fmt.Println(aurora.Red("\n" + text).Bold())
 }
 
 // PrintlnDashedErr prints error line to console in bold Red with dashes above and below
@@ -47,7 +44,7 @@ func PrintlnDashedErr(text string) {
 	errDash := DashesMatchingTextLength(text)
 	fmt.Println()
 	fmt.Println(errDash)
-	boldRed.Println(text)
+	fmt.Println(aurora.Red(text).Bold())
 	fmt.Println(errDash)
 }
 

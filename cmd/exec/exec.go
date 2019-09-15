@@ -6,12 +6,10 @@ import (
 	"text/tabwriter"
 
 	sh "github.com/codeskyblue/go-sh"
-	"github.com/fatih/color"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
+	"github.com/logrusorgru/aurora"
 )
-
-var boldGreeen = color.New(color.FgHiGreen).Add(color.Bold)
 
 // ExecutePlan executes the Execution plan
 func ExecutePlan(commands ...string) {
@@ -40,7 +38,7 @@ func ExecutePlan(commands ...string) {
 	}
 
 	fmt.Println()
-	boldGreeen.Println("SUCCESS")
+	fmt.Println(aurora.BrightGreen("SUCCESS").Bold())
 
 }
 
@@ -131,7 +129,7 @@ func (executionPlan *OneBuildExecutionPlan) hasCommands() bool {
 
 func (executionPlan *OneBuildExecutionPlan) print() {
 	fmt.Println()
-	boldGreeen.Println("Execution plan (executed in ordered sequence)")
+	fmt.Println(aurora.BrightGreen("Execution plan (executed in ordered sequence)").Bold().Underline())
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	maxPhaseName := "Phase"
