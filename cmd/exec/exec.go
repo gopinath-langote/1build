@@ -78,7 +78,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 		if executionCommand == "" {
 			utils.PrintlnErr("Error building exectuion plan. Command \"" + name + "\" not found.")
 			config.PrintConfiguration(onebuildConfig)
-			utils.Exit(1)
+			utils.Exit(127)
 		}
 		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{name, executionCommand, bashCommand(sh.NewSession(), executionCommand)})
 	}
