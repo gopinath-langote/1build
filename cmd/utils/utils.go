@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"text/tabwriter"
 
+	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/logrusorgru/aurora"
 	rune "github.com/mattn/go-runewidth"
 )
@@ -72,4 +74,65 @@ func SliceIndex(limit int, predicate func(i int) bool) int {
 		}
 	}
 	return -1
+}
+
+// PrintExecutionPlan prints a formatted executoin plan to console
+func PrintExecutionPlan(executionPlan models.OneBuildExecutionPlan) {
+	fmt.Println()
+	fmt.Println(aurora.BrightGreen("Execution plan (executed in ordered sequence)").Bold().Underline())
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
+
+	maxPhaseName := "Phase"
+	maxCommand := "Command"
+
+	if executionPlan.HasBefore() {
+		maxPhaseName = executionPlan.Before.Name
+		maxCommand = executionPlan.Before.Command
+	}
+
+	if executionPlan.HasCommands() {
+		for _, command := range executionPlan.Commands {
+			if len(command.Name) > len(maxPhaseName) {
+				maxPhaseName = command.Name
+			}
+			if len(command.Command) > len(maxCommand) {
+				maxCommand = command.Command
+			}
+		}
+	}
+
+	if executionPlan.HasAfter() {
+		command := executionPlan.After
+		if len(command.Name) > len(maxPhaseName) {
+			maxPhaseName = command.Name
+		}
+		if len(command.Command) > len(maxCommand) {
+			maxCommand = command.Command
+		}
+	}
+
+	phaseDashes := DashesMatchingTextLength(maxPhaseName)
+	commandDashes := DashesMatchingTextLength(maxCommand)
+
+	fmt.Fprintf(w, "%s\t%s\n", phaseDashes, commandDashes)
+	fmt.Fprintln(w, "Phase\tCommand")
+	fmt.Fprintf(w, "%s\t%s\n", phaseDashes, commandDashes)
+
+	if executionPlan.HasBefore() {
+		fmt.Fprintln(w, fmt.Sprintf("%s\t%s", executionPlan.Before.Name, executionPlan.Before.Command))
+	}
+
+	if executionPlan.HasCommands() {
+		for _, command := range executionPlan.Commands {
+			fmt.Fprintln(w, fmt.Sprintf("%s\t%s", command.Name, command.Command))
+		}
+	}
+
+	if executionPlan.HasAfter() {
+		fmt.Fprintln(w, fmt.Sprintf("%s\t%s", executionPlan.After.Name, executionPlan.After.Command))
+	}
+
+	w.Flush()
+	fmt.Println()
+	fmt.Println()
 }
