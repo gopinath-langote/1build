@@ -10,12 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Join Slack Chat` button to the Readme file. 
 - Github action - workflow for CI/CD
 ### Changed
+- Prints well formatted execution plan at start of the execution
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+- Fixes the failure message to be more relavant and includes exit-code
 
 ### Security
 

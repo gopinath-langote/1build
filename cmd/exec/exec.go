@@ -1,69 +1,44 @@
 package exec
 
 import (
-	"errors"
+	"fmt"
 
-	"github.com/codeskyblue/go-sh"
+	sh "github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
+	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/gopinath-langote/1build/cmd/utils"
+	"github.com/logrusorgru/aurora"
 )
 
-// ExecuteCommands executes given command with before and after is present
-func ExecuteCommands(commands ...string) {
+// ExecutePlan executes the Execution plan
+func ExecutePlan(commands ...string) {
+
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
 		utils.PrintErr(err)
 		return
 	}
-	beforeCmd := configuration.Before
-	afterCmd := configuration.After
 
-	cmdMap, err := createMapOfCommandsToExecute(configuration, commands...)
-	if err != nil {
-		return
+	executionPlan := buildExecutionPlan(configuration, commands...)
+	utils.PrintExecutionPlan(executionPlan)
+
+	if executionPlan.HasBefore() {
+		executeAndStopIfFailed(executionPlan.Before)
 	}
 
-	printMessage(cmdMap, beforeCmd, afterCmd)
-
-	if beforeCmd != "" {
-		err := executeAndStopIfFailed(beforeCmd)
-		if err != nil {
-			utils.Println("\nFailed to execute '" + beforeCmd + "'\n")
-			return
-		}
-	}
-	for _, v := range cmdMap {
-		err = executeAndStopIfFailed(v)
-		if err != nil {
-			utils.Println("\nFailed to execute '" + v + "'\n")
-			return
+	if executionPlan.HasCommands() {
+		for _, commandContext := range executionPlan.Commands {
+			executeAndStopIfFailed(commandContext)
 		}
 	}
 
-	if afterCmd != "" {
-		err = executeAndStopIfFailed(afterCmd)
-		if err != nil {
-			utils.Println("\nFailed to execute '" + afterCmd + "'\n")
-			return
-		}
-	}
-}
-
-func printMessage(m map[string]string, beforeCmd string, afterCmd string) {
-	var message = utils.DASH() + "\n"
-
-	if beforeCmd != "" {
-		message = message + "Before: " + beforeCmd + "\n\n"
-	}
-	for k, v := range m {
-		message = message + k + " : " + v + "\n"
+	if executionPlan.HasAfter() {
+		executeAndStopIfFailed(executionPlan.After)
 	}
 
-	if afterCmd != "" {
-		message = message + "\nAfter: " + afterCmd + "\n"
-	}
-	message = message + utils.DASH()
-	utils.Println(message)
+	fmt.Println()
+	fmt.Println(aurora.BrightGreen("SUCCESS").Bold())
+
 }
 
 func getCommandFromName(config config.OneBuildConfiguration, cmd string) string {
@@ -77,22 +52,41 @@ func getCommandFromName(config config.OneBuildConfiguration, cmd string) string 
 	return ""
 }
 
-func createMapOfCommandsToExecute(oneBuildConfiguration config.OneBuildConfiguration, commands ...string) (map[string]string, error) {
-	var cmdMap map[string]string
-	cmdMap = make(map[string]string)
-
-	for _, name := range commands {
-		value := getCommandFromName(oneBuildConfiguration, name)
-		if value == "" {
-			utils.Println("No command '" + name + "' found in config file\n")
-			config.PrintConfiguration(oneBuildConfiguration)
-			return nil, errors.New("")
-		}
-		cmdMap[name] = value
-	}
-	return cmdMap, nil
+func bashCommand(s *sh.Session, command string) *sh.Session {
+	return s.Command("bash", "-c", command)
 }
 
-func executeAndStopIfFailed(command string) error {
-	return sh.NewSession().Command("bash", "-c", command).Run()
+func executeAndStopIfFailed(command *models.CommandContext) {
+	err := command.CommandSession.Run()
+	if err != nil {
+		exitCode := (err.Error())[12:]
+		utils.PrintlnDashedErr("Execution failed during phase \"" + command.Name + "\" - Execution of the script \"" + command.Command + "\" returned non-zero exit code : " + exitCode)
+		utils.ExitWithCode(exitCode)
+	}
+}
+
+func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {
+
+	before := onebuildConfig.Before
+	var executionPlan models.OneBuildExecutionPlan
+	if before != "" {
+		executionPlan.Before = &models.CommandContext{"before", before, bashCommand(sh.NewSession(), before)}
+	}
+
+	for _, name := range commands {
+		executionCommand := getCommandFromName(onebuildConfig, name)
+		if executionCommand == "" {
+			utils.PrintlnErr("Error building exectuion plan. Command \"" + name + "\" not found.")
+			config.PrintConfiguration(onebuildConfig)
+			utils.Exit(127)
+		}
+		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{name, executionCommand, bashCommand(sh.NewSession(), executionCommand)})
+	}
+
+	after := onebuildConfig.After
+	if after != "" {
+		executionPlan.After = &models.CommandContext{"after", after, bashCommand(sh.NewSession(), after)}
+	}
+
+	return executionPlan
 }

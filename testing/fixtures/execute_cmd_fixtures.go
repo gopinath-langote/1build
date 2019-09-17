@@ -1,9 +1,11 @@
 package fixtures
 
 import (
-	"github.com/gopinath-langote/1build/testing/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/gopinath-langote/1build/testing/utils"
+	"github.com/logrusorgru/aurora"
+	"github.com/stretchr/testify/assert"
 )
 
 func featureExecuteCmdTestData() []Test {
@@ -26,10 +28,16 @@ project: Sample Project
 commands:
   - build: echo building project
 `
-	expectedOutput := `--------------------------------------------------
-build : echo building project
---------------------------------------------------
+	expectedOutput := `
+-----    ---------------------
+Phase    Command
+-----    ---------------------
+build    echo building project
+
+
 building project
+
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -51,8 +59,7 @@ commands:
   - build: echo building project
 `
 
-	expectedOutput := `No command 'random' found in config file
-
+	expectedOutput := aurora.Red("\nError building exectuion plan. Command \"random\" not found.").Bold().String() + `
 --------------------------------------------------
 project: Sample Project
 commands:
@@ -79,13 +86,18 @@ before: echo running pre-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `--------------------------------------------------
-Before: echo running pre-command
+	expectedOutput := `
+------    ------------------------
+Phase     Command
+------    ------------------------
+before    echo running pre-command
+build     echo building project
 
-build : echo building project
---------------------------------------------------
+
 running pre-command
 building project
+
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -107,13 +119,18 @@ after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `--------------------------------------------------
-build : echo building project
+	expectedOutput := `
+-----    -------------------------
+Phase    Command
+-----    -------------------------
+build    echo building project
+after    echo running post-command
 
-After: echo running post-command
---------------------------------------------------
+
 building project
 running post-command
+
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -136,16 +153,20 @@ after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `--------------------------------------------------
-Before: echo running pre-command
+	expectedOutput := `
+------    -------------------------
+Phase     Command
+------    -------------------------
+before    echo running pre-command
+build     echo building project
+after     echo running post-command
 
-build : echo building project
 
-After: echo running post-command
---------------------------------------------------
 running pre-command
 building project
 running post-command
+
+` + aurora.BrightGreen("SUCCESS").Bold().String() + `
 `
 	return Test{
 		Feature: feature,
@@ -163,20 +184,24 @@ running post-command
 func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
-before: invalid_command
+before: exit 10
 after: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `--------------------------------------------------
-Before: invalid_command
+	expectedOutput := `
+------    -------------------------
+Phase     Command
+------    -------------------------
+before    exit 10
+build     echo building project
+after     echo running post-command
 
-build : echo building project
 
-After: echo running post-command
---------------------------------------------------
 
-Failed to execute 'invalid_command'
+-----------------------------------------------------------------------------------------------------------
+` + aurora.Red("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10").Bold().String() + `
+-----------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -199,16 +224,20 @@ after: echo running post-command
 commands:
   - build: invalid_command
 `
-	expectedOutput := `--------------------------------------------------
-Before: echo running pre-command
+	expectedOutput := `
+------    -------------------------
+Phase     Command
+------    -------------------------
+before    echo running pre-command
+build     invalid_command
+after     echo running post-command
 
-build : invalid_command
 
-After: echo running post-command
---------------------------------------------------
 running pre-command
 
-Failed to execute 'invalid_command'
+-------------------------------------------------------------------------------------------------------------------
+` + aurora.Red("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127").Bold().String() + `
+-------------------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
