@@ -5,7 +5,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [v2.0.0](https://github.com/gopinath-langote/1build/milestone/7) [DRAFT]
+## [v2.0.0](https://github.com/gopinath-langote/1build/milestone/8) [DRAFT]
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+## [v1.3.0](https://github.com/gopinath-langote/1build/releases/tag/v1.3.0) | 2019-09-24 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/7?closed=1)
 ### Added
 - `Join Slack Chat` button to the Readme file. 
 - Github action - workflow for CI/CD
@@ -20,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixes the failure message to be more relavant and includes exit-code
 
 ### Security
-
 
 ## [v1.2.0](https://github.com/gopinath-langote/1build/releases/tag/v1.2.0) | 2019-07-28 | [Linked Issues](https://github.com/gopinath-langote/1build/milestone/7?closed=1)
 ### Added
