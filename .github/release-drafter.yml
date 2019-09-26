@@ -1,16 +1,22 @@
 name-template: v$NEXT_MINOR_VERSION
 tag-template: v$NEXT_MINOR_VERSION
 categories:
-  - title: 🚀 Added
-    label: new_feature
-  - title: 📦 Changed
-    lable: enhancement
-  - title: 🐛 Deprecated
-    lable: deprecate
-  - title: 🚮 Removed
-    label: remove
-  - title: 🔐 Security
-    label: security
+  - title: '🚀 Added'
+    labels:
+      - 'new_feature'
+  - title: '📦 Changed'
+    label:
+      - 'enhancement'
+  - title: '🐛 Deprecated'
+    label:
+      - 'deprecate'
+  - title: '🚮 Removed'
+    label:
+      - 'remove'
+  - title: '🔐 Security'
+    label:
+      - 'security'
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR '
 template: |
   ## Changelog
 
