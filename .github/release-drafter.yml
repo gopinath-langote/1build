@@ -1,0 +1,19 @@
+name-template: v$NEXT_MINOR_VERSION
+tag-template: v$NEXT_MINOR_VERSION
+categories:
+  - title: 🚀 Added
+    label: new_feature
+  - title: 📦 Changed
+    lable: enhancement
+  - title: 🐛 Deprecated
+    lable: deprecate
+  - title: 🚮 Removed
+    label: remove
+  - title: 🔐 Security
+    label: security
+template: |
+  ## Changes
+
+  $CHANGES
+
+  $CONTRIBUTORS
