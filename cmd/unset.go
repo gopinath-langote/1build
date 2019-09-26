@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"regexp"
+	"strings"
 
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -44,13 +45,20 @@ This will update the current project configuration file.`,
 			return
 		}
 
+		var commandsNotFound []string
+
 		for _, commandName := range args {
 			index := indexOfCommandIfPresent(configuration, commandName)
 			if index == -1 {
-				utils.Println("Command '" + commandName + "' not found")
+				commandsNotFound = append(commandsNotFound, commandName)
 			} else {
 				configuration.Commands = removeCommandByIndex(configuration, index)
 			}
+		}
+
+		if len(commandsNotFound) != 0 {
+			errorMsg := "Following command(s) not found: " + strings.Join(commandsNotFound, ", ")
+			utils.PrintlnErr(errorMsg)
 		}
 
 		_ = config.WriteConfigFile(configuration)
