@@ -20,7 +20,7 @@ func featureInitTestsData() []Test {
 func shouldInitialiseNewProject(feature string) Test {
 	expectedOutput := `project: trial
 commands:
-  - build: echo '--Running build'
+  - build: echo 'Running build'
 `
 	return Test{
 		Feature: feature,
