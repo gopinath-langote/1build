@@ -21,7 +21,7 @@ For example:
   1build unset test
 
 This will update the current project configuration file.`,
-	Args: cobra.ExactArgs(1),
+	Args: cobra.MinimumNArgs(1),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := config.LoadOneBuildConfiguration()
 		if err != nil {
@@ -38,21 +38,21 @@ This will update the current project configuration file.`,
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		commandName := args[0]
-
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
 			utils.PrintErr(err)
 			return
 		}
 
-		index := indexOfCommandIfPresent(configuration, commandName)
-		if index == -1 {
-			utils.Println("Command '" + commandName + "' not found")
-			return
+		for _, commandName := range args {
+			index := indexOfCommandIfPresent(configuration, commandName)
+			if index == -1 {
+				utils.Println("Command '" + commandName + "' not found")
+			} else {
+				configuration.Commands = removeCommandByIndex(configuration, index)
+			}
 		}
 
-		configuration.Commands = removeCommandByIndex(configuration, index)
 		_ = config.WriteConfigFile(configuration)
 	},
 }
