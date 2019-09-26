@@ -12,8 +12,10 @@ categories:
   - title: 🔐 Security
     label: security
 template: |
-  ## Changes
+  ## Changelog
 
   $CHANGES
 
+  ## Contributos
+  
   $CONTRIBUTORS
