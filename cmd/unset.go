@@ -46,6 +46,7 @@ This will update the current project configuration file.`,
 		}
 
 		var commandsNotFound []string
+		var configIsChanged bool
 
 		for _, commandName := range args {
 			index := indexOfCommandIfPresent(configuration, commandName)
@@ -53,6 +54,7 @@ This will update the current project configuration file.`,
 				commandsNotFound = append(commandsNotFound, commandName)
 			} else {
 				configuration.Commands = removeCommandByIndex(configuration, index)
+				configIsChanged = true
 			}
 		}
 
@@ -61,7 +63,9 @@ This will update the current project configuration file.`,
 			utils.PrintlnErr(errorMsg)
 		}
 
-		_ = config.WriteConfigFile(configuration)
+		if configIsChanged {
+			_ = config.WriteConfigFile(configuration)
+		}
 	},
 }
 
