@@ -11,5 +11,4 @@ Please list all decencies introduced in this PR if any with reason.
 ## Checklist:
 
 - [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have updated the [changelog draft](https://github.com/gopinath-langote/1build/blob/master/docs/CHANGELOG.md) for corresponding release
 - [ ] I have update README (If needed)
