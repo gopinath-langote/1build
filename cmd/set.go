@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"regexp"
 
 	"github.com/gopinath-langote/1build/cmd/config"
@@ -36,7 +37,7 @@ This will update the current project configuration file.`,
 		matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
 
 		if !matched {
-			utils.Println("1build set: '" + commandName + "' is not a valid command name. See '1build set --help'.")
+			fmt.Println("1build set: '" + commandName + "' is not a valid command name. See '1build set --help'.")
 			utils.ExitError()
 		}
 	},

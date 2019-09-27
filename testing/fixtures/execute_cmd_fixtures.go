@@ -60,11 +60,11 @@ commands:
 `
 
 	expectedOutput := aurora.Red("\nError building execution plan. Command \"random\" not found.").Bold().String() + `
---------------------------------------------------
+------------------------------------------------------------------------
 project: Sample Project
 commands:
 build | echo building project
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,

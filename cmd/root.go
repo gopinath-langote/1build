@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-// Execute entrypoint for cobra app
+// Execute entry-point for cobra app
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		utils.PrintErr(err)
