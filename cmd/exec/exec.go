@@ -40,21 +40,6 @@ func ExecutePlan(commands ...string) {
 
 }
 
-func getCommandFromName(config config.OneBuildConfiguration, cmd string) string {
-	for _, command := range config.Commands {
-		for k, v := range command {
-			if k == cmd {
-				return v
-			}
-		}
-	}
-	return ""
-}
-
-func bashCommand(s *sh.Session, command string) *sh.Session {
-	return s.Command("bash", "-c", command)
-}
-
 func executeAndStopIfFailed(command *models.CommandContext) {
 	err := command.CommandSession.Run()
 	if err != nil {
@@ -69,23 +54,30 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	before := onebuildConfig.Before
 	var executionPlan models.OneBuildExecutionPlan
 	if before != "" {
-		executionPlan.Before = &models.CommandContext{"before", before, bashCommand(sh.NewSession(), before)}
+		executionPlan.Before = &models.CommandContext{
+			Name: "before", Command: before, CommandSession: bashCommand(sh.NewSession(), before)}
 	}
 
 	for _, name := range commands {
-		executionCommand := getCommandFromName(onebuildConfig, name)
+		executionCommand := onebuildConfig.GetCommand(name)
 		if executionCommand == "" {
 			utils.CPrintlnErr("Error building execution plan. Command \"" + name + "\" not found.")
-			config.PrintConfiguration(onebuildConfig)
+			onebuildConfig.Print()
 			utils.Exit(127)
 		}
-		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{name, executionCommand, bashCommand(sh.NewSession(), executionCommand)})
+		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{
+			Name: name, Command: executionCommand, CommandSession: bashCommand(sh.NewSession(), executionCommand)})
 	}
 
 	after := onebuildConfig.After
 	if after != "" {
-		executionPlan.After = &models.CommandContext{"after", after, bashCommand(sh.NewSession(), after)}
+		executionPlan.After = &models.CommandContext{
+			Name: "after", Command: after, CommandSession: bashCommand(sh.NewSession(), after)}
 	}
 
 	return executionPlan
+}
+
+func bashCommand(s *sh.Session, command string) *sh.Session {
+	return s.Command("bash", "-c", command)
 }

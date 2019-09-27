@@ -16,7 +16,7 @@ var listCmd = &cobra.Command{
 			utils.PrintErr(err)
 			return
 		}
-		config.PrintConfiguration(oneBuildConfig)
+		oneBuildConfig.Print()
 	},
 }
 
