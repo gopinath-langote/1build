@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"regexp"
+	"strings"
 
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -11,17 +12,18 @@ import (
 
 var unsetCmd = &cobra.Command{
 	Use:   "unset",
-	Short: "Remove the existing command in the current project configuration",
-	Long: `Remove the existing command in the current project configuration
+	Short: "Remove one or more existing command(s) in the current project configuration",
+	Long: `Remove one or more existing command(s) in the current project configuration
 
 - command name is a one word: without spaces, dashes and underscores are allowed
 
 For example:
 
   1build unset test
+  1build unset build lint other-command
 
 This will update the current project configuration file.`,
-	Args: cobra.ExactArgs(1),
+	Args: cobra.MinimumNArgs(1),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := config.LoadOneBuildConfiguration()
 		if err != nil {
@@ -38,22 +40,33 @@ This will update the current project configuration file.`,
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		commandName := args[0]
-
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
 			utils.PrintErr(err)
 			return
 		}
 
-		index := indexOfCommandIfPresent(configuration, commandName)
-		if index == -1 {
-			utils.Println("Command '" + commandName + "' not found")
-			return
+		var commandsNotFound []string
+		var configIsChanged bool
+
+		for _, commandName := range args {
+			index := indexOfCommandIfPresent(configuration, commandName)
+			if index == -1 {
+				commandsNotFound = append(commandsNotFound, commandName)
+			} else {
+				configuration.Commands = removeCommandByIndex(configuration, index)
+				configIsChanged = true
+			}
 		}
 
-		configuration.Commands = removeCommandByIndex(configuration, index)
-		_ = config.WriteConfigFile(configuration)
+		if len(commandsNotFound) != 0 {
+			errorMsg := "Following command(s) not found: " + strings.Join(commandsNotFound, ", ")
+			utils.PrintlnErr(errorMsg)
+		}
+
+		if configIsChanged {
+			_ = config.WriteConfigFile(configuration)
+		}
 	},
 }
 
