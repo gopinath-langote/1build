@@ -76,7 +76,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	for _, name := range commands {
 		executionCommand := getCommandFromName(onebuildConfig, name)
 		if executionCommand == "" {
-			utils.PrintlnErr("Error building exectuion plan. Command \"" + name + "\" not found.")
+			utils.PrintlnErr("Error building execution plan. Command \"" + name + "\" not found.")
 			config.PrintConfiguration(onebuildConfig)
 			utils.Exit(127)
 		}

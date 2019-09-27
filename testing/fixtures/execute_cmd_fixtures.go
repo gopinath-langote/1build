@@ -59,7 +59,7 @@ commands:
   - build: echo building project
 `
 
-	expectedOutput := aurora.Red("\nError building exectuion plan. Command \"random\" not found.").Bold().String() + `
+	expectedOutput := aurora.Red("\nError building execution plan. Command \"random\" not found.").Bold().String() + `
 --------------------------------------------------
 project: Sample Project
 commands:

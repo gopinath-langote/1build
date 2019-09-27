@@ -11,12 +11,12 @@ import (
 	rune "github.com/mattn/go-runewidth"
 )
 
-// DASH return dashes with fixed lenght
+// DASH return dashes with fixed length
 func DASH() string {
 	return "--------------------------------------------------"
 }
 
-// DashesMatchingTextLength returns a string of '-' matching the length of provided stirng
+// DashesMatchingTextLength returns a string of '-' matching the length of provided string
 func DashesMatchingTextLength(text string) string {
 	width := rune.StringWidth(text)
 	dashString := ""
@@ -55,7 +55,7 @@ func Exit(code int) {
 	os.Exit(code)
 }
 
-// ExitWithCode exits the current process with specified exit code provided as stirng
+// ExitWithCode exits the current process with specified exit code provided as string
 func ExitWithCode(code string) {
 	exitCode, _ := strconv.Atoi(code)
 	os.Exit(exitCode)
@@ -76,7 +76,7 @@ func SliceIndex(limit int, predicate func(i int) bool) int {
 	return -1
 }
 
-// PrintExecutionPlan prints a formatted executoin plan to console
+// PrintExecutionPlan prints a formatted execution plan to console
 func PrintExecutionPlan(executionPlan models.OneBuildExecutionPlan) {
 	fmt.Println()
 	fmt.Println(aurora.BrightGreen("Execution plan (executed in ordered sequence)").Bold().Underline())
