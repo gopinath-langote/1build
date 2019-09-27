@@ -7,7 +7,6 @@ import (
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/gopinath-langote/1build/cmd/utils"
-	"github.com/logrusorgru/aurora"
 )
 
 // ExecutePlan executes the Execution plan
@@ -23,21 +22,24 @@ func ExecutePlan(commands ...string) {
 	utils.PrintExecutionPlan(executionPlan)
 
 	if executionPlan.HasBefore() {
+		utils.PrintPhaseBanner(executionPlan.Before)
 		executeAndStopIfFailed(executionPlan.Before)
 	}
 
 	if executionPlan.HasCommands() {
 		for _, commandContext := range executionPlan.Commands {
+			utils.PrintPhaseBanner(commandContext)
 			executeAndStopIfFailed(commandContext)
 		}
 	}
 
 	if executionPlan.HasAfter() {
+		utils.PrintPhaseBanner(executionPlan.After)
 		executeAndStopIfFailed(executionPlan.After)
 	}
 
 	fmt.Println()
-	fmt.Println(aurora.BrightGreen("SUCCESS").Bold())
+	utils.PrintSuccessBold("SUCCESS")
 
 }
 

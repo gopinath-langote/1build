@@ -4,12 +4,20 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"text/tabwriter"
 
 	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/logrusorgru/aurora"
-	rune "github.com/mattn/go-runewidth"
+	runeWidth "github.com/mattn/go-runewidth"
 )
+
+var colors aurora.Aurora
+
+func init() {
+	enableColors, _ := os.LookupEnv("DISABLE_1B_COLORS")
+	colors = aurora.NewAurora(enableColors == "" || enableColors == "true")
+}
 
 // DASH return dashes with fixed length
 func DASH() string {
@@ -18,12 +26,16 @@ func DASH() string {
 
 // DashesMatchingTextLength returns a string of '-' matching the length of provided string
 func DashesMatchingTextLength(text string) string {
-	width := rune.StringWidth(text)
-	dashString := ""
-	for i := 1; i <= width; i++ {
-		dashString = dashString + "-"
+	width := runeWidth.StringWidth(text)
+	return dashOfLength(width)
+}
+
+func dashOfLength(length int) string {
+	dashString := make([]byte, length)
+	for i := 0; i < length; i++ {
+		dashString[i] = '-'
 	}
-	return dashString
+	return string(dashString)
 }
 
 // Println prints text on the console
@@ -36,9 +48,14 @@ func PrintErr(err error) {
 	fmt.Println(err)
 }
 
+//PrintSuccessBold prints success message (in bright greed bold)
+func PrintSuccessBold(s string) {
+	fmt.Println(colors.BrightGreen(s).Bold())
+}
+
 // PrintlnErr prints error line to console in bold Red
 func PrintlnErr(text string) {
-	fmt.Println(aurora.Red("\n" + text).Bold())
+	fmt.Println(colors.Red("\n" + text).Bold())
 }
 
 // PrintlnDashedErr prints error line to console in bold Red with dashes above and below
@@ -46,7 +63,7 @@ func PrintlnDashedErr(text string) {
 	errDash := DashesMatchingTextLength(text)
 	fmt.Println()
 	fmt.Println(errDash)
-	fmt.Println(aurora.Red(text).Bold())
+	fmt.Println(colors.Red(text).Bold())
 	fmt.Println(errDash)
 }
 
@@ -79,7 +96,7 @@ func SliceIndex(limit int, predicate func(i int) bool) int {
 // PrintExecutionPlan prints a formatted execution plan to console
 func PrintExecutionPlan(executionPlan models.OneBuildExecutionPlan) {
 	fmt.Println()
-	fmt.Println(aurora.BrightGreen("Execution plan (executed in ordered sequence)").Bold().Underline())
+	fmt.Println(colors.BrightGreen("Execution plan (executed in ordered sequence)").Bold().Underline())
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	maxPhaseName := "Phase"
@@ -133,6 +150,17 @@ func PrintExecutionPlan(executionPlan models.OneBuildExecutionPlan) {
 	}
 
 	w.Flush()
-	fmt.Println()
-	fmt.Println()
+}
+
+//PrintPhaseBanner prints banner for phase
+func PrintPhaseBanner(command *models.CommandContext) {
+	coloredPhaseName := colors.Cyan("[ " + command.Name + " ]").String()
+	coloredPhaseNameWidth := runeWidth.StringWidth(coloredPhaseName)
+	dashPrefixes := dashOfLength((72 - coloredPhaseNameWidth) / 2)
+	dashPostfixes := dashOfLength(72 - runeWidth.StringWidth(dashPrefixes+coloredPhaseName))
+	finalBanner := fmt.Sprintf("\n%s%s%s", dashPostfixes, coloredPhaseName, dashPostfixes)
+	if runeWidth.StringWidth(finalBanner) != 72 {
+		finalBanner = strings.TrimSuffix(finalBanner, "-")
+	}
+	fmt.Println(finalBanner)
 }
