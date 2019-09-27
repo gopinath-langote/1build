@@ -21,12 +21,12 @@ func (executionPlan *OneBuildExecutionPlan) HasBefore() bool {
 	return executionPlan.Before != nil
 }
 
-// HasBefore return true if plan contains after section else false
+// HasAfter return true if plan contains after section else false
 func (executionPlan *OneBuildExecutionPlan) HasAfter() bool {
 	return executionPlan.After != nil
 }
 
-// HasBefore return true if plan contains command(s) else false
+// HasCommands return true if plan contains command(s) else false
 func (executionPlan *OneBuildExecutionPlan) HasCommands() bool {
 	return len(executionPlan.Commands) > 0
 }
