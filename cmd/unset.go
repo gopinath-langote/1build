@@ -19,7 +19,8 @@ var unsetCmd = &cobra.Command{
 
 For example:
 
-  1build unset test build
+  1build unset test
+  1build unset build lint other-command
 
 This will update the current project configuration file.`,
 	Args: cobra.MinimumNArgs(1),
