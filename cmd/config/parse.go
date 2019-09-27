@@ -47,8 +47,20 @@ commands:
 	return configuration, nil
 }
 
-// PrintConfiguration prints the configuration to the console
-func PrintConfiguration(oneBuildConfiguration OneBuildConfiguration) {
+// GetCommand return command by name
+func (oneBuildConfiguration *OneBuildConfiguration) GetCommand(name string) (value string) {
+	for _, command := range oneBuildConfiguration.Commands {
+		for k, v := range command {
+			if k == name {
+				return v
+			}
+		}
+	}
+	return
+}
+
+// Print prints the configuration to the console
+func (oneBuildConfiguration *OneBuildConfiguration) Print() {
 	fmt.Println(utils.BANNER())
 	fmt.Println("project: " + oneBuildConfiguration.Project)
 	if oneBuildConfiguration.Before != "" {

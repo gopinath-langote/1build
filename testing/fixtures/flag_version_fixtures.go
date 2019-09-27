@@ -18,7 +18,7 @@ func shouldPrintCurrentVersion(feature string) Test {
 		Name:    "shouldPrintCurrentVersion",
 		CmdArgs: []string{"--version"},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "1build version 1.1.2")
+			return assert.Contains(t, actualOutput, "1build version 1.3.0")
 		},
 	}
 }
