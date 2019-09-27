@@ -2,11 +2,13 @@ package models
 
 import (
 	"fmt"
-	"github.com/codeskyblue/go-sh"
-	"github.com/gopinath-langote/1build/cmd/utils"
 	"os"
 	"strings"
 	"text/tabwriter"
+
+	"github.com/codeskyblue/go-sh"
+	"github.com/gopinath-langote/1build/cmd/utils"
+	"github.com/logrusorgru/aurora"
 )
 
 // OneBuildExecutionPlan holds all information for the execution strategy
@@ -22,6 +24,13 @@ type CommandContext struct {
 	Command        string
 	CommandSession *sh.Session
 }
+
+const (
+	commandBannerLength = 72
+
+	bannerOpen  = "[ "
+	bannerClose = " ]"
+)
 
 // HasBefore return true if plan contains before section else false
 func (executionPlan *OneBuildExecutionPlan) HasBefore() bool {
@@ -89,4 +98,28 @@ func longestPhaseAndCommandValue(executionPlan *OneBuildExecutionPlan) (string, 
 
 func dashesOfLength(text string) string {
 	return strings.Repeat("-", len(text))
+}
+
+// PrintBanner prints the CommandContext's name in a 72-character banner
+func (c *CommandContext) PrintBanner() {
+	centreLength := len(c.Name) + len(bannerOpen) + len(bannerClose)
+	totalDashes := commandBannerLength - centreLength
+
+	// Intentional integer division
+	numDashesLeft := totalDashes / 2
+	numDashesRight := totalDashes / 2
+
+	// If we need an extra dash, let's add it on the right.
+	// This way, similar length aliases will line up
+	if totalDashes%2 == 1 {
+		numDashesRight++
+	}
+
+	fmt.Printf("%s%s%s%s%s\n",
+		strings.Repeat("-", numDashesLeft),
+		bannerOpen,
+		aurora.BrightCyan(c.Name),
+		bannerClose,
+		strings.Repeat("-", numDashesRight),
+	)
 }

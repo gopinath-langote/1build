@@ -41,6 +41,7 @@ func ExecutePlan(commands ...string) {
 }
 
 func executeAndStopIfFailed(command *models.CommandContext) {
+	command.PrintBanner()
 	err := command.CommandSession.Run()
 	if err != nil {
 		exitCode := (err.Error())[12:]
