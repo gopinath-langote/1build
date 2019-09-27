@@ -18,7 +18,7 @@ func CPrintBold(text string) {
 
 // CPrintBoldUnderLine color print in bold and underline
 func CPrintBoldUnderLine(text string) {
-	aurora.BrightCyan(text).Bold().Underline()
+	fmt.Println(aurora.BrightCyan(text).Bold().Underline())
 }
 
 // PrintErr prints error on the console
