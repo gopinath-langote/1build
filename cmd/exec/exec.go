@@ -3,11 +3,10 @@ package exec
 import (
 	"fmt"
 
-	sh "github.com/codeskyblue/go-sh"
+	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/gopinath-langote/1build/cmd/utils"
-	"github.com/logrusorgru/aurora"
 )
 
 // ExecutePlan executes the Execution plan
@@ -20,7 +19,7 @@ func ExecutePlan(commands ...string) {
 	}
 
 	executionPlan := buildExecutionPlan(configuration, commands...)
-	utils.PrintExecutionPlan(executionPlan)
+	executionPlan.Print()
 
 	if executionPlan.HasBefore() {
 		executeAndStopIfFailed(executionPlan.Before)
@@ -37,7 +36,7 @@ func ExecutePlan(commands ...string) {
 	}
 
 	fmt.Println()
-	fmt.Println(aurora.BrightGreen("SUCCESS").Bold())
+	utils.CPrintBold("SUCCESS")
 
 }
 
@@ -76,7 +75,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	for _, name := range commands {
 		executionCommand := getCommandFromName(onebuildConfig, name)
 		if executionCommand == "" {
-			utils.PrintlnErr("Error building execution plan. Command \"" + name + "\" not found.")
+			utils.CPrintlnErr("Error building execution plan. Command \"" + name + "\" not found.")
 			config.PrintConfiguration(onebuildConfig)
 			utils.Exit(127)
 		}

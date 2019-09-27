@@ -33,12 +33,12 @@ func shouldFailIfYamlFileIsNotInCorrectYamlFormat(feature string) Test {
 		`Unable to parse '1build.yaml' config file. Make sure file is in correct format.
 Sample format is:
 
---------------------------------------------------
+------------------------------------------------------------------------
 project: Sample Project
 commands:
   - build: npm run build
   - lint: eslint
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -54,12 +54,12 @@ commands:
 }
 
 func shouldShowListOfCommandsIfNoCommandSpecified(feature string) Test {
-	commandListMessage := `--------------------------------------------------
+	commandListMessage := `------------------------------------------------------------------------
 project: Sample Project
 commands:
 build | npm run build
 lint | eslint
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	defaultFileContent := `
 project: Sample Project

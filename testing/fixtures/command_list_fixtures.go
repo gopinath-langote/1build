@@ -16,12 +16,12 @@ func featureListTestData() []Test {
 }
 
 func shouldShowListOfCommands(feature string) Test {
-	commandListMessage := `--------------------------------------------------
+	commandListMessage := `------------------------------------------------------------------------
 project: Sample Project
 commands:
 build | npm run build
 lint | eslint
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	defaultFileContent := `
 project: Sample Project
@@ -44,10 +44,10 @@ commands:
 }
 
 func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) Test {
-	emptyCommandListMessage := `--------------------------------------------------
+	emptyCommandListMessage := `------------------------------------------------------------------------
 project: Sample Project
 commands:
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -63,13 +63,13 @@ commands:
 }
 
 func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) Test {
-	expectedOutput := `--------------------------------------------------
+	expectedOutput := `------------------------------------------------------------------------
 project: Sample Project
 before: pre_command
 after: post_command
 commands:
 build | npm run build
---------------------------------------------------
+------------------------------------------------------------------------
 `
 	fileContent := `
 project: Sample Project

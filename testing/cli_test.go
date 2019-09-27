@@ -45,7 +45,7 @@ func TestMain(m *testing.M) {
 	binaryPath = testDir + "/" + binaryName
 	buildBinary(binaryPath)
 
-	fmt.Println(utils2.DASH() + "\nBinary Path:- '" + binaryPath + "'\n" + utils2.DASH())
+	fmt.Println(utils2.BANNER() + "\nBinary Path:- '" + binaryPath + "'\n" + utils2.BANNER())
 
 	exitCode := m.Run()
 
