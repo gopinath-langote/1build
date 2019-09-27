@@ -12,14 +12,14 @@ import (
 
 var unsetCmd = &cobra.Command{
 	Use:   "unset",
-	Short: "Remove the existing command in the current project configuration",
-	Long: `Remove the existing command in the current project configuration
+	Short: "Remove one or more existing command(s) in the current project configuration",
+	Long: `Remove one or more existing command(s) in the current project configuration
 
 - command name is a one word: without spaces, dashes and underscores are allowed
 
 For example:
 
-  1build unset test
+  1build unset test build
 
 This will update the current project configuration file.`,
 	Args: cobra.MinimumNArgs(1),
