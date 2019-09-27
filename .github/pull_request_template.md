@@ -6,9 +6,9 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 ## New dependencies introduced?
 Please list all decencies introduced in this PR if any with reason.
-- Dependency A - Reason
+-   Dependency A - Reason
 
 ## Checklist:
 
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have update README (If needed)
+-   [ ] I have added tests that prove my fix is effective or that my feature works
+-   [ ] I have update README (If needed)
