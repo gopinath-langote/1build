@@ -41,7 +41,6 @@ func (executionPlan *OneBuildExecutionPlan) HasCommands() bool {
 // Print prints execution plan
 func (executionPlan *OneBuildExecutionPlan) Print() {
 	fmt.Println()
-	fmt.Println()
 	utils.CPrintBoldUnderLine("Execution plan")
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
