@@ -40,17 +40,18 @@ of what build tool they use. It will remove the hassle of remembering all those 
 the things that actually matter.
 
 ## Install
-1. Download and unzip [latest release v1.2.0](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
-2. Move the `1build` executable to your `$PATH`.
+1.  Download and unzip [latest release v1.2.0](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
+2.  Move the `1build` executable to your `$PATH`.
 
 ## Usage
 
 ### Configuration
-- Create `1build.yaml` configuration file by 
-  ```console
+-   Create `1build.yaml` configuration file by 
+```console
   1build init --name <your_project_name>
   ```
-- Edit file according to project command list, Example of `1build.yaml` for node project:
+
+-   Edit file according to project command list, Example of `1build.yaml` for node project:
     ```yaml
     project: Sample JVM Project Name
     commands:
@@ -58,33 +59,33 @@ the things that actually matter.
       - test: npm run test
     ```
 
-### Running 1build for the above sample project:
+### Running 1build for the above sample project
 
-- building the project
-  ```console
+-   building the project
+```console
   1build build
   ```
 
-- fix the coding guidelines lint and run tests (executing more than one commands at once)
-  ```console
+-   fix the coding guidelines lint and run tests (executing more than one commands at once)
+```console
   1build lint test
   ```
 
 ### Set new or update existing configuration
 
-- Set new command configuration for `lint` to `"eslint server.js"`
-   ```console
+-   Set new command configuration for `lint` to `"eslint server.js"`
+```console
    1build set lint "eslint server.js"
    ```
 ### Remove/Unset existing configuration
 
-- Unset command configuration for `lint`
-   ```console
+-   Unset command configuration for `lint`
+```console
    1build unset lint
    ```
 
-- To unset multiple commands at once
-  ```console
+-   To unset multiple commands at once
+```console
   1build unset lint test build
   ```
 
@@ -99,8 +100,8 @@ and running or you need to clean up the database after running a test harness.
 This is where `before` & `after` commands are useful. These commands are both optional – 
 you can use one of them, both or neither.
 
-#### Examples:
-1. Setting env variables and cleaning those up
+#### Examples
+1.  Setting env variables and cleaning those up
     ```yaml
     project: Sample JVM Project Name
     before: export VARNAME="my value"
@@ -109,7 +110,7 @@ you can use one of them, both or neither.
       - build: npm run build
     ```
 
-2. Ensure that `Docker` is up and running
+2.  Ensure that `Docker` is up and running
     ```yaml
     project: Containerized Project
     before: ./docker_run.sh
@@ -117,7 +118,7 @@ you can use one of them, both or neither.
       - build: npm run build
     ```
 
-3. Clean up database after some commands
+3.  Clean up database after some commands
      ```yaml
     project: Containerized Project
     after: ./clean_database.sh
@@ -146,8 +147,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Authors
 
-* **Gopinath Langote** - *Initial work & Maintainer* – [Github](https://github.com/gopinath-langote/) –[Twitter](https://twitter.com/GopinathLangote)
-* **Alexander Lukianchuk** - *Maintainer* – [Github](https://github.com/landpro) – [Twitter](https://twitter.com/landpro)
+-   **Gopinath Langote** - *Initial work & Maintainer* – [Github](https://github.com/gopinath-langote/) –[Twitter](https://twitter.com/GopinathLangote)
+-   **Alexander Lukianchuk** - *Maintainer* – [Github](https://github.com/landpro) – [Twitter](https://twitter.com/landpro)
 
 See also the list of [contributors](https://github.com/gopinath-langote/1build/contributors) who participated in this project.
 
