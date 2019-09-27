@@ -83,6 +83,11 @@ the things that actually matter.
    1build unset lint
    ```
 
+- To unset multiple commands at once
+  ```console
+  1build unset lint test build
+  ```
+
 ### Using `before` and `after` commands
 Consider that your project requires some environment variables to set before running any 
 commands and you want to clean up those after running commands. It is a headache to always
