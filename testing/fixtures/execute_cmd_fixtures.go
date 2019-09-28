@@ -1,11 +1,16 @@
 package fixtures
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
 )
+
+func successBanner() string {
+	return strings.Repeat("-", 72) + "\n" + utils.Colored("SUCCESS", utils.CYAN)
+}
 
 func featureExecuteCmdTestData() []Test {
 	feature := "exec"
@@ -37,8 +42,7 @@ build    echo building project
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
@@ -99,8 +103,7 @@ running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
@@ -134,8 +137,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
@@ -173,8 +175,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",

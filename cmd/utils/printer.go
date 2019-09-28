@@ -2,8 +2,10 @@ package utils
 
 import (
 	"fmt"
-	"github.com/logrusorgru/aurora"
 	"strings"
+	"time"
+
+	"github.com/logrusorgru/aurora"
 )
 
 // BANNER return dashes with fixed length - 72
@@ -19,7 +21,7 @@ const (
 	CYAN OneBuildColor = 0
 
 	// RED is used in failure messages
-	RED  OneBuildColor = 1
+	RED OneBuildColor = 1
 )
 
 // ColoredB return text in color with bold format
@@ -54,4 +56,20 @@ func colorize(text string, color OneBuildColor) aurora.Value {
 		coloredText = aurora.Red(text)
 	}
 	return coloredText
+}
+
+// PrintResultsBanner prints result banner at the end of the test
+func PrintResultsBanner(isSuccess bool, startTime time.Time) {
+	timeDelta := time.Since(startTime)
+	result := aurora.BrightCyan("SUCCESS")
+	if !isSuccess {
+		result = aurora.Red("FAILURE")
+	}
+
+	s := fmt.Sprintf("%s - Total Time: %s", result, timeDelta)
+
+	fmt.Println()
+	fmt.Println(BANNER())
+	fmt.Println(s)
+	fmt.Println(BANNER())
 }
