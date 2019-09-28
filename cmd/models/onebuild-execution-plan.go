@@ -26,8 +26,6 @@ type CommandContext struct {
 }
 
 const (
-	commandBannerLength = 72
-
 	bannerOpen  = "[ "
 	bannerClose = " ]"
 )
@@ -100,10 +98,10 @@ func dashesOfLength(text string) string {
 	return strings.Repeat("-", len(text))
 }
 
-// PrintBanner prints the CommandContext's name in a 72-character banner
+// PrintBanner prints the CommandContext's name in a banner of the standard length
 func (c *CommandContext) PrintBanner() {
 	centreLength := len(c.Name) + len(bannerOpen) + len(bannerClose)
-	totalDashes := commandBannerLength - centreLength
+	totalDashes := utils.MaxOutputWidth - centreLength
 
 	// Intentional integer division
 	numDashesLeft := totalDashes / 2
