@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 	"text/tabwriter"
+	"unicode/utf8"
 
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -100,7 +101,9 @@ func dashesOfLength(text string) string {
 
 // PrintBanner prints the CommandContext's name in a banner of the standard length
 func (c *CommandContext) PrintBanner() {
-	centreLength := len(c.Name) + len(bannerOpen) + len(bannerClose)
+	centreLength := utf8.RuneCountInString(c.Name) +
+		utf8.RuneCountInString(bannerOpen) +
+		utf8.RuneCountInString(bannerClose)
 	totalDashes := utils.MaxOutputWidth - centreLength
 
 	// Intentional integer division
