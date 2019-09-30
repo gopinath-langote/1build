@@ -32,7 +32,6 @@ func RecreateTestResourceDirectory(dir string) string {
 }
 
 const (
-	// MaxOutputWidth is the number of spaces to use on a console
 	MaxOutputWidth = 72
 )
 
