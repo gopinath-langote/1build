@@ -35,6 +35,7 @@ Phase    Command
 build    echo building project
 
 
+-------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
 building project
 
 ` + aurora.BrightGreen("SUCCESS").Bold().String() + `
@@ -94,7 +95,9 @@ before    echo running pre-command
 build     echo building project
 
 
+-------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
 running pre-command
+-------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
 building project
 
 ` + aurora.BrightGreen("SUCCESS").Bold().String() + `
@@ -127,7 +130,9 @@ build    echo building project
 after    echo running post-command
 
 
+-------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
 building project
+-------------------------------[ ` + aurora.BrightCyan("after").String() + ` ]--------------------------------
 running post-command
 
 ` + aurora.BrightGreen("SUCCESS").Bold().String() + `
@@ -162,8 +167,11 @@ build     echo building project
 after     echo running post-command
 
 
+-------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
 running pre-command
+-------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
 building project
+-------------------------------[ ` + aurora.BrightCyan("after").String() + ` ]--------------------------------
 running post-command
 
 ` + aurora.BrightGreen("SUCCESS").Bold().String() + `
@@ -198,6 +206,7 @@ build     echo building project
 after     echo running post-command
 
 
+-------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
 
 -----------------------------------------------------------------------------------------------------------
 ` + aurora.Red("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10").Bold().String() + `
@@ -233,7 +242,9 @@ build     invalid_command
 after     echo running post-command
 
 
+-------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
 running pre-command
+-------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
 
 -------------------------------------------------------------------------------------------------------------------
 ` + aurora.Red("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127").Bold().String() + `
