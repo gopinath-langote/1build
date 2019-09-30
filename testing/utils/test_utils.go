@@ -36,10 +36,14 @@ const (
 	MaxOutputWidth = 72
 )
 
+// OneBuildColor represents type for color enum
 type OneBuildColor int
 
 const (
+	// CYAN is 1build's default color standard
 	CYAN OneBuildColor = 0
+
+	// RED is used in failure messages
 	RED  OneBuildColor = 1
 )
 
