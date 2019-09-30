@@ -8,27 +8,29 @@ import (
 
 // BANNER return dashes with fixed length - 72
 func BANNER() string {
-	return "------------------------------------------------------------------------"
+	return strings.Repeat("-", MaxOutputWidth)
 }
 
-// CPrintBold color print in bold
-func CPrintBold(text string) {
-	fmt.Println(aurora.BrightGreen(text).Bold())
+type OneBuildColor int
+
+const (
+	CYAN OneBuildColor = 0
+	RED  OneBuildColor = 1
+)
+
+// ColoredB return text in color with bold format
+func ColoredB(text string, color OneBuildColor) string {
+	return colorize(text, color).Bold().String()
 }
 
-// CPrintBoldUnderLine color print in bold and underline
-func CPrintBoldUnderLine(text string) {
-	fmt.Println(aurora.BrightCyan(text).Bold().Underline())
+// Colored return text in color
+func Colored(text string, color OneBuildColor) string {
+	return colorize(text, color).String()
 }
 
-// PrintErr prints error on the console
-func PrintErr(err error) {
-	fmt.Println(err)
-}
-
-// CPrintlnErr prints error line to console in bold Red
-func CPrintlnErr(text string) {
-	fmt.Println(aurora.Red("\n" + text).Bold())
+// ColoredBU return text in color with bold and underline format
+func ColoredBU(text string, color OneBuildColor) string {
+	return colorize(text, color).Bold().Underline().String()
 }
 
 // PrintlnDashedErr prints error line to console in bold Red with dashes above and below
@@ -36,6 +38,16 @@ func PrintlnDashedErr(text string) {
 	errDash := strings.Repeat("-", len(text))
 	fmt.Println()
 	fmt.Println(errDash)
-	fmt.Println(aurora.Red(text).Bold())
+	fmt.Println(ColoredB(text, RED))
 	fmt.Println(errDash)
+}
+
+func colorize(text string, color OneBuildColor) aurora.Value {
+	var coloredText aurora.Value
+	if color == CYAN {
+		coloredText = aurora.BrightCyan(text)
+	} else {
+		coloredText = aurora.Red(text)
+	}
+	return coloredText
 }

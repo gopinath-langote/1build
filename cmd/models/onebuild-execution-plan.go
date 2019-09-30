@@ -9,7 +9,6 @@ import (
 
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/utils"
-	"github.com/logrusorgru/aurora"
 )
 
 // OneBuildExecutionPlan holds all information for the execution strategy
@@ -49,7 +48,7 @@ func (executionPlan *OneBuildExecutionPlan) HasCommands() bool {
 // Print prints execution plan
 func (executionPlan *OneBuildExecutionPlan) Print() {
 	fmt.Println()
-	utils.CPrintBoldUnderLine("Execution plan")
+	fmt.Println(utils.ColoredBU("Execution plan", utils.CYAN))
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	phase, cmd := longestPhaseAndCommandValue(executionPlan)
@@ -119,7 +118,7 @@ func (c *CommandContext) PrintBanner() {
 	fmt.Printf("%s%s%s%s%s\n",
 		strings.Repeat("-", numDashesLeft),
 		bannerOpen,
-		aurora.BrightCyan(c.Name),
+		utils.Colored(c.Name, utils.CYAN),
 		bannerClose,
 		strings.Repeat("-", numDashesRight),
 	)

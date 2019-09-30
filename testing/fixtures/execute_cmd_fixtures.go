@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
-	"github.com/logrusorgru/aurora"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,10 +34,10 @@ Phase    Command
 build    echo building project
 
 
--------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + aurora.BrightGreen("SUCCESS").Bold().String() + `
+` + utils.ColoredB("SUCCESS", utils.CYAN) + `
 `
 	return Test{
 		Feature: feature,
@@ -60,7 +59,7 @@ commands:
   - build: echo building project
 `
 
-	expectedOutput := aurora.Red("\nError building execution plan. Command \"random\" not found.").Bold().String() + `
+	expectedOutput := utils.ColoredB("\nError building execution plan. Command \"random\" not found.", utils.RED) + `
 ------------------------------------------------------------------------
 project: Sample Project
 commands:
@@ -95,12 +94,12 @@ before    echo running pre-command
 build     echo building project
 
 
--------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
+-------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 running pre-command
--------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + aurora.BrightGreen("SUCCESS").Bold().String() + `
+` + utils.ColoredB("SUCCESS", utils.CYAN) + `
 `
 	return Test{
 		Feature: feature,
@@ -130,12 +129,12 @@ build    echo building project
 after    echo running post-command
 
 
--------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
--------------------------------[ ` + aurora.BrightCyan("after").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + aurora.BrightGreen("SUCCESS").Bold().String() + `
+` + utils.ColoredB("SUCCESS", utils.CYAN) + `
 `
 	return Test{
 		Feature: feature,
@@ -167,14 +166,14 @@ build     echo building project
 after     echo running post-command
 
 
--------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
+-------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 running pre-command
--------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
--------------------------------[ ` + aurora.BrightCyan("after").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + aurora.BrightGreen("SUCCESS").Bold().String() + `
+` + utils.ColoredB("SUCCESS", utils.CYAN) + `
 `
 	return Test{
 		Feature: feature,
@@ -206,10 +205,10 @@ build     echo building project
 after     echo running post-command
 
 
--------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
+-------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 
 -----------------------------------------------------------------------------------------------------------
-` + aurora.Red("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10").Bold().String() + `
+` + utils.ColoredB("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10", utils.RED) + `
 -----------------------------------------------------------------------------------------------------------
 `
 	return Test{
@@ -242,12 +241,12 @@ build     invalid_command
 after     echo running post-command
 
 
--------------------------------[ ` + aurora.BrightCyan("before").String() + ` ]-------------------------------
+-------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 running pre-command
--------------------------------[ ` + aurora.BrightCyan("build").String() + ` ]--------------------------------
+-------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 
 -------------------------------------------------------------------------------------------------------------------
-` + aurora.Red("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127").Bold().String() + `
+` + utils.ColoredB("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127", utils.RED) + `
 -------------------------------------------------------------------------------------------------------------------
 `
 	return Test{

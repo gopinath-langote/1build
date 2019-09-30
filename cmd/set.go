@@ -29,7 +29,7 @@ This will update the current project configuration file.`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			utils.ExitError()
 		}
 
@@ -47,7 +47,7 @@ This will update the current project configuration file.`,
 
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			return
 		}
 		command := map[string]string{}
