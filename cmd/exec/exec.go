@@ -2,7 +2,6 @@ package exec
 
 import (
 	"fmt"
-
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
@@ -14,7 +13,7 @@ func ExecutePlan(commands ...string) {
 
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
-		utils.PrintErr(err)
+		fmt.Println(err)
 		return
 	}
 
@@ -36,7 +35,7 @@ func ExecutePlan(commands ...string) {
 	}
 
 	fmt.Println()
-	utils.CPrintBold("SUCCESS")
+	fmt.Println(utils.ColoredB("SUCCESS", utils.CYAN))
 
 }
 
@@ -62,7 +61,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	for _, name := range commands {
 		executionCommand := onebuildConfig.GetCommand(name)
 		if executionCommand == "" {
-			utils.CPrintlnErr("Error building execution plan. Command \"" + name + "\" not found.")
+			fmt.Println(utils.ColoredB("\nError building execution plan. Command \""+name+"\" not found.", utils.RED))
 			onebuildConfig.Print()
 			utils.Exit(127)
 		}
