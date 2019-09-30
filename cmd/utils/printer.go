@@ -11,10 +11,14 @@ func BANNER() string {
 	return strings.Repeat("-", MaxOutputWidth)
 }
 
+// OneBuildColor represents type for color enum
 type OneBuildColor int
 
 const (
+	// CYAN is 1build's default color standard
 	CYAN OneBuildColor = 0
+
+	// RED is used in failure messages
 	RED  OneBuildColor = 1
 )
 
