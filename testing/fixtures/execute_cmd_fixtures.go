@@ -208,9 +208,7 @@ after     echo running post-command
 
 -------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 
------------------------------------------------------------------------------------------------------------
 ` + utils.ColoredB("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10", utils.RED) + `
------------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -246,9 +244,7 @@ after     echo running post-command
 running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 
--------------------------------------------------------------------------------------------------------------------
 ` + utils.ColoredB("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127", utils.RED) + `
--------------------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,

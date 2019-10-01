@@ -39,13 +39,10 @@ func ColoredBU(text string, color OneBuildColor) string {
 	return colorize(text, color).Bold().Underline().String()
 }
 
-// PrintlnDashedErr prints error line to console in bold Red with dashes above and below
-func PrintlnDashedErr(text string) {
-	errDash := strings.Repeat("-", len(text))
+// PrintlnErr prints error line to console in bold Red
+func PrintlnErr(text string) {
 	fmt.Println()
-	fmt.Println(errDash)
 	fmt.Println(ColoredB(text, RED))
-	fmt.Println(errDash)
 }
 
 func colorize(text string, color OneBuildColor) aurora.Value {
@@ -76,7 +73,9 @@ func PrintResultsBanner(isSuccess bool, startTime time.Time) {
 
 	s := fmt.Sprintf("%s - Total Time: %s", result, timeStr)
 
-	fmt.Println()
+	if isSuccess {
+		fmt.Println()
+	}
 	fmt.Println(BANNER())
 	fmt.Println(s)
 	fmt.Println(BANNER())

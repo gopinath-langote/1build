@@ -46,7 +46,11 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 	err := command.CommandSession.Run()
 	if err != nil {
 		exitCode := (err.Error())[12:]
-		utils.PrintlnDashedErr("Execution failed during phase \"" + command.Name + "\" - Execution of the script \"" + command.Command + "\" returned non-zero exit code : " + exitCode)
+		utils.PrintlnErr("Execution failed during phase \"" +
+			command.Name +
+			"\" - Execution of the script \"" +
+			command.Command +
+			"\" returned non-zero exit code : " + exitCode)
 		utils.PrintResultsBanner(false, executeStart)
 		utils.ExitWithCode(exitCode)
 	}
