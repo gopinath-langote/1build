@@ -1,11 +1,16 @@
 package fixtures
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
 )
+
+func successBanner() string {
+	return strings.Repeat("-", 72) + "\n" + utils.Colored("SUCCESS", utils.CYAN)
+}
 
 func featureExecuteCmdTestData() []Test {
 	feature := "exec"
@@ -37,8 +42,7 @@ build    echo building project
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
@@ -99,8 +103,7 @@ running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
@@ -134,8 +137,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
@@ -173,8 +175,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + utils.ColoredB("SUCCESS", utils.CYAN) + `
-`
+` + successBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",
@@ -207,9 +208,7 @@ after     echo running post-command
 
 -------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 
------------------------------------------------------------------------------------------------------------
 ` + utils.ColoredB("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10", utils.RED) + `
------------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -245,9 +244,7 @@ after     echo running post-command
 running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 
--------------------------------------------------------------------------------------------------------------------
 ` + utils.ColoredB("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127", utils.RED) + `
--------------------------------------------------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
