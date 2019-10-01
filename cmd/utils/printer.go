@@ -60,13 +60,21 @@ func colorize(text string, color OneBuildColor) aurora.Value {
 
 // PrintResultsBanner prints result banner at the end of the test
 func PrintResultsBanner(isSuccess bool, startTime time.Time) {
-	timeDelta := time.Since(startTime)
+	timeDelta := time.Since(startTime).Round(time.Second)
+	mins := int64(timeDelta / time.Minute)
+	secs := int64((timeDelta % time.Minute) / time.Second)
+	var timeStr string
+	if mins == 0 {
+		timeStr = fmt.Sprintf("%.2ds", secs)
+	} else {
+		timeStr = fmt.Sprintf("%.2dm %.2ds", mins, secs)
+	}
 	result := aurora.BrightCyan("SUCCESS")
 	if !isSuccess {
 		result = aurora.Red("FAILURE")
 	}
 
-	s := fmt.Sprintf("%s - Total Time: %s", result, timeDelta)
+	s := fmt.Sprintf("%s - Total Time: %s", result, timeStr)
 
 	fmt.Println()
 	fmt.Println(BANNER())
