@@ -48,7 +48,7 @@ func (executionPlan *OneBuildExecutionPlan) HasCommands() bool {
 // Print prints execution plan
 func (executionPlan *OneBuildExecutionPlan) Print() {
 	fmt.Println()
-	fmt.Println(utils.ColoredBU("Execution plan", utils.CYAN))
+	fmt.Println(utils.ColoredU("Execution plan", utils.CYAN))
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	phase, cmd := longestPhaseAndCommandValue(executionPlan)
@@ -98,8 +98,8 @@ func dashesOfLength(text string) string {
 	return strings.Repeat("-", len(text))
 }
 
-// PrintBanner prints the CommandContext's name in a banner of the standard length
-func (c *CommandContext) PrintBanner() {
+// PrintPhaseBanner prints the CommandContext's name in a banner of the standard length
+func (c *CommandContext) PrintPhaseBanner() {
 	centreLength := utf8.RuneCountInString(c.Name) +
 		utf8.RuneCountInString(bannerOpen) +
 		utf8.RuneCountInString(bannerClose)

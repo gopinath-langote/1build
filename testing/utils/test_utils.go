@@ -67,7 +67,7 @@ func colorize(text string, color OneBuildColor) aurora.Value {
 	if color == CYAN {
 		coloredText = aurora.BrightCyan(text)
 	} else {
-		coloredText = aurora.Red(text)
+		coloredText = aurora.BrightRed(text)
 	}
 	return coloredText
 }

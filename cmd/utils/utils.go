@@ -10,11 +10,6 @@ const (
 	MaxOutputWidth = 72
 )
 
-// Exit exits the current process with specified exit code
-func Exit(code int) {
-	os.Exit(code)
-}
-
 // ExitWithCode exits the current process with specified exit code provided as string
 func ExitWithCode(code string) {
 	exitCode, _ := strconv.Atoi(code)
@@ -23,7 +18,7 @@ func ExitWithCode(code string) {
 
 // ExitError exit the program with non success code
 func ExitError() {
-	Exit(1)
+	ExitWithCode("1")
 }
 
 // SliceIndex find the index of element matching given predicate
