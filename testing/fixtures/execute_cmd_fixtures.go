@@ -1,16 +1,11 @@
 package fixtures
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
 )
-
-func successBanner() string {
-	return strings.Repeat("-", 72) + "\n" + utils.Colored("SUCCESS", utils.CYAN)
-}
 
 func featureExecuteCmdTestData() []Test {
 	feature := "exec"
@@ -42,7 +37,7 @@ build    echo building project
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + successBanner()
+`
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
@@ -51,7 +46,8 @@ building project
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertSuccessBanner(t, actualOutput)
 		},
 	}
 }
@@ -103,7 +99,7 @@ running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
 building project
 
-` + successBanner()
+`
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
@@ -112,7 +108,8 @@ building project
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertSuccessBanner(t, actualOutput)
 		},
 	}
 }
@@ -137,7 +134,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + successBanner()
+`
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
@@ -146,7 +143,8 @@ running post-command
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertSuccessBanner(t, actualOutput)
 		},
 	}
 }
@@ -175,7 +173,7 @@ building project
 -------------------------------[ ` + utils.Colored("after", utils.CYAN) + ` ]--------------------------------
 running post-command
 
-` + successBanner()
+`
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",
@@ -184,7 +182,8 @@ running post-command
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertSuccessBanner(t, actualOutput)
 		},
 	}
 }
@@ -207,8 +206,6 @@ after     echo running post-command
 
 
 -------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
-
-` + utils.ColoredB("Execution failed during phase \"before\" - Execution of the script \"exit 10\" returned non-zero exit code : 10", utils.RED) + `
 `
 	return Test{
 		Feature: feature,
@@ -218,7 +215,10 @@ after     echo running post-command
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertFailureMessage(t, actualOutput, "before", "10") &&
+				assertFailureBanner(t, actualOutput)
+
 		},
 	}
 }
@@ -243,8 +243,6 @@ after     echo running post-command
 -------------------------------[ ` + utils.Colored("before", utils.CYAN) + ` ]-------------------------------
 running pre-command
 -------------------------------[ ` + utils.Colored("build", utils.CYAN) + ` ]--------------------------------
-
-` + utils.ColoredB("Execution failed during phase \"build\" - Execution of the script \"invalid_command\" returned non-zero exit code : 127", utils.RED) + `
 `
 	return Test{
 		Feature: feature,
@@ -254,7 +252,25 @@ running pre-command
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, expectedOutput)
+			return assert.Contains(t, actualOutput, expectedOutput) &&
+				assertFailureMessage(t, actualOutput, "build", "127") &&
+				assertFailureBanner(t, actualOutput)
+
 		},
 	}
+}
+
+func assertSuccessBanner(t *testing.T, actualOutput string) bool {
+	bannerOutput := utils.ColoredB("SUCCESS", utils.CYAN) + " - Total Time"
+	return assert.Contains(t, actualOutput, bannerOutput)
+}
+
+func assertFailureMessage(t *testing.T, actualOutput string, phase string, exitCode string) bool {
+	errorMessage := utils.Colored("\nExecution failed in phase '"+phase+"' – exit code: "+exitCode, utils.RED)
+	return assert.Contains(t, actualOutput, errorMessage)
+}
+
+func assertFailureBanner(t *testing.T, actualOutput string) bool {
+	bannerOutput := utils.ColoredB("FAILURE", utils.RED) + " - Total Time"
+	return assert.Contains(t, actualOutput, bannerOutput)
 }

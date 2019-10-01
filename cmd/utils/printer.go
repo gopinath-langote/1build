@@ -1,15 +1,12 @@
 package utils
 
 import (
-	"fmt"
-	"strings"
-	"time"
-
 	"github.com/logrusorgru/aurora"
+	"strings"
 )
 
-// BANNER return dashes with fixed length - 72
-func BANNER() string {
+// Dash return dashes with fixed length - 72
+func Dash() string {
 	return strings.Repeat("-", MaxOutputWidth)
 }
 
@@ -34,15 +31,9 @@ func Colored(text string, color OneBuildColor) string {
 	return colorize(text, color).String()
 }
 
-// ColoredBU return text in color with bold and underline format
-func ColoredBU(text string, color OneBuildColor) string {
-	return colorize(text, color).Bold().Underline().String()
-}
-
-// PrintlnErr prints error line to console in bold Red
-func PrintlnErr(text string) {
-	fmt.Println()
-	fmt.Println(ColoredB(text, RED))
+// ColoredU return text in color with bold and underline format
+func ColoredU(text string, color OneBuildColor) string {
+	return colorize(text, color).Underline().String()
 }
 
 func colorize(text string, color OneBuildColor) aurora.Value {
@@ -50,33 +41,7 @@ func colorize(text string, color OneBuildColor) aurora.Value {
 	if color == CYAN {
 		coloredText = aurora.BrightCyan(text)
 	} else {
-		coloredText = aurora.Red(text)
+		coloredText = aurora.BrightRed(text)
 	}
 	return coloredText
-}
-
-// PrintResultsBanner prints result banner at the end of the test
-func PrintResultsBanner(isSuccess bool, startTime time.Time) {
-	timeDelta := time.Since(startTime).Round(time.Second)
-	mins := int64(timeDelta / time.Minute)
-	secs := int64((timeDelta % time.Minute) / time.Second)
-	var timeStr string
-	if mins == 0 {
-		timeStr = fmt.Sprintf("%.2ds", secs)
-	} else {
-		timeStr = fmt.Sprintf("%.2dm %.2ds", mins, secs)
-	}
-	result := aurora.BrightCyan("SUCCESS")
-	if !isSuccess {
-		result = aurora.Red("FAILURE")
-	}
-
-	s := fmt.Sprintf("%s - Total Time: %s", result, timeStr)
-
-	if isSuccess {
-		fmt.Println()
-	}
-	fmt.Println(BANNER())
-	fmt.Println(s)
-	fmt.Println(BANNER())
 }
