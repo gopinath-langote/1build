@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 RUN go install ./...
 
-FROM alpine:latest
+FROM alpine:3.10.2
 
 WORKDIR /root/
 
