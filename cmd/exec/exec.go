@@ -2,6 +2,8 @@ package exec
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
@@ -10,6 +12,8 @@ import (
 
 // ExecutePlan executes the Execution plan
 func ExecutePlan(commands ...string) {
+
+	executeStart := time.Now()
 
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
@@ -21,30 +25,33 @@ func ExecutePlan(commands ...string) {
 	executionPlan.Print()
 
 	if executionPlan.HasBefore() {
-		executeAndStopIfFailed(executionPlan.Before)
+		executeAndStopIfFailed(executionPlan.Before, executeStart)
 	}
 
 	if executionPlan.HasCommands() {
 		for _, commandContext := range executionPlan.Commands {
-			executeAndStopIfFailed(commandContext)
+			executeAndStopIfFailed(commandContext, executeStart)
 		}
 	}
 
 	if executionPlan.HasAfter() {
-		executeAndStopIfFailed(executionPlan.After)
+		executeAndStopIfFailed(executionPlan.After, executeStart)
 	}
 
-	fmt.Println()
-	fmt.Println(utils.ColoredB("SUCCESS", utils.CYAN))
-
+	utils.PrintResultsBanner(true, executeStart)
 }
 
-func executeAndStopIfFailed(command *models.CommandContext) {
+func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
 	command.PrintBanner()
 	err := command.CommandSession.Run()
 	if err != nil {
 		exitCode := (err.Error())[12:]
-		utils.PrintlnDashedErr("Execution failed during phase \"" + command.Name + "\" - Execution of the script \"" + command.Command + "\" returned non-zero exit code : " + exitCode)
+		utils.PrintlnErr("Execution failed during phase \"" +
+			command.Name +
+			"\" - Execution of the script \"" +
+			command.Command +
+			"\" returned non-zero exit code : " + exitCode)
+		utils.PrintResultsBanner(false, executeStart)
 		utils.ExitWithCode(exitCode)
 	}
 }
