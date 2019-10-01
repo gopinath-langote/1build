@@ -5,6 +5,11 @@ import (
 	"strconv"
 )
 
+const (
+	// MaxOutputWidth is the number of spaces to use on a console
+	MaxOutputWidth = 72
+)
+
 // Exit exits the current process with specified exit code
 func Exit(code int) {
 	os.Exit(code)

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	parse "github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/exec"
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -15,7 +16,7 @@ var rootCmd = &cobra.Command{
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := parse.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			utils.ExitError()
 		}
 	},
@@ -31,7 +32,7 @@ var rootCmd = &cobra.Command{
 // Execute entry-point for cobra app
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		utils.PrintErr(err)
+		fmt.Println(err)
 		utils.ExitError()
 	}
 }
