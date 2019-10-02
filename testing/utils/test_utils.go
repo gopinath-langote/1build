@@ -44,7 +44,7 @@ const (
 	CYAN OneBuildColor = 0
 
 	// RED is used in failure messages
-	RED  OneBuildColor = 1
+	RED OneBuildColor = 1
 )
 
 // PlainBanner return dashes with fixed length - 72
