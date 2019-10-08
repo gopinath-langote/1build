@@ -8,7 +8,7 @@ Create or find an issue you would like to implement:
 -   create your issue and wait for comments from maintainers
 -   once the issue is discussed and assigned to you – feel free to implement
 
-# Developing 1build
+## Developing 1build
 
 1.  Prepare project (Install GoLang 1.9.x)
 
@@ -25,11 +25,17 @@ Create or find an issue you would like to implement:
     ```
     
     -   Alternatively `install` 1build from releases to get `1build` configuration for this project
-    
+
 3.  Project uses major library to build app - [cobra](https://github.com/spf13/cobra)
+
 4.  Project uses - [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
-5.  Update necessary documents if needed – Readme etc. 
+
+5.  Update necessary documents if needed – Readme etc.
+
 6.  Submit pull request
+
 7.  Make sure all the checks are passing
+
 8.  Wait for maintainers to review the code
+
 9.  Thanks for you contribution :smile:

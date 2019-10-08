@@ -4,8 +4,8 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 ## Fixes/Implements: # (issue)
 
-## New dependencies introduced?
-Please list all decencies introduced in this PR if any with reason.
+## If New dependencies introduced
+Then please list all decencies introduced in this PR if any with reason.
 -   Dependency A - Reason
 
 ## Checklist:
