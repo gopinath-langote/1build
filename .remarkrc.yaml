@@ -1,0 +1,9 @@
+plugins:
+  preset-lint-consistent:
+  preset-lint-recommended:
+  remark-preset-lint-markdown-style-guide:
+  # Customized settings
+  lint-list-item-indent: tab-size
+  lint-maximum-line-length: 190
+  lint-ordered-list-marker-value:
+  lint-no-file-name-irregular-characters: '\\.a-z0-9_'

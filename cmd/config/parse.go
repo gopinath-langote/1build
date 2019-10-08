@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -32,12 +33,12 @@ func LoadOneBuildConfiguration() (OneBuildConfiguration, error) {
 		message :=
 			`Sample format is:
 
---------------------------------------------------
+------------------------------------------------------------------------
 project: Sample Project
 commands:
   - build: npm run build
   - lint: eslint
---------------------------------------------------
+------------------------------------------------------------------------
 `
 		message = "Unable to parse '" + OneBuildConfigFileName + "' config file. Make sure file is in correct format.\n" +
 			message
@@ -46,23 +47,33 @@ commands:
 	return configuration, nil
 }
 
-// PrintConfiguration prints the configuration to the console
-func PrintConfiguration(oneBuildConfiguration OneBuildConfiguration) {
-	utils.Println(utils.DASH())
-	utils.Println("project: " + oneBuildConfiguration.Project)
+// GetCommand return command by name
+func (oneBuildConfiguration *OneBuildConfiguration) GetCommand(name string) (value string) {
+	for _, command := range oneBuildConfiguration.Commands {
+		for k, v := range command {
+			if k == name {
+				return v
+			}
+		}
+	}
+	return
+}
+
+// Print prints the configuration to the console
+func (oneBuildConfiguration *OneBuildConfiguration) Print() {
+	fmt.Println(utils.Dash() + "\nproject: " + oneBuildConfiguration.Project)
 	if oneBuildConfiguration.Before != "" {
-		utils.Println("before: " + oneBuildConfiguration.Before)
+		fmt.Println("before: " + oneBuildConfiguration.Before)
 	}
 	if oneBuildConfiguration.After != "" {
-		utils.Println("after: " + oneBuildConfiguration.After)
+		fmt.Println("after: " + oneBuildConfiguration.After)
 	}
-	utils.Println("commands:")
+	fmt.Println("commands:")
 
 	for _, command := range oneBuildConfiguration.Commands {
 		for k, v := range command {
-			utils.Println(strings.TrimSpace(k) + " | " + strings.TrimSpace(v))
+			fmt.Println(strings.TrimSpace(k) + " | " + strings.TrimSpace(v))
 		}
 	}
-
-	utils.Println(utils.DASH())
+	fmt.Println(utils.Dash())
 }

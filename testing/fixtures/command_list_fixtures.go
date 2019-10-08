@@ -16,13 +16,12 @@ func featureListTestData() []Test {
 }
 
 func shouldShowListOfCommands(feature string) Test {
-	commandListMessage := `--------------------------------------------------
+	commandListMessage := utils.PlainBanner() + `
 project: Sample Project
 commands:
 build | npm run build
 lint | eslint
---------------------------------------------------
-`
+` + utils.PlainBanner()
 	defaultFileContent := `
 project: Sample Project
 commands:
@@ -44,11 +43,10 @@ commands:
 }
 
 func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) Test {
-	emptyCommandListMessage := `--------------------------------------------------
+	emptyCommandListMessage := utils.PlainBanner() + `
 project: Sample Project
 commands:
---------------------------------------------------
-`
+` + utils.PlainBanner()
 	return Test{
 		Feature: feature,
 		Name:    "shouldNotShowAnyCommandsIfNoCommandsFound",
@@ -63,14 +61,13 @@ commands:
 }
 
 func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) Test {
-	expectedOutput := `--------------------------------------------------
+	expectedOutput := utils.PlainBanner() + `
 project: Sample Project
 before: pre_command
 after: post_command
 commands:
 build | npm run build
---------------------------------------------------
-`
+` + utils.PlainBanner()
 	fileContent := `
 project: Sample Project
 before: pre_command

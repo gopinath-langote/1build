@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -27,7 +28,7 @@ This will update the current project configuration file.`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			utils.ExitError()
 		}
 
@@ -35,14 +36,14 @@ This will update the current project configuration file.`,
 		matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
 
 		if !matched {
-			utils.Println("1build unset: '" + commandName + "' is not a valid command name. See '1build unset --help'.")
+			fmt.Println("1build unset: '" + commandName + "' is not a valid command name. See '1build unset --help'.")
 			utils.ExitError()
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			return
 		}
 
@@ -60,8 +61,8 @@ This will update the current project configuration file.`,
 		}
 
 		if len(commandsNotFound) != 0 {
-			errorMsg := "Following command(s) not found: " + strings.Join(commandsNotFound, ", ")
-			utils.PrintlnErr(errorMsg)
+			errorMsg := "\nFollowing command(s) not found: " + strings.Join(commandsNotFound, ", ")
+			fmt.Println(utils.ColoredB(errorMsg, utils.RED))
 		}
 
 		if configIsChanged {

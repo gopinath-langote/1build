@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	parse "github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/exec"
 	"github.com/gopinath-langote/1build/cmd/utils"
@@ -9,13 +10,13 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:     "1build",
-	Version: "1.1.2",
+	Version: "1.3.0",
 	Short:   "Frictionless way of managing project-specific commands",
 	Args:    cobra.MinimumNArgs(0),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := parse.LoadOneBuildConfiguration()
 		if err != nil {
-			utils.PrintErr(err)
+			fmt.Println(err)
 			utils.ExitError()
 		}
 	},
@@ -28,10 +29,10 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-// Execute entrypoint for cobra app
+// Execute entry-point for cobra app
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		utils.PrintErr(err)
+		fmt.Println(err)
 		utils.ExitError()
 	}
 }

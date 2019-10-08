@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
@@ -19,7 +20,7 @@ For example:
   1build init --name "My favorite project"`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if config.IsConfigFilePresent() {
-			utils.Println("'" + config.OneBuildConfigFileName + "' configuration file already exists.")
+			fmt.Println("'" + config.OneBuildConfigFileName + "' configuration file already exists.")
 			utils.ExitError()
 		}
 	},
@@ -36,7 +37,7 @@ For example:
 
 		err := config.WriteConfigFile(oneBuildConfiguration)
 		if err != nil {
-			utils.Println("Failed to create file '" + config.OneBuildConfigFileName + "'")
+			fmt.Println("Failed to create file '" + config.OneBuildConfigFileName + "'")
 		}
 	},
 }
