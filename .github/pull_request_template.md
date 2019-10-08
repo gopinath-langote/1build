@@ -8,7 +8,7 @@ Please include a summary of the change and which issue is fixed. Please also inc
 Then please list all decencies introduced in this PR if any with reason.
 -   Dependency A - Reason
 
-## Checklist:
+## Checklist
 
 -   [ ] I have added tests that prove my fix is effective or that my feature works
 -   [ ] I have update README (If needed)
