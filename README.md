@@ -169,7 +169,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/gopinathlangote/"><img src="https://avatars2.githubusercontent.com/u/10210778?v=4" width="100px;" alt="Gopinath Langote"/><br /><sub><b>Gopinath Langote</b></sub></a><br /><a href="#infra-gopinath-langote" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/gopinathlangote/"><img src="https://avatars2.githubusercontent.com/u/10210778?v=4" width="100px;" alt="Gopinath Langote"/><br /><sub><b>Gopinath Langote</b></sub></a><br /><a href="#infra-gopinath-langote" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#platform-gopinath-langote" title="Packaging/porting to new platform">📦</a> <a href="#projectManagement-gopinath-langote" title="Project Management">📆</a> <a href="#review-gopinath-langote" title="Reviewed Pull Requests">👀</a> <a href="#design-gopinath-langote" title="Design">🎨</a> <a href="https://github.com/gopinath-langote/1build/commits?author=gopinath-langote" title="Documentation">📖</a> <a href="https://github.com/gopinath-langote/1build/commits?author=gopinath-langote" title="Code">💻</a></td>
   </tr>
 </table>
 
