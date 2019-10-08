@@ -103,7 +103,7 @@ you can use one of them, both or neither.
 #### Examples
 1.  Setting env variables and cleaning those up
     ```yaml
-    project: Sample JVM Project Name
+    project: Sample Web App
     before: export VARNAME="my value"
     after: unset VARNAME
     commands:
