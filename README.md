@@ -169,7 +169,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/gopinathlangote/"><img src="https://avatars2.githubusercontent.com/u/10210778?v=4" width="50px;" alt="Gopinath Langote"/><br /><sub><b>Gopinath Langote</b></sub></a><br /><a href="https://github.com/gopinath-langote/1build/commits?author=gopinath-langote" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/gopinathlangote/"><img src="https://avatars2.githubusercontent.com/u/10210778?v=4" width="50px;" alt="Gopinath Langote"/><br /><sub><b>Gopinath Langote</b></sub></a><br /><a href="https://github.com/gopinath-langote/1build/commits?author=gopinath-langote" title="Code">💻</a> <a href="#design-gopinath-langote" title="Design">🎨</a> <a href="#infra-gopinath-langote" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#review-gopinath-langote" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
