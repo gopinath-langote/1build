@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "landpro",
+      "name": "Alexander Lukianchuk",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/347369?v=4",
+      "profile": "https://github.com/landpro",
+      "contributions": [
+        "code",
+        "design",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "1build",
+  "projectOwner": "gopinath-langote",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
