@@ -53,7 +53,7 @@ the things that actually matter.
 
 -   Edit file according to project command list, Example of `1build.yaml` for node project:
     ```yaml
-    project: Sample JVM Project Name
+    project: Sample Web App
     commands:
       - build: npm run build
       - test: npm run test
