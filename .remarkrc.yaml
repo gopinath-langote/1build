@@ -6,4 +6,4 @@ plugins:
   lint-list-item-indent: tab-size
   lint-maximum-line-length: 190
   lint-ordered-list-marker-value:
-  lint-no-file-name-irregular-characters: '\\.a-z0-9_'
+  lint-no-file-name-irregular-characters: '\\.aA-zZ0-9_-'
