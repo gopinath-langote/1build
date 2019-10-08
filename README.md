@@ -40,7 +40,7 @@ of what build tool they use. It will remove the hassle of remembering all those 
 the things that actually matter.
 
 ## Install
-1.  Download and unzip [latest release v1.2.0](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
+1.  Download and unzip [latest release](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
 2.  Move the `1build` executable to your `$PATH`.
 
 ## Usage
