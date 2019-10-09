@@ -29,6 +29,7 @@ func GetFixtures() []Test {
 		featureUnsetTestsData(),
 
 		featureFlagVersionTestData(),
+		featureDeleteTestData(),
 	}
 
 	var r1 []Test
