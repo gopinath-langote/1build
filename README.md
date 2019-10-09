@@ -40,7 +40,7 @@ of what build tool they use. It will remove the hassle of remembering all those 
 the things that actually matter.
 
 ## Install
-1.  Download and unzip [latest release](https://github.com/gopinath-langote/1build/releases/latest) for your OS.
+1.  Download [latest release](https://github.com/gopinath-langote/1build/releases/latest) binary for your OS.
 2.  Move the `1build` executable to your `$PATH`.
 
 ## Usage
@@ -53,7 +53,7 @@ the things that actually matter.
 
 -   Edit file according to project command list, Example of `1build.yaml` for node project:
     ```yaml
-    project: Sample JVM Project Name
+    project: Sample Web App
     commands:
       - build: npm run build
       - test: npm run test
@@ -103,7 +103,7 @@ you can use one of them, both or neither.
 #### Examples
 1.  Setting env variables and cleaning those up
     ```yaml
-    project: Sample JVM Project Name
+    project: Sample Web App
     before: export VARNAME="my value"
     after: unset VARNAME
     commands:

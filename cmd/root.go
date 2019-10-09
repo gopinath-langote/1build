@@ -10,7 +10,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:     "1build",
-	Version: "1.3.0",
+	Version: "1.4.0",
 	Short:   "Frictionless way of managing project-specific commands",
 	Args:    cobra.MinimumNArgs(0),
 	PreRun: func(cmd *cobra.Command, args []string) {
