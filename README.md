@@ -40,8 +40,18 @@ of what build tool they use. It will remove the hassle of remembering all those 
 the things that actually matter.
 
 ## Install
-1.  Download [latest release](https://github.com/gopinath-langote/1build/releases/latest) binary for your OS.
-2.  Move the `1build` executable to your `$PATH`.
+
+### Homebrew
+
+```bash
+brew tap gopinath-langote/one-build
+brew install one-build
+```
+
+### Manual
+
+1.  Download [the latest release](https://github.com/gopinath-langote/1build/releases/latest) distribution for your OS;
+2.  Extract the archive, and move `1build` executable to your `$PATH`.
 
 ## Usage
 
