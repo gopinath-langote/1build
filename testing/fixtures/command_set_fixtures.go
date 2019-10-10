@@ -16,6 +16,8 @@ func featureSetTestsData() []Test {
 		shouldUpdateExistingCommand(feature),
 		shouldFailWhenConfigurationFileIsNotFound(feature),
 		shouldFailWhenConfigurationFileIsInInvalidFormat(feature),
+		shouldSetBeforeCommand(feature),
+		shouldSetAfterCommand(feature),
 	}
 }
 
@@ -99,6 +101,66 @@ func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test {
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "Unable to parse '"+def.ConfigFileName+"' config file. Make sure file is in correct format.")
+		},
+	}
+}
+
+func shouldSetBeforeCommand(feature string) Test {
+
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+`
+
+	expectedOutput := `project: Sample Project
+after: yo
+commands:
+  - build: go build
+`
+
+	return Test{
+		Feature: feature,
+		Name:    "shouldSetBeforeCommand",
+		CmdArgs: []string{"set", "after", "yo"},
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			filePath := dir + "/" + def.ConfigFileName
+			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			content, _ := ioutil.ReadFile(filePath)
+			return assert.Contains(t, string(content), expectedOutput)
+		},
+	}
+}
+
+func shouldSetAfterCommand(feature string) Test {
+
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+`
+
+	expectedOutput := `project: Sample Project
+after: yo
+commands:
+  - build: go build
+`
+
+	return Test{
+		Feature: feature,
+		Name:    "shouldSetBeforeCommand",
+		CmdArgs: []string{"set", "after", "yo"},
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			filePath := dir + "/" + def.ConfigFileName
+			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			content, _ := ioutil.ReadFile(filePath)
+			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
 }
