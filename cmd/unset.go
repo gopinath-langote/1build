@@ -51,11 +51,12 @@ This will update the current project configuration file.`,
 		var configIsChanged bool
 
 		for _, commandName := range args {
-			index := indexOfCommandIfPresent(configuration, commandName)
+			index := findIndex(configuration, commandName)
+
 			if index == -1 {
 				commandsNotFound = append(commandsNotFound, commandName)
 			} else {
-				configuration.Commands = removeCommandByIndex(configuration, index)
+				configuration = removeCommand(configuration, commandName, index)
 				configIsChanged = true
 			}
 		}
@@ -78,6 +79,38 @@ func removeCommandByIndex(configuration config.OneBuildConfiguration, index int)
 		}
 	}
 	return
+}
+
+func findIndex(configuration config.OneBuildConfiguration, name string) int {
+	switch name {
+	case "before", "after":
+		return callbackExistence(configuration, name)
+	default:
+		return indexOfCommandIfPresent(configuration, name)
+	}
+}
+
+func callbackExistence(configuration config.OneBuildConfiguration, name string) int {
+	switch {
+	case name == "before" && configuration.Before == "":
+		return -1
+	case name == "after" && configuration.After == "":
+		return -1
+	default:
+		return -2
+	}
+}
+
+func removeCommand(configuration config.OneBuildConfiguration, name string, index int) config.OneBuildConfiguration {
+	switch name {
+	case "before":
+		configuration.Before = ""
+	case "after":
+		configuration.After = ""
+	default:
+		configuration.Commands = removeCommandByIndex(configuration, index)
+	}
+	return configuration
 }
 
 func init() {
