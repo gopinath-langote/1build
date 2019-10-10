@@ -1,0 +1,41 @@
+project_name: 1build
+builds:
+  - env:
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      386: i386
+      amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^testing:'
+brews:
+  -
+    name: "one-build"
+    github:
+      owner: gopinath-langote
+      name: homebrew-1build
+    commit_author:
+      name: gopinath-langote
+      email: gopinathlangote11@gmail.com
+    folder: Formula
+    homepage: "https://github.com/gopinath-langote/1build"
+    description: "Frictionless way of managing project-specific commands"
+    test: |
+      system "#{bin}/1build --version"
+    install: |
+      bin.install "1build"
+
