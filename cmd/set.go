@@ -52,7 +52,7 @@ This will update the current project configuration file.`,
 			return
 		}
 
-		config.WriteConfigFile(configuration)
+		_ = config.WriteConfigFile(configuration)
 	},
 }
 
