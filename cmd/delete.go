@@ -23,7 +23,7 @@ var deleteCmd = &cobra.Command{
 For example:
 
   1build delete
-  1build delet --force`,
+  1build delete --force`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if !config.IsConfigFilePresent() {
 			fmt.Println(utils.Colored("No configuration file found!", utils.RED))
