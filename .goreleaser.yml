@@ -27,7 +27,7 @@ brews:
     name: "one-build"
     github:
       owner: gopinath-langote
-      name: homebrew-1build
+      name: homebrew-one-build
     commit_author:
       name: gopinath-langote
       email: gopinathlangote11@gmail.com
