@@ -50,8 +50,8 @@ brew install one-build
 
 ### Manual
 
-1.  Download [the latest release](https://github.com/gopinath-langote/1build/releases/latest) distribution for your OS;
-2.  Extract the archive, and move `1build` executable to your `$PATH`.
+1.  Download and install binary from [the latest release](https://github.com/gopinath-langote/1build/releases/latest)
+2.  Recommended: add `1build` executable to your `$PATH`.
 
 ## Usage
 
