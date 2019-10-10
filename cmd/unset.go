@@ -83,7 +83,7 @@ func removeCommandByIndex(configuration config.OneBuildConfiguration, index int)
 
 func findIndex(configuration config.OneBuildConfiguration, name string) int {
 	switch name {
-	case "before", "after":
+	case config.BeforeCommand, config.AfterCommand:
 		return callbackExistence(configuration, name)
 	default:
 		return indexOfCommandIfPresent(configuration, name)
@@ -92,9 +92,9 @@ func findIndex(configuration config.OneBuildConfiguration, name string) int {
 
 func callbackExistence(configuration config.OneBuildConfiguration, name string) int {
 	switch {
-	case name == "before" && configuration.Before == "":
+	case name == config.BeforeCommand && configuration.Before == "":
 		return -1
-	case name == "after" && configuration.After == "":
+	case name == config.AfterCommand && configuration.After == "":
 		return -1
 	default:
 		return -2
@@ -103,9 +103,9 @@ func callbackExistence(configuration config.OneBuildConfiguration, name string) 
 
 func removeCommand(configuration config.OneBuildConfiguration, name string, index int) config.OneBuildConfiguration {
 	switch name {
-	case "before":
+	case config.BeforeCommand:
 		configuration.Before = ""
-	case "after":
+	case config.AfterCommand:
 		configuration.After = ""
 	default:
 		configuration.Commands = removeCommandByIndex(configuration, index)

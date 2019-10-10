@@ -67,9 +67,9 @@ func buildAndSetCommand(name string, value string) (config.OneBuildConfiguration
 	}
 
 	switch name {
-	case "before":
+	case config.BeforeCommand:
 		return setBefore(configuration, value), nil
-	case "after":
+	case config.AfterCommand:
 		return setAfter(configuration, value), nil
 	default:
 		return setCommand(configuration, name, value), nil

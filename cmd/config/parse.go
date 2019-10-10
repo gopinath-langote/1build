@@ -9,6 +9,14 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+const (
+	// BeforeCommand contains before command definition
+	BeforeCommand = "before"
+
+	// AfterCommand contains after command definition
+	AfterCommand = "after"
+)
+
 // OneBuildConfigFileName one global declaration of config file name
 var OneBuildConfigFileName = "1build.yaml"
 
