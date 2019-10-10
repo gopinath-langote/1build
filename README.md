@@ -22,7 +22,7 @@
     </a>
   <a href="https://join.slack.com/t/1buildteam/shared_invite/enQtNzM4OTY5NzMyNzU1LWFmY2I1NjY0MTQyMGFiZTNkN2IwMTRjNjhkYzgxMjY4ZDAwY2JjYWI5NTg4NTllYmEyM2FjN2M0OTNjNDJhNTU">
           <img src="https://img.shields.io/badge/slack-@1buildteam-yellow.svg?logo=slack" alt="Join the chat on Slack">
-      </a>  
+      </a>
 </p>
 
 <br>
@@ -56,8 +56,8 @@ brew install one-build
 ## Usage
 
 ### Configuration
--   Create `1build.yaml` configuration file by 
-```console
+-   Create `1build.yaml` configuration file by
+  ```console
   1build init --name <your_project_name>
   ```
 
@@ -100,41 +100,40 @@ brew install one-build
   ```
 
 ### Using `before` and `after` commands
-Consider that your project requires some environment variables to set before running any 
+Consider that your project requires some environment variables to set before running any
 commands and you want to clean up those after running commands. It is a headache to always
-remember to set those environment variables. What you want is to set env variables automatically 
-when you run the command in the project and remove those when the command is complete. 
+remember to set those environment variables. What you want is to set env variables automatically
+when you run the command in the project and remove those when the command is complete.
 Another example – a project requires `Docker` to be up
 and running or you need to clean up the database after running a test harness.
 
 This is where `before` & `after` commands are useful. These commands are both optional – 
 you can use one of them, both or neither.
 
-#### Examples
-1.  Setting env variables and cleaning those up
-    ```yaml
-    project: Sample Web App
-    before: export VARNAME="my value"
-    after: unset VARNAME
-    commands:
-      - build: npm run build
+#### Examples:
+1. Setting env variables and cleaning those up
+    ```console
+    1build set before 'export VARNAME="my value"'
+    1build set after "unset VARNAME"
     ```
 
-2.  Ensure that `Docker` is up and running
-    ```yaml
-    project: Containerized Project
-    before: ./docker_run.sh
-    commands:
-      - build: npm run build
+2. Ensure that `Docker` is up and running
+    ```console
+    1build set before "./docker_run.sh"
     ```
 
-3.  Clean up database after some commands
-     ```yaml
-    project: Containerized Project
-    after: ./clean_database.sh
-    commands:
-      - build: npm run build
+3. Clean up database after some commands
+     ```console
+    1build set after "./clean_database.sh"
     ```
+
+### Removing `before` and `after` commands
+Both `before` and `after` commands can be unset the same way as regular commands
+
+#### Example:
+```console
+1build unset before after
+```
 
 See `1build --help` for command usages.
 
@@ -167,4 +166,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/jetbrains.png?raw=true" alt="1build" width="150"></a>
 <a href="https://www.1password.com/?from=github.com/gopinath-langote/1build">
     <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/1password.png?raw=true" alt="1build" width="300"></a>
- 
