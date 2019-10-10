@@ -2,6 +2,8 @@ package exec
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/codeskyblue/go-sh"
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
@@ -10,6 +12,8 @@ import (
 
 // ExecutePlan executes the Execution plan
 func ExecutePlan(commands ...string) {
+
+	executeStart := time.Now()
 
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
@@ -21,30 +25,30 @@ func ExecutePlan(commands ...string) {
 	executionPlan.Print()
 
 	if executionPlan.HasBefore() {
-		executeAndStopIfFailed(executionPlan.Before)
+		executeAndStopIfFailed(executionPlan.Before, executeStart)
 	}
 
 	if executionPlan.HasCommands() {
 		for _, commandContext := range executionPlan.Commands {
-			executeAndStopIfFailed(commandContext)
+			executeAndStopIfFailed(commandContext, executeStart)
 		}
 	}
 
 	if executionPlan.HasAfter() {
-		executeAndStopIfFailed(executionPlan.After)
+		executeAndStopIfFailed(executionPlan.After, executeStart)
 	}
 
-	fmt.Println()
-	fmt.Println(utils.ColoredB("SUCCESS", utils.CYAN))
-
+	printResultsBanner(true, executeStart)
 }
 
-func executeAndStopIfFailed(command *models.CommandContext) {
-	command.PrintBanner()
+func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
+	command.PrintPhaseBanner()
 	err := command.CommandSession.Run()
 	if err != nil {
 		exitCode := (err.Error())[12:]
-		utils.PrintlnDashedErr("Execution failed during phase \"" + command.Name + "\" - Execution of the script \"" + command.Command + "\" returned non-zero exit code : " + exitCode)
+		text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
+		fmt.Println(utils.Colored(text, utils.RED))
+		printResultsBanner(false, executeStart)
 		utils.ExitWithCode(exitCode)
 	}
 }
@@ -63,7 +67,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 		if executionCommand == "" {
 			fmt.Println(utils.ColoredB("\nError building execution plan. Command \""+name+"\" not found.", utils.RED))
 			onebuildConfig.Print()
-			utils.Exit(127)
+			utils.ExitWithCode("127")
 		}
 		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{
 			Name: name, Command: executionCommand, CommandSession: bashCommand(sh.NewSession(), executionCommand)})
@@ -80,4 +84,23 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 
 func bashCommand(s *sh.Session, command string) *sh.Session {
 	return s.Command("bash", "-c", command)
+}
+
+// PrintResultsBanner prints result banner at the end of the test
+func printResultsBanner(isSuccess bool, startTime time.Time) {
+	timeDelta := time.Since(startTime)
+	minutes := int64(timeDelta.Minutes())
+	secs := int64(timeDelta.Seconds()) % 60
+	var timeStr string
+	if minutes == 0 {
+		timeStr = fmt.Sprintf("%.2ds", secs)
+	} else {
+		timeStr = fmt.Sprintf("%.2dm %.2ds", minutes, secs)
+	}
+	result := utils.ColoredB("SUCCESS", utils.CYAN)
+	if !isSuccess {
+		result = utils.ColoredB("FAILURE", utils.RED)
+	}
+	result = fmt.Sprintf("%s - Total Time: %s", result, timeStr)
+	fmt.Println("\n" + utils.Dash() + "\n" + result + "\n" + utils.Dash())
 }

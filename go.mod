@@ -7,7 +7,6 @@ require (
 	github.com/codeskyblue/go-sh v0.0.0-20170112005953-b097669b1569
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
-	github.com/mattn/go-runewidth v0.0.4
 	github.com/spf13/cobra v0.0.5
 	github.com/stretchr/testify v1.4.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect

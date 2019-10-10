@@ -61,8 +61,7 @@ func (oneBuildConfiguration *OneBuildConfiguration) GetCommand(name string) (val
 
 // Print prints the configuration to the console
 func (oneBuildConfiguration *OneBuildConfiguration) Print() {
-	fmt.Println(utils.BANNER())
-	fmt.Println("project: " + oneBuildConfiguration.Project)
+	fmt.Println(utils.Dash() + "\nproject: " + oneBuildConfiguration.Project)
 	if oneBuildConfiguration.Before != "" {
 		fmt.Println("before: " + oneBuildConfiguration.Before)
 	}
@@ -76,6 +75,5 @@ func (oneBuildConfiguration *OneBuildConfiguration) Print() {
 			fmt.Println(strings.TrimSpace(k) + " | " + strings.TrimSpace(v))
 		}
 	}
-
-	fmt.Println(utils.BANNER())
+	fmt.Println(utils.Dash())
 }
