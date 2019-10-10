@@ -56,10 +56,6 @@ This will update the current project configuration file.`,
 	},
 }
 
-func init() {
-	rootCmd.AddCommand(setCmd)
-}
-
 func buildAndSetCommand(name string, value string) (config.OneBuildConfiguration, error) {
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
@@ -110,4 +106,8 @@ func indexOfCommandIfPresent(configuration config.OneBuildConfiguration, command
 		}
 		return false
 	})
+}
+
+func init() {
+	rootCmd.AddCommand(setCmd)
 }
