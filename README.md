@@ -20,9 +20,7 @@
   <a href="https://goreportcard.com/report/github.com/gopinath-langote/1build">
         <img src="https://goreportcard.com/badge/github.com/gopinath-langote/1build" alt="Go Report Card">
     </a>
-  <a href="https://join.slack.com/t/1buildteam/shared_invite/enQtNzM4OTY5NzMyNzU1LWFmY2I1NjY0MTQyMGFiZTNkN2IwMTRjNjhkYzgxMjY4ZDAwY2JjYWI5NTg4NTllYmEyM2FjN2M0OTNjNDJhNTU">
-          <img src="https://img.shields.io/badge/slack-@1buildteam-yellow.svg?logo=slack" alt="Join the chat on Slack">
-      </a>  
+  <a href='https://ko-fi.com/J3J815HZK' target='_blank'><img height='20' width='80' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </p>
 
 <br>
