@@ -143,7 +143,7 @@ Please read [CONTRIBUTING.md](https://github.com/gopinath-langote/1build/blob/ma
 We use [Semantic Versioning](http://semver.org/) for all our releases. For the versions available, see the [tags on this repository](https://github.com/gopinath-langote/1build/tags).
 
 ## Changelog
-All notable changes to this project in each release will be documented in [CHANGELOG.md](https://github.com/gopinath-langote/1build/blob/master/docs/CHANGELOG.md).
+All notable changes to this project in each release will be documented in [Releases Page](https://github.com/gopinath-langote/1build/releases/).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
