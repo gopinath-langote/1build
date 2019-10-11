@@ -1,4 +1,7 @@
 project: gopi
+before: export GO111MODULE=on
 commands:
+  - setup: go get -u golang.org/x/lint/golint
   - test: go test -v -cover github.com/gopinath-langote/1build/testing -run . GOCACHE=off
+  - lint: go list ./... | xargs -L1 golint
   - build: go build
