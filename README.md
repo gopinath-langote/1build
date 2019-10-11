@@ -41,9 +41,8 @@ the things that actually matter.
 
 ### Homebrew
 
-```bash
-brew tap gopinath-langote/one-build
-brew install one-build
+```console
+brew install gopinath-langote/one-build/one-build
 ```
 
 ### Manual
