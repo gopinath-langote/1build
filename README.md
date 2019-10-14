@@ -120,17 +120,14 @@ you can use one of them, both or neither.
     ```
 
 3. Clean up database after some commands
-     ```console
+    ```console
     1build set after "./clean_database.sh"
     ```
 
-### Removing `before` and `after` commands
-Both `before` and `after` commands can be unset the same way as regular commands
-
-#### Example:
-```console
-1build unset before after
-```
+4. Remove `before` and `after` commands
+    ```console
+    1build unset before after
+    ```
 
 See `1build --help` for command usages.
 
