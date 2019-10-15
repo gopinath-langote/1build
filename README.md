@@ -113,6 +113,16 @@ you can use one of them, both or neither.
     1build set before 'export VARNAME="my value"'
     1build set after "unset VARNAME"
     ```
+  
+    Configuration with before and after setup
+    
+    ```yaml
+    project: Sample Web App
+    before: export VARNAME="my value"
+    after: unset VARNAME
+    commands:
+       - build: npm run build
+    ```
 
 2.  Ensure that `Docker` is up and running
     ```console
