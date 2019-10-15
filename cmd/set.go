@@ -45,23 +45,55 @@ This will update the current project configuration file.`,
 		commandName := args[0]
 		commandValue := args[1]
 
-		configuration, err := config.LoadOneBuildConfiguration()
+		configuration, err := buildAndSetCommand(commandName, commandValue)
+
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		command := map[string]string{}
-		command[commandName] = commandValue
 
-		index := indexOfCommandIfPresent(configuration, commandName)
-		if index == -1 {
-			strings := append(configuration.Commands, command)
-			configuration.Commands = strings
-		} else {
-			configuration.Commands[index] = command
-		}
 		_ = config.WriteConfigFile(configuration)
 	},
+}
+
+func buildAndSetCommand(name string, value string) (config.OneBuildConfiguration, error) {
+	configuration, err := config.LoadOneBuildConfiguration()
+	if err != nil {
+		return config.OneBuildConfiguration{}, err
+	}
+
+	switch name {
+	case config.BeforeCommand:
+		return setBefore(configuration, value), nil
+	case config.AfterCommand:
+		return setAfter(configuration, value), nil
+	default:
+		return setCommand(configuration, name, value), nil
+	}
+}
+
+func setBefore(configuration config.OneBuildConfiguration, value string) config.OneBuildConfiguration {
+	configuration.Before = value
+	return configuration
+}
+
+func setAfter(configuration config.OneBuildConfiguration, value string) config.OneBuildConfiguration {
+	configuration.After = value
+	return configuration
+}
+
+func setCommand(configuration config.OneBuildConfiguration, name string, value string) config.OneBuildConfiguration {
+	command := map[string]string{}
+	command[name] = value
+
+	index := indexOfCommandIfPresent(configuration, name)
+	if index == -1 {
+		strings := append(configuration.Commands, command)
+		configuration.Commands = strings
+	} else {
+		configuration.Commands[index] = command
+	}
+	return configuration
 }
 
 func indexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
