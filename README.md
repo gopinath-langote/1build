@@ -54,9 +54,9 @@ brew install gopinath-langote/one-build/one-build
 
 ### Configuration
 -   Create `1build.yaml` configuration file by
-  ```console
-  1build init --name <your_project_name>
-  ```
+    ```console
+    1build init --name <your_project_name>
+    ```
 
 -   Edit file according to project command list, Example of `1build.yaml` for node project:
     ```yaml
@@ -107,24 +107,24 @@ and running or you need to clean up the database after running a test harness.
 This is where `before` & `after` commands are useful. These commands are both optional – 
 you can use one of them, both or neither.
 
-#### Examples:
-1. Setting env variables and cleaning those up
+#### Examples
+1.  Setting env variables and cleaning those up
     ```console
     1build set before 'export VARNAME="my value"'
     1build set after "unset VARNAME"
     ```
 
-2. Ensure that `Docker` is up and running
+2.  Ensure that `Docker` is up and running
     ```console
     1build set before "./docker_run.sh"
     ```
 
-3. Clean up database after some commands
+3.  Clean up database after some commands
     ```console
     1build set after "./clean_database.sh"
     ```
 
-4. Remove `before` and `after` commands
+4.  Remove `before` and `after` commands
     ```console
     1build unset before after
     ```
