@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"testing"
 
 	utils2 "github.com/gopinath-langote/1build/cmd/utils"
@@ -12,7 +13,7 @@ import (
 	"github.com/gopinath-langote/1build/testing/utils"
 )
 
-var binaryName = "1build"
+var binaryName string
 var binaryPath string
 var testDirectory string
 
@@ -39,6 +40,11 @@ func TestAll(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
+	if runtime.GOOS == "windows" {
+		binaryName = "1build.exe"
+	} else {
+		binaryName = "1build"
+	}
 	testDir, _ := utils.CreateTempDir()
 	testDirectory = testDir
 

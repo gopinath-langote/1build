@@ -95,6 +95,17 @@ brew install gopinath-langote/one-build/one-build
 ```console
   1build unset lint test build
   ```
+### Delete configuration
+
+-   Delete with confirmation prompt
+```console
+   1build delete
+   ```
+
+-   Delete without confirmation
+```console
+  1build delete --force
+  ```
 
 ### Using `before` and `after` commands
 Consider that your project requires some environment variables to set before running any
