@@ -1,16 +1,18 @@
 package utils
 
 import (
-	"github.com/gopinath-langote/1build/testing/def"
-	"github.com/logrusorgru/aurora"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
+
+	"github.com/gopinath-langote/1build/testing/def"
+	"github.com/logrusorgru/aurora"
 )
 
 // CreateConfigFile creates a config file
 func CreateConfigFile(dir string, content string) error {
-	return ioutil.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0777)
+	return ioutil.WriteFile(filepath.Join(dir, def.ConfigFileName), []byte(content), 0777)
 }
 
 // CreateTempDir created temporary directory
@@ -25,7 +27,7 @@ func RemoveAllFilesFromDir(dir string) {
 
 // RecreateTestResourceDirectory cleans up test resources and recreates it
 func RecreateTestResourceDirectory(dir string) string {
-	restResourceDirectory := dir + "/resources"
+	restResourceDirectory := filepath.Join(dir, "resources")
 	RemoveAllFilesFromDir(restResourceDirectory)
 	_ = os.Mkdir(restResourceDirectory, 0777)
 	return restResourceDirectory

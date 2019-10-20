@@ -1,11 +1,13 @@
 package fixtures
 
 import (
+	"io/ioutil"
+	"path/filepath"
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func featureUnsetTestsData() []Test {
@@ -47,8 +49,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
@@ -124,8 +126,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
@@ -153,8 +155,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd") &&
@@ -188,8 +190,8 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd, missingCmd2") &&
@@ -220,8 +222,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd") &&
@@ -252,8 +254,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
@@ -280,8 +282,8 @@ commands: []
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"testing"
 
@@ -48,7 +49,7 @@ func TestMain(m *testing.M) {
 	testDir, _ := utils.CreateTempDir()
 	testDirectory = testDir
 
-	binaryPath = testDir + "/" + binaryName
+	binaryPath = filepath.Join(testDir, binaryName)
 	buildBinary(binaryPath)
 
 	fmt.Println(utils2.Dash() + "\nBinary Path:- '" + binaryPath + "'\n" + utils2.Dash())
