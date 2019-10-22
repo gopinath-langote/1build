@@ -2,8 +2,9 @@ package utils
 
 import (
 	"fmt"
-	"github.com/logrusorgru/aurora"
 	"strings"
+
+	"github.com/logrusorgru/aurora"
 )
 
 // Dash return dashes with fixed length - 72
@@ -34,7 +35,7 @@ func CPrintln(text string, style Style) {
 	fmt.Println()
 }
 
-// CPrintln prints the text with given formatting style
+// CPrint prints the text with given formatting style
 func CPrint(text string, style Style) {
 	formattedText := colorize(text, style)
 	formattedText = bold(formattedText, style)
