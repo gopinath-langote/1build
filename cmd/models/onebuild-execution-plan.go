@@ -48,7 +48,7 @@ func (executionPlan *OneBuildExecutionPlan) HasCommands() bool {
 // Print prints execution plan
 func (executionPlan *OneBuildExecutionPlan) Print() {
 	fmt.Println()
-	fmt.Println(utils.ColoredU("Execution plan", utils.CYAN))
+	utils.CPrintln("Execution plan", utils.Style{Color: utils.CYAN})
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	phase, cmd := longestPhaseAndCommandValue(executionPlan)
@@ -115,11 +115,12 @@ func (c *CommandContext) PrintPhaseBanner() {
 		numDashesRight++
 	}
 
-	fmt.Printf("%s%s%s%s%s\n",
-		strings.Repeat("-", numDashesLeft),
-		bannerOpen,
-		utils.Colored(c.Name, utils.CYAN),
-		bannerClose,
-		strings.Repeat("-", numDashesRight),
-	)
+	fmt.Print(strings.Repeat("-", numDashesLeft))
+	fmt.Print(bannerOpen)
+
+	utils.CPrint(c.Name, utils.Style{Color: utils.CYAN})
+
+	fmt.Print(bannerClose)
+	fmt.Print(strings.Repeat("-", numDashesRight))
+	fmt.Println()
 }

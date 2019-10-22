@@ -47,7 +47,7 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 	if err != nil {
 		exitCode := (err.Error())[12:]
 		text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
-		fmt.Println(utils.Colored(text, utils.RED))
+		utils.CPrintln(text, utils.Style{Color: utils.RED})
 		printResultsBanner(false, executeStart)
 		utils.ExitWithCode(exitCode)
 	}
@@ -65,7 +65,8 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	for _, name := range commands {
 		executionCommand := onebuildConfig.GetCommand(name)
 		if executionCommand == "" {
-			fmt.Println(utils.ColoredB("\nError building execution plan. Command \""+name+"\" not found.", utils.RED))
+			utils.CPrintln("\nError building execution plan. Command \""+name+"\" not found.",
+				utils.Style{Color: utils.RED, Bold: true})
 			onebuildConfig.Print()
 			utils.ExitWithCode("127")
 		}
@@ -97,10 +98,13 @@ func printResultsBanner(isSuccess bool, startTime time.Time) {
 	} else {
 		timeStr = fmt.Sprintf("%.2dm %.2ds", minutes, secs)
 	}
-	result := utils.ColoredB("SUCCESS", utils.CYAN)
-	if !isSuccess {
-		result = utils.ColoredB("FAILURE", utils.RED)
+	fmt.Println()
+	fmt.Println(utils.Dash())
+	if isSuccess {
+		utils.CPrint("SUCCESS", utils.Style{Color: utils.CYAN, Bold: true})
+	} else {
+		utils.CPrint("FAILURE", utils.Style{Color: utils.RED, Bold: true})
 	}
-	result = fmt.Sprintf("%s - Total Time: %s", result, timeStr)
-	fmt.Println("\n" + utils.Dash() + "\n" + result + "\n" + utils.Dash())
+	fmt.Println(fmt.Sprintf(" - Total Time: %s", timeStr))
+	fmt.Println(utils.Dash())
 }

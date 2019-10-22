@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/logrusorgru/aurora"
 	"strings"
 )
@@ -21,24 +22,35 @@ const (
 	RED OneBuildColor = 1
 )
 
-// ColoredB return text in color with bold format
-func ColoredB(text string, color OneBuildColor) string {
-	return colorize(text, color).Bold().String()
+// Style represents type for text formatting
+type Style struct {
+	Color OneBuildColor
+	Bold  bool
 }
 
-// Colored return text in color
-func Colored(text string, color OneBuildColor) string {
-	return colorize(text, color).String()
+// CPrintln prints the text with given formatting style with newline
+func CPrintln(text string, style Style) {
+	CPrint(text, style)
+	fmt.Println()
 }
 
-// ColoredU return text in color with bold and underline format
-func ColoredU(text string, color OneBuildColor) string {
-	return colorize(text, color).Underline().String()
+// CPrintln prints the text with given formatting style
+func CPrint(text string, style Style) {
+	formattedText := colorize(text, style)
+	formattedText = bold(formattedText, style)
+	fmt.Print(formattedText.String())
 }
 
-func colorize(text string, color OneBuildColor) aurora.Value {
+func bold(formattedText aurora.Value, style Style) aurora.Value {
+	if style.Bold {
+		return formattedText.Bold()
+	}
+	return formattedText
+}
+
+func colorize(text string, style Style) aurora.Value {
 	var coloredText aurora.Value
-	if color == CYAN {
+	if style.Color == CYAN {
 		coloredText = aurora.BrightCyan(text)
 	} else {
 		coloredText = aurora.BrightRed(text)
