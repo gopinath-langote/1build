@@ -63,7 +63,7 @@ This will update the current project configuration file.`,
 
 		if len(commandsNotFound) != 0 {
 			errorMsg := "\nFollowing command(s) not found: " + strings.Join(commandsNotFound, ", ")
-			fmt.Println(utils.ColoredB(errorMsg, utils.RED))
+			utils.CPrintln(errorMsg, utils.Style{Color: utils.RED, Bold: true})
 		}
 
 		if configIsChanged {

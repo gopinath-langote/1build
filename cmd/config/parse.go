@@ -3,9 +3,9 @@ package config
 import (
 	"errors"
 	"fmt"
+	"github.com/gopinath-langote/1build/cmd/utils"
 	"strings"
 
-	"github.com/gopinath-langote/1build/cmd/utils"
 	"gopkg.in/yaml.v3"
 )
 

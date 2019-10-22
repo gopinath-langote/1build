@@ -4,11 +4,17 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
+	"testing"
 
 	"github.com/gopinath-langote/1build/testing/def"
-	"github.com/logrusorgru/aurora"
+	"github.com/stretchr/testify/assert"
 )
+
+const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"
+
+var regex = regexp.MustCompile(ansi)
 
 // CreateConfigFile creates a config file
 func CreateConfigFile(dir string, content string) error {
@@ -38,38 +44,13 @@ const (
 	MaxOutputWidth = 72
 )
 
-// OneBuildColor represents type for color enum
-type OneBuildColor int
-
-const (
-	// CYAN is 1build's default color standard
-	CYAN OneBuildColor = 0
-
-	// RED is used in failure messages
-	RED OneBuildColor = 1
-)
-
 // PlainBanner return dashes with fixed length - 72
 func PlainBanner() string {
 	return strings.Repeat("-", MaxOutputWidth)
 }
 
-// ColoredB return text in color with bold format
-func ColoredB(text string, color OneBuildColor) string {
-	return colorize(text, color).Bold().String()
-}
-
-// Colored return text in color
-func Colored(text string, color OneBuildColor) string {
-	return colorize(text, color).String()
-}
-
-func colorize(text string, color OneBuildColor) aurora.Value {
-	var coloredText aurora.Value
-	if color == CYAN {
-		coloredText = aurora.BrightCyan(text)
-	} else {
-		coloredText = aurora.BrightRed(text)
-	}
-	return coloredText
+// AssertContains checks two string without ANSI colors
+func AssertContains(t *testing.T, actualOutput string, expectedOutput string) bool {
+	actualOutput = regex.ReplaceAllString(actualOutput, "")
+	return assert.Contains(t, actualOutput, expectedOutput)
 }

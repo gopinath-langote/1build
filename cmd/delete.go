@@ -26,7 +26,8 @@ For example:
   1build delete --force`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if !config.IsConfigFilePresent() {
-			fmt.Println(utils.Colored("No configuration file found!", utils.RED))
+			utils.CPrintln("No configuration file found!", utils.Style{Color: utils.RED})
+			//fmt.Println(utils.Colored("No configuration file found!", utils.RED))
 			utils.ExitError()
 		}
 	},
@@ -41,7 +42,7 @@ For example:
 		}
 		if shouldDelete {
 			if err := config.DeleteConfigFile(); err != nil {
-				fmt.Println(utils.Colored("Error deleting configuration file.", utils.RED))
+				utils.CPrintln("Error deleting configuration file.", utils.Style{Color: utils.RED})
 			}
 		}
 	},
