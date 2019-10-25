@@ -40,7 +40,7 @@ building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -68,7 +68,7 @@ build | echo building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldShowErrorIfCommandNotFound",
-		CmdArgs: []string{"random"},
+		CmdArgs: []string{"run", "random"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -102,7 +102,7 @@ building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -137,7 +137,7 @@ running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -176,7 +176,7 @@ running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -209,7 +209,7 @@ after     echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfBeforeCommandFailed",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -246,7 +246,7 @@ running pre-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfCommandFailed",
-		CmdArgs: []string{"build"},
+		CmdArgs: []string{"run", "build"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},

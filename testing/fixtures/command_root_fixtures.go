@@ -1,10 +1,11 @@
 package fixtures
 
 import (
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func featureRootTestData() []Test {
@@ -13,7 +14,7 @@ func featureRootTestData() []Test {
 	return []Test{
 		shouldFailIfYamlFileIsNotPresent(feature),
 		shouldFailIfYamlFileIsNotInCorrectYamlFormat(feature),
-		shouldShowListOfCommandsIfNoCommandSpecified(feature),
+		shouldShowHelpMessageIfNoCommandSpecified(feature),
 	}
 }
 
@@ -53,14 +54,8 @@ commands:
 	}
 }
 
-func shouldShowListOfCommandsIfNoCommandSpecified(feature string) Test {
-	commandListMessage := `------------------------------------------------------------------------
-project: Sample Project
-commands:
-build | npm run build
-lint | eslint
-------------------------------------------------------------------------
-`
+func shouldShowHelpMessageIfNoCommandSpecified(feature string) Test {
+	commandListMessage := `Please specify a command to 1build`
 	defaultFileContent := `
 project: Sample Project
 commands:

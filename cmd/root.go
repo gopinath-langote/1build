@@ -21,15 +21,10 @@ var rootCmd = &cobra.Command{
 			utils.ExitError()
 		}
 	},
-	/*
-		Run: func(cmd *cobra.Command, args []string) {
-			if len(args) < 1 {
-				listCmd.Run(cmd, args)
-			} else {
-				exec.ExecutePlan(args...)
-			}
-		},
-	*/
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Please specify a command to 1build")
+		cmd.Help()
+	},
 }
 
 // Execute entry-point for cobra app
