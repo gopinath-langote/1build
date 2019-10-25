@@ -20,7 +20,6 @@
   <a href="https://goreportcard.com/report/github.com/gopinath-langote/1build">
         <img src="https://goreportcard.com/badge/github.com/gopinath-langote/1build" alt="Go Report Card">
     </a>
-  <a href='https://ko-fi.com/J3J815HZK' target='_blank'><img height='20' width='80' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </p>
 
 <br>
