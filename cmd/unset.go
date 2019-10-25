@@ -32,7 +32,7 @@ This will update the current project configuration file.`,
 			utils.ExitError()
 		}
 
-		validNameRegex, _ := regexp.Compile(`^[a-zA-Z0-9\-_]+$`)
+		validNameRegex := regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`)
 		for _, commandName := range args {
 			matched := validNameRegex.MatchString(commandName)
 
