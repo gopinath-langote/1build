@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	parse "github.com/gopinath-langote/1build/cmd/config"
-	"github.com/gopinath-langote/1build/cmd/exec"
 	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -22,13 +21,15 @@ var rootCmd = &cobra.Command{
 			utils.ExitError()
 		}
 	},
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) < 1 {
-			listCmd.Run(cmd, args)
-		} else {
-			exec.ExecutePlan(args...)
-		}
-	},
+	/*
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) < 1 {
+				listCmd.Run(cmd, args)
+			} else {
+				exec.ExecutePlan(args...)
+			}
+		},
+	*/
 }
 
 // Execute entry-point for cobra app
