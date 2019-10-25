@@ -32,8 +32,9 @@ This will update the current project configuration file.`,
 			utils.ExitError()
 		}
 
+		validNameRegex, _ := regexp.Compile(`^[a-zA-Z0-9\-_]+$`)
 		for _, commandName := range args {
-			matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
+			matched := validNameRegex.MatchString(commandName)
 
 			if !matched {
 				fmt.Println("1build unset: '" + commandName + "' is not a valid command name. See '1build unset --help'.")
