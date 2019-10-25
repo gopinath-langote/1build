@@ -2,5 +2,6 @@
 vendor/
 .1build
 1build
+1build.exe
 dist/
 !1build.yaml

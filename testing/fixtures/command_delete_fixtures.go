@@ -2,6 +2,7 @@ package fixtures
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/def"
@@ -27,7 +28,7 @@ func shouldDeleteConfigFile(feature string) Test {
 			return utils.CreateConfigFile(dir, "project: Sample Project\ncommands:\n")
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assertFileNotExists(t, dir+"/"+def.ConfigFileName)
+			return assertFileNotExists(t, filepath.Join(dir, def.ConfigFileName))
 		},
 	}
 }

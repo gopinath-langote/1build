@@ -1,10 +1,9 @@
 package utils
 
 import (
-	"fmt"
 	"strings"
 
-	"github.com/logrusorgru/aurora"
+	"github.com/fatih/color"
 )
 
 // Dash return dashes with fixed length - 72
@@ -12,49 +11,34 @@ func Dash() string {
 	return strings.Repeat("-", MaxOutputWidth)
 }
 
-// OneBuildColor represents type for color enum
-type OneBuildColor int
-
 const (
 	// CYAN is 1build's default color standard
-	CYAN OneBuildColor = 0
+	CYAN color.Attribute = color.FgCyan
 
 	// RED is used in failure messages
-	RED OneBuildColor = 1
+	RED color.Attribute = color.FgHiRed
 )
 
 // Style represents type for text formatting
 type Style struct {
-	Color OneBuildColor
+	Color color.Attribute
 	Bold  bool
 }
 
 // CPrintln prints the text with given formatting style with newline
 func CPrintln(text string, style Style) {
-	CPrint(text, style)
-	fmt.Println()
+	format(style).Println(text)
 }
 
 // CPrint prints the text with given formatting style
 func CPrint(text string, style Style) {
-	formattedText := colorize(text, style)
-	formattedText = bold(formattedText, style)
-	fmt.Print(formattedText.String())
+	format(style).Print(text)
 }
 
-func bold(formattedText aurora.Value, style Style) aurora.Value {
+func format(style Style) *color.Color {
+	formatter := color.New(style.Color)
 	if style.Bold {
-		return formattedText.Bold()
+		formatter = formatter.Add(color.Bold)
 	}
-	return formattedText
-}
-
-func colorize(text string, style Style) aurora.Value {
-	var coloredText aurora.Value
-	if style.Color == CYAN {
-		coloredText = aurora.BrightCyan(text)
-	} else {
-		coloredText = aurora.BrightRed(text)
-	}
-	return coloredText
+	return formatter
 }

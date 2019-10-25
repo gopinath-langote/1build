@@ -1,11 +1,13 @@
 package fixtures
 
 import (
+	"io/ioutil"
+	"path/filepath"
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func featureSetTestsData() []Test {
@@ -43,8 +45,8 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
@@ -72,8 +74,8 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
@@ -127,8 +129,8 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
@@ -157,8 +159,8 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},

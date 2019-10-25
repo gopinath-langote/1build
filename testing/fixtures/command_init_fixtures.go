@@ -2,6 +2,7 @@ package fixtures
 
 import (
 	"io/ioutil"
+	"path/filepath"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/def"
@@ -27,8 +28,8 @@ commands:
 		Name:    "shouldInitialiseNewProject",
 		CmdArgs: []string{"init", "--name", "trial"},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			filePath := dir + "/" + def.ConfigFileName
-			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			filePath := filepath.Join(dir, def.ConfigFileName)
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
