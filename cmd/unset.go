@@ -32,12 +32,14 @@ This will update the current project configuration file.`,
 			utils.ExitError()
 		}
 
-		commandName := args[0]
-		matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
+		validNameRegex := regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`)
+		for _, commandName := range args {
+			matched := validNameRegex.MatchString(commandName)
 
-		if !matched {
-			fmt.Println("1build unset: '" + commandName + "' is not a valid command name. See '1build unset --help'.")
-			utils.ExitError()
+			if !matched {
+				fmt.Println("1build unset: '" + commandName + "' is not a valid command name. See '1build unset --help'.")
+				utils.ExitError()
+			}
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {

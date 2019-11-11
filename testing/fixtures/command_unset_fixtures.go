@@ -1,11 +1,12 @@
 package fixtures
 
 import (
+	"io/ioutil"
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func featureUnsetTestsData() []Test {
@@ -24,6 +25,8 @@ func featureUnsetTestsData() []Test {
 		shouldUnsetTheAfterCommand(feature),
 		unsetBeforeShouldFailWhenBeforeIsNotFound(feature),
 		unsetAfterShouldFailWhenAfterIsNotFound(feature),
+		unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered(feature),
+		unsetMultipleCommandShouldFailWhenInvalidCommandNameIsEntered(feature),
 	}
 }
 
@@ -326,6 +329,50 @@ commands:
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "Following command(s) not found: after")
+		},
+	}
+}
+
+func unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered(feature string) Test {
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+`
+	invalidName := "!nv@lid-name"
+	expectedOutput := "1build unset: '" + invalidName + "' is not a valid command name. See '1build unset --help'."
+
+	return Test{
+		Feature: feature,
+		Name:    "unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered",
+		CmdArgs: []string{"unset", invalidName},
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return assert.Contains(t, actualOutput, expectedOutput)
+		},
+	}
+}
+
+func unsetMultipleCommandShouldFailWhenInvalidCommandNameIsEntered(feature string) Test {
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+`
+	invalidName := "!nv@lid-name"
+	expectedOutput := "1build unset: '" + invalidName + "' is not a valid command name. See '1build unset --help'."
+
+	return Test{
+		Feature: feature,
+		Name:    "unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered",
+		CmdArgs: []string{"unset", "build", invalidName},
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return assert.Contains(t, actualOutput, expectedOutput)
 		},
 	}
 }
