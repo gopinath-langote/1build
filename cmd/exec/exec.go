@@ -43,25 +43,25 @@ func ExecutePlan(commands ...string) {
 }
 
 func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
-	stdout, err := command.CommandSession.CombinedOutput()
+	command.PrintPhaseBanner()
 	if !viper.GetBool("quiet") {
-		command.PrintPhaseBanner()
+		err := command.CommandSession.Run()
 		if err != nil {
 			exitCode := (err.Error())[12:]
 			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
 			utils.CPrintln(text, utils.Style{Color: utils.RED})
 			printResultsBanner(false, executeStart)
 			utils.ExitWithCode(exitCode)
-		} else {
-			fmt.Printf("%s", stdout)
 		}
 	} else {
+		_, err := command.CommandSession.CombinedOutput()
 		if err != nil {
 			exitCode := (err.Error())[12:]
 			printResultsBanner(false, executeStart)
 			utils.ExitWithCode(exitCode)
 		}
 	}
+
 }
 
 func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {

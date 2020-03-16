@@ -1,13 +1,14 @@
 package utils
 
 import (
-	"github.com/gopinath-langote/1build/testing/def"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
 	"testing"
+
+	"github.com/gopinath-langote/1build/testing/def"
+	"github.com/stretchr/testify/assert"
 )
 
 const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"
@@ -51,4 +52,10 @@ func PlainBanner() string {
 func AssertContains(t *testing.T, actualOutput string, expectedOutput string) bool {
 	actualOutput = regex.ReplaceAllString(actualOutput, "")
 	return assert.Contains(t, actualOutput, expectedOutput)
+}
+
+// AssertNotContains checks actualOutput string not contain expectedOutput string without ANSI colors
+func AssertNotContains(t *testing.T, actualOutput string, expectedOutput string) bool {
+	actualOutput = regex.ReplaceAllString(actualOutput, "")
+	return assert.NotContains(t, actualOutput, expectedOutput)
 }
