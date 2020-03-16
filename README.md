@@ -140,6 +140,17 @@ you can use one of them, both or neither.
     1build unset before after
     ```
 
+### Using `--quiet` or `-q` flag
+Sometimes you choose to not see all logs/output of your command and just see success or failure as the outcome. 
+So using `--quite` or `-q` flag to 1build command execution will result in just executing the command but not showing the entire output of it, Only shows SUCCESS/FAILURE as result of command execution.
+```console
+  1build lint test --quiet
+  ```
+  OR
+```console
+  1build lint test --q
+  ```
+
 See `1build --help` for command usages.
 
 ## Contributing
