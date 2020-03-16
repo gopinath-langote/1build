@@ -43,5 +43,5 @@ func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
 	rootCmd.PersistentFlags().BoolP("quiet", "q", false,
 		"Only shows SUCCESS/FAILURE as result of command execution instead of showing all output of command")
-	viper.BindPFlags(rootCmd.PersistentFlags())
+	_ = viper.BindPFlags(rootCmd.PersistentFlags())
 }

@@ -55,13 +55,12 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 		} else {
 			fmt.Printf("%s", stdout)
 		}
-	} else {
-		if err != nil {
-			exitCode := (err.Error())[12:]
-			printResultsBanner(false, executeStart)
-			utils.ExitWithCode(exitCode)
-		}
+	} else if err != nil {
+		exitCode := (err.Error())[12:]
+		printResultsBanner(false, executeStart)
+		utils.ExitWithCode(exitCode)
 	}
+
 }
 
 func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {
