@@ -6,21 +6,19 @@ import (
 	"github.com/gopinath-langote/1build/testing/utils"
 )
 
-func featureExecuteCmdTestData() []Test {
-	feature := "exec"
-
+func featureFlagTestData() []Test {
+	feature := "flag"
 	return []Test{
-		shouldExecuteAvailableCommand(feature),
-		shouldShowErrorIfCommandNotFound(feature),
-		shouldExecuteBeforeCommand(feature),
-		shouldExecuteAfterCommand(feature),
-		shouldExecuteBeforeAndAfterCommand(feature),
-		shouldStopExecutionIfBeforeCommandFailed(feature),
-		shouldStopExecutionIfCommandFailed(feature),
+		shouldExecuteCommandWithquietFlag(feature),
+		shouldExecuteBeforeCommandWithquietFlag(feature),
+		shouldExecuteAfterCommandWithquietFlag(feature),
+		shouldExecuteBeforeAndAfterCommandWithquietFlag(feature),
+		shouldStopExecutionIfBeforeCommandFailedWithquietFlag(feature),
+		shouldStopExecutionIfCommandFailedWithquietFlag(feature),
 	}
 }
 
-func shouldExecuteAvailableCommand(feature string) Test {
+func shouldExecuteCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 commands:
@@ -34,13 +32,12 @@ build    echo building project
 
 
 -------------------------------[ ` + "build" + ` ]--------------------------------
-building project
 
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteAvailableCommand",
-		CmdArgs: []string{"build"},
+		Name:    "shouldExecuteCommandWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -51,34 +48,7 @@ building project
 	}
 }
 
-func shouldShowErrorIfCommandNotFound(feature string) Test {
-	fileContent := `
-project: Sample Project
-commands:
-  - build: echo building project
-`
-
-	expectedOutput := "\nError building execution plan. Command \"random\" not found." + `
-------------------------------------------------------------------------
-project: Sample Project
-commands:
-build | echo building project
-------------------------------------------------------------------------
-`
-	return Test{
-		Feature: feature,
-		Name:    "shouldShowErrorIfCommandNotFound",
-		CmdArgs: []string{"random"},
-		Setup: func(dir string) error {
-			return utils.CreateConfigFile(dir, fileContent)
-		},
-		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return utils.AssertContains(t, actualOutput, expectedOutput)
-		},
-	}
-}
-
-func shouldExecuteBeforeCommand(feature string) Test {
+func shouldExecuteBeforeCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -94,15 +64,13 @@ build     echo building project
 
 
 -------------------------------[ ` + "before" + ` ]-------------------------------
-running pre-command
 -------------------------------[ ` + "build" + ` ]--------------------------------
-building project
 
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeCommand",
-		CmdArgs: []string{"build"},
+		Name:    "shouldExecuteBeforeCommandWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -113,7 +81,7 @@ building project
 	}
 }
 
-func shouldExecuteAfterCommand(feature string) Test {
+func shouldExecuteAfterCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 after: echo running post-command
@@ -129,15 +97,13 @@ after    echo running post-command
 
 
 -------------------------------[ ` + "build" + ` ]--------------------------------
-building project
 -------------------------------[ ` + "after" + ` ]--------------------------------
-running post-command
 
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteAfterCommand",
-		CmdArgs: []string{"build"},
+		Name:    "shouldExecuteAfterCommandWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -148,7 +114,7 @@ running post-command
 	}
 }
 
-func shouldExecuteBeforeAndAfterCommand(feature string) Test {
+func shouldExecuteBeforeAndAfterCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -166,28 +132,26 @@ after     echo running post-command
 
 
 -------------------------------[ ` + "before" + ` ]-------------------------------
-running pre-command
 -------------------------------[ ` + "build" + ` ]--------------------------------
-building project
 -------------------------------[ ` + "after" + ` ]--------------------------------
-running post-command
 
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeAndAfterCommand",
-		CmdArgs: []string{"build"},
+		Name:    "shouldExecuteBeforeAndAfterCommandWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
 				assertSuccessBanner(t, actualOutput)
 		},
 	}
 }
 
-func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
+func shouldStopExecutionIfBeforeCommandFailedWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: exit 10
@@ -205,24 +169,25 @@ after     echo running post-command
 
 
 -------------------------------[ ` + "before" + ` ]-------------------------------
+
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldStopExecutionIfBeforeCommandFailed",
-		CmdArgs: []string{"build"},
+		Name:    "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessage(t, actualOutput, "before", "10") &&
+				assertFailureMessageNone(t, actualOutput, "before", "10") &&
 				assertFailureBanner(t, actualOutput)
 
 		},
 	}
 }
 
-func shouldStopExecutionIfCommandFailed(feature string) Test {
+func shouldStopExecutionIfCommandFailedWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
 before: echo running pre-command
@@ -240,38 +205,20 @@ after     echo running post-command
 
 
 -------------------------------[ ` + "before" + ` ]-------------------------------
-running pre-command
 -------------------------------[ ` + "build" + ` ]--------------------------------
+
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldStopExecutionIfCommandFailed",
-		CmdArgs: []string{"build"},
+		Name:    "shouldStopExecutionIfCommandFailedWithquietFlag",
+		CmdArgs: []string{"build", "--quiet"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessage(t, actualOutput, "build", "127") &&
+				assertFailureMessageNone(t, actualOutput, "build", "127") &&
 				assertFailureBanner(t, actualOutput)
 		},
 	}
-}
-
-func assertSuccessBanner(t *testing.T, actualOutput string) bool {
-	return utils.AssertContains(t, actualOutput, "SUCCESS - Total Time")
-}
-
-func assertFailureMessage(t *testing.T, actualOutput string, phase string, exitCode string) bool {
-	errorText := "\nExecution failed in phase '" + phase + "' – exit code: " + exitCode
-	return utils.AssertContains(t, actualOutput, errorText)
-}
-
-func assertFailureMessageNone(t *testing.T, actualOutput string, phase string, exitCode string) bool {
-	errorText := "\nExecution failed in phase '" + phase + "' – exit code: " + exitCode
-	return utils.AssertNotContains(t, actualOutput, errorText)
-}
-
-func assertFailureBanner(t *testing.T, actualOutput string) bool {
-	return utils.AssertContains(t, actualOutput, "FAILURE - Total Time")
 }

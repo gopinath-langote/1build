@@ -8,6 +8,7 @@ import (
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/models"
 	"github.com/gopinath-langote/1build/cmd/utils"
+	"github.com/spf13/viper"
 )
 
 // ExecutePlan executes the Execution plan
@@ -43,14 +44,24 @@ func ExecutePlan(commands ...string) {
 
 func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
 	command.PrintPhaseBanner()
-	err := command.CommandSession.Run()
-	if err != nil {
-		exitCode := (err.Error())[12:]
-		text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
-		utils.CPrintln(text, utils.Style{Color: utils.RED})
-		printResultsBanner(false, executeStart)
-		utils.ExitWithCode(exitCode)
+	if !viper.GetBool("quiet") {
+		err := command.CommandSession.Run()
+		if err != nil {
+			exitCode := (err.Error())[12:]
+			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
+			utils.CPrintln(text, utils.Style{Color: utils.RED})
+			printResultsBanner(false, executeStart)
+			utils.ExitWithCode(exitCode)
+		}
+	} else {
+		_, err := command.CommandSession.CombinedOutput()
+		if err != nil {
+			exitCode := (err.Error())[12:]
+			printResultsBanner(false, executeStart)
+			utils.ExitWithCode(exitCode)
+		}
 	}
+
 }
 
 func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {

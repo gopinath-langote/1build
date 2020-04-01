@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"fmt"
+
 	parse "github.com/gopinath-langote/1build/cmd/config"
 	"github.com/gopinath-langote/1build/cmd/exec"
 	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var rootCmd = &cobra.Command{
@@ -39,4 +41,7 @@ func Execute() {
 
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
+	rootCmd.PersistentFlags().BoolP("quiet", "q", false,
+		"Hide output log of command & only show SUCCESS/FAILURE result")
+	_ = viper.BindPFlags(rootCmd.PersistentFlags())
 }
