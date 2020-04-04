@@ -39,3 +39,19 @@ Create or find an issue you would like to implement:
 8.  Wait for maintainers to review the code
 
 9.  Thanks for you contribution :smile:
+
+# 1build Version Release
+
+1. Install [goreleaser](https://github.com/goreleaser/goreleaser)
+
+2. Create & push git tag (version higher that already released version tag)
+    Example:
+    
+   ```shell script
+   git tag v1.5.7
+   git push origin --tags
+    ```
+
+3. On 1build project directory run: `goreleaser`
+    > This will automatically create changelog on release page.
+
