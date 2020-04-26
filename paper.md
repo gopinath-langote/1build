@@ -23,16 +23,7 @@ bibliography: paper.bib
 
 # Summary
 
-<br>
-
-<h1 align="center">
-  <br>
-  <a href="https://github.com/gopinath-langote/1build">
-    <img src="https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png?raw=true" alt="1build" width="500"></a>
-  <br>
-</h1>
-
-<br>
+![1build logo](https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png)
 
 1build is an automation tool that arms you with the convenience to configure project-local command line aliases – and then
 run the commands quickly and easily. It is particularly helpful when you deal with multiple projects and switch between
