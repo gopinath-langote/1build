@@ -23,8 +23,6 @@ bibliography: paper.bib
 
 # Summary
 
-![1build logo](https://github.com/gopinath-langote/1build/blob/master/docs/assets/1build-logo.png)
-
 1build is an automation tool that arms you with the convenience to configure project-local command line aliases – and then
 run the commands quickly and easily. It is particularly helpful when you deal with multiple projects and switch between
 them all the time. It is often the fact that different projects use different build tools and have different environment
@@ -37,7 +35,7 @@ within the project directory. This way you can unify all your projects to build 
 of what build tool they use. It will remove the hassle of remembering all those commands improving the mental focus for
 the things that actually matter.
 
-# Install
+## Install
 
 ### Homebrew
 
@@ -50,7 +48,7 @@ brew install gopinath-langote/one-build/one-build
 1.  Download and install binary from [the latest release](https://github.com/gopinath-langote/1build/releases/latest)
 2.  Recommended: add `1build` executable to your `$PATH`.
 
-# Usage
+## Usage
 
 ### Configuration
 -   Create `1build.yaml` configuration file by
