@@ -47,6 +47,6 @@ With its active community of developers, timely announcement of the updates and 
 
 I acknowledge JetBrains 1Password for supporting the project as the official sponsor and the efforts of the official contributors of [1build](https://github.com/gopinath-langote/1build).
 
-I also want to acknowledge the support of [Awesome Go](https://awesome-go.com) community as [1build](https://github.com/gopinath-langote/1build) is now on [Awesome Go Project](https://github.com/avelino/awesome-go)[@awesome-go]
+I also want to acknowledge the support of [Awesome Go](https://awesome-go.com) community as [1build](https://github.com/gopinath-langote/1build) is now on Awesome Go Project[@awesome-go].
 
 # References
