@@ -40,6 +40,10 @@ In addition to this, `1build` has been developed to a high degree of `best pract
 
 With its active community of developers, timely announcement of the updates and releases on [Twitter](https://twitter.com/GopinathLangote) and with its easy contibuting guide,  it is used by many undergraduate and graduate students around the world.
 
+# Ongoing Research Projects using 1build
+
+1build is being used in the project `Reducing Impact Of OS Jitter On Single Threaded Applications`. The project uses `1build` to setup project environment which helps to train, test and validate the regression model on different platforms and similar platforms with different underlying hardware architecture. The project can be found at private repository[@osjitter].
+
 # Acknowledgements
 
 I acknowledge `JetBrains 1Password` for supporting the project as the official sponsor and the efforts of the official contributors of `1build`.
