@@ -9,7 +9,7 @@ tags:
   - awesome-go
 authors:
   - name: Gopinath Langote
-    orcid: 0000-0002-1558-0816
+    orcid: 0000-0002-2583-6459
     affiliation: 1
   - name: Deepak Ahire
     orcid: 0000-0002-9174-0797
