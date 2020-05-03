@@ -26,7 +26,7 @@
 
 <br>
 
-1build is an automation tool that arms you with the convenience to configure project-local command line aliases – and then
+1build is a research and development automation tool that arms you with the convenience to configure project-local command line aliases – and then
 run the commands quickly and easily. It is particularly helpful when you deal with multiple projects and switch between
 them all the time. It is often the fact that different projects use different build tools and have different environment
 requirements – and then switching from one project to another is becoming increasingly cumbersome. That is where 1build comes
