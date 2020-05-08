@@ -71,12 +71,12 @@ brew install gopinath-langote/one-build/one-build
 
 -   building the project
 ```console
-  1build build
+  1build run build
   ```
 
 -   fix the coding guidelines lint and run tests (executing more than one commands at once)
 ```console
-  1build lint test
+  1build run lint test
   ```
 
 ### Set new or update existing configuration
@@ -114,9 +114,9 @@ you can use one of them, both or neither.
     1build set before 'export VARNAME="my value"'
     1build set after "unset VARNAME"
     ```
-  
+
     Configuration with before and after setup
-    
+
     ```yaml
     project: Sample Web App
     before: export VARNAME="my value"
@@ -145,11 +145,11 @@ Sometimes you choose to not see all logs/output of your command and just see suc
 So using `--quiet` or `-q` flag to 1build command execution will result in just executing the command
 but not showing the entire output of it, only shows SUCCESS/FAILURE as result of command execution.
 ```console
-  1build lint test --quiet
+  1build run lint test --quiet
   ```
   OR
 ```console
-  1build lint test -q
+  1build run lint test -q
   ```
 
 See `1build --help` for command usages.

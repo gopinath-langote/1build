@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	parse "github.com/gopinath-langote/1build/cmd/config"
-	"github.com/gopinath-langote/1build/cmd/exec"
 	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -23,11 +22,8 @@ var rootCmd = &cobra.Command{
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) < 1 {
-			listCmd.Run(cmd, args)
-		} else {
-			exec.ExecutePlan(args...)
-		}
+		fmt.Println("Please specify a command to 1build")
+		cmd.Help()
 	},
 }
 

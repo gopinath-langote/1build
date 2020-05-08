@@ -1,9 +1,10 @@
 package fixtures
 
 import (
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func featureListTestData() []Test {
@@ -50,7 +51,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldNotShowAnyCommandsIfNoCommandsFound",
-		CmdArgs: []string{},
+		CmdArgs: []string{"run"},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, "project: Sample Project\ncommands:\n")
 		},
