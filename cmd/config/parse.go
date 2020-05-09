@@ -3,8 +3,9 @@ package config
 import (
 	"errors"
 	"fmt"
-	"github.com/gopinath-langote/1build/cmd/utils"
 	"strings"
+
+	"github.com/gopinath-langote/1build/cmd/utils"
 
 	"gopkg.in/yaml.v3"
 )
@@ -30,9 +31,9 @@ type OneBuildConfiguration struct {
 
 // LoadOneBuildConfiguration returns the config from file as struct.
 // If there is an error, it will be of type *Error.
-func LoadOneBuildConfiguration() (OneBuildConfiguration, error) {
+func LoadOneBuildConfiguration(configFilePath string) (OneBuildConfiguration, error) {
 	var configuration OneBuildConfiguration
-	fileContent, err := ReadFile()
+	fileContent, err := ReadFile(configFilePath)
 	if err != nil {
 		return OneBuildConfiguration{}, err
 	}

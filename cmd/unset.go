@@ -26,7 +26,7 @@ For example:
 This will update the current project configuration file.`,
 	Args: cobra.MinimumNArgs(1),
 	PreRun: func(cmd *cobra.Command, args []string) {
-		_, err := config.LoadOneBuildConfiguration()
+		_, err := config.LoadOneBuildConfiguration(FileFlag)
 		if err != nil {
 			fmt.Println(err)
 			utils.ExitError()
@@ -43,7 +43,7 @@ This will update the current project configuration file.`,
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		configuration, err := config.LoadOneBuildConfiguration()
+		configuration, err := config.LoadOneBuildConfiguration(FileFlag)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -69,7 +69,7 @@ This will update the current project configuration file.`,
 		}
 
 		if configIsChanged {
-			_ = config.WriteConfigFile(configuration)
+			_ = config.WriteConfigFile(configuration, FileFlag)
 		}
 	},
 }

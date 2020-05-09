@@ -2,6 +2,7 @@ package exec
 
 import (
 	"fmt"
+	"path/filepath"
 	"time"
 
 	"github.com/codeskyblue/go-sh"
@@ -12,17 +13,17 @@ import (
 )
 
 // ExecutePlan executes the Execution plan
-func ExecutePlan(commands ...string) {
+func ExecutePlan(configFilePath string, commands ...string) {
 
 	executeStart := time.Now()
 
-	configuration, err := config.LoadOneBuildConfiguration()
+	configuration, err := config.LoadOneBuildConfiguration(configFilePath)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	executionPlan := buildExecutionPlan(configuration, commands...)
+	executionPlan := buildExecutionPlan(configuration, configFilePath, commands...)
 	executionPlan.Print()
 
 	if executionPlan.HasBefore() {
@@ -64,13 +65,13 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 
 }
 
-func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {
+func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, configFilePath string, commands ...string) models.OneBuildExecutionPlan {
 
 	before := onebuildConfig.Before
 	var executionPlan models.OneBuildExecutionPlan
 	if before != "" {
 		executionPlan.Before = &models.CommandContext{
-			Name: "before", Command: before, CommandSession: bashCommand(sh.NewSession(), before)}
+			Name: "before", Command: before, CommandSession: bashCommand(sh.NewSession(), before, configFilePath)}
 	}
 
 	for _, name := range commands {
@@ -82,19 +83,30 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 			utils.ExitWithCode("127")
 		}
 		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{
-			Name: name, Command: executionCommand, CommandSession: bashCommand(sh.NewSession(), executionCommand)})
+			Name: name, Command: executionCommand, CommandSession: bashCommand(sh.NewSession(), executionCommand, configFilePath)})
 	}
 
 	after := onebuildConfig.After
 	if after != "" {
 		executionPlan.After = &models.CommandContext{
-			Name: "after", Command: after, CommandSession: bashCommand(sh.NewSession(), after)}
+			Name: "after", Command: after, CommandSession: bashCommand(sh.NewSession(), after, configFilePath)}
 	}
 
 	return executionPlan
 }
-
-func bashCommand(s *sh.Session, command string) *sh.Session {
+func getAbsoluteDirFromConfigFile(configFilePath string)  string {
+	abs, err := filepath.Abs(configFilePath)
+	if err != nil {
+		utils.CPrintln("\nError resolving file path for 1build configuration file.",
+		utils.Style{Color: utils.RED, Bold: true})
+		utils.ExitError()
+	}
+	baseDirFromAbs := filepath.Dir(abs)
+	return baseDirFromAbs
+}
+func bashCommand(s *sh.Session, command string, configFilePath string) *sh.Session {
+	onebuildDir := getAbsoluteDirFromConfigFile(configFilePath)
+	s.SetDir(onebuildDir)
 	return s.Command("bash", "-c", command)
 }
 

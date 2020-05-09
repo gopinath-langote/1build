@@ -18,14 +18,14 @@ var deleteCmd = &cobra.Command{
 	Short: "Deletes project configuration",
 	Long: `Deletes project configuration
 
-- To forcibly delete file without asking for consent use -f or --force  
+- To forcibly delete file without asking for consent use or --force  
 
 For example:
 
   1build delete
   1build delete --force`,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if !config.IsConfigFilePresent() {
+		if !config.IsConfigFilePresent(FileFlag) {
 			utils.CPrintln("No configuration file found!", utils.Style{Color: utils.RED})
 			//fmt.Println(utils.Colored("No configuration file found!", utils.RED))
 			utils.ExitError()
@@ -41,7 +41,7 @@ For example:
 			}
 		}
 		if shouldDelete {
-			if err := config.DeleteConfigFile(); err != nil {
+			if err := config.DeleteConfigFile(FileFlag); err != nil {
 				utils.CPrintln("Error deleting configuration file.", utils.Style{Color: utils.RED})
 			}
 		}
@@ -50,5 +50,5 @@ For example:
 
 func init() {
 	rootCmd.AddCommand(deleteCmd)
-	deleteCmd.Flags().BoolVarP(&shouldDelete, "force", "f", false, "Forcibly delete configuration file")
+	deleteCmd.Flags().BoolVar(&shouldDelete, "force", false, "Forcibly delete configuration file")
 }

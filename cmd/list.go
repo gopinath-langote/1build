@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/spf13/cobra"
 )
@@ -11,7 +12,7 @@ var listCmd = &cobra.Command{
 	Short: "Show all available commands from the current project configuration",
 	Long:  "Show all available commands from the current project configuration",
 	Run: func(cmd *cobra.Command, args []string) {
-		oneBuildConfig, err := config.LoadOneBuildConfiguration()
+		oneBuildConfig, err := config.LoadOneBuildConfiguration(FileFlag)
 		if err != nil {
 			fmt.Println(err)
 			return
