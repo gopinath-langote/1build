@@ -11,5 +11,5 @@ require (
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/tools v0.0.0-20200509030707-2212a7e161a5 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20190709130402-674ba3eaed22
+	gopkg.in/yaml.v3 v3.0.0-20200506231410-2ff61e1afc86
 )

@@ -20,7 +20,7 @@ var rootCmd = &cobra.Command{
 	Short:   "Frictionless way of managing project-specific commands",
 	Args:    cobra.MinimumNArgs(0),
 	PreRun: func(cmd *cobra.Command, args []string) {
-		_, err := parse.LoadOneBuildConfiguration(FileFlag)
+		_, err := parse.LoadOneBuildConfiguration()
 		if err != nil {
 			fmt.Println(err)
 			utils.ExitError()
@@ -31,7 +31,7 @@ var rootCmd = &cobra.Command{
 			listCmd.Run(cmd, args)
 		} else {
 			fmt.Print(args, cmd)
-			exec.ExecutePlan(FileFlag, args...)
+			exec.ExecutePlan(args...)
 		}
 	},
 }
@@ -46,7 +46,8 @@ func Execute() {
 
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
-	rootCmd.PersistentFlags().StringVarP(&FileFlag, "file", "f", config.OneBuildConfigFileName, "The File Path for 1build configuration file.")
+	rootCmd.PersistentFlags().StringVarP(&FileFlag, "file", "f", config.OneBuildConfigFileName,
+	"The file path for 1build configuration file.")
 	rootCmd.PersistentFlags().BoolP("quiet", "q", false,
 		"Hide output log of command & only show SUCCESS/FAILURE result")
 	_ = viper.BindPFlags(rootCmd.PersistentFlags())

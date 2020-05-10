@@ -20,8 +20,8 @@ For example:
   1build init --name project
   1build init --name "My favorite project"`,
 	PreRun: func(cmd *cobra.Command, args []string) {
-		if config.IsConfigFilePresent(FileFlag) {
-			fmt.Println("'" + FileFlag + "' configuration file already exists.")
+		if config.IsConfigFilePresent() {
+			fmt.Println("'" + config.OneBuildConfigFileName + "' configuration file already exists.")
 			utils.ExitError()
 		}
 	},
@@ -36,9 +36,9 @@ For example:
 			Commands: []map[string]string{defaultCommand},
 		}
 
-		err := config.WriteConfigFile(oneBuildConfiguration, FileFlag)
+		err := config.WriteConfigFile(oneBuildConfiguration)
 		if err != nil {
-			fmt.Println("Failed to create file '" + FileFlag + "'")
+			fmt.Println("Failed to create file '" + config.OneBuildConfigFileName + "'")
 		}
 	},
 }

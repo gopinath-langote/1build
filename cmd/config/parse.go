@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gopinath-langote/1build/cmd/utils"
+	"github.com/spf13/viper"
 
 	"gopkg.in/yaml.v3"
 )
@@ -29,11 +30,21 @@ type OneBuildConfiguration struct {
 	Commands []map[string]string `yaml:"commands"`
 }
 
+// GetConfigFile returns the 1build configuration file from root file flag or global file variable
+func GetConfigFile() string {
+	fileFlag := viper.GetString("file")
+	if fileFlag == "" {
+		return OneBuildConfigFileName
+	}
+
+	return fileFlag
+}
+
 // LoadOneBuildConfiguration returns the config from file as struct.
 // If there is an error, it will be of type *Error.
-func LoadOneBuildConfiguration(configFilePath string) (OneBuildConfiguration, error) {
+func LoadOneBuildConfiguration() (OneBuildConfiguration, error) {
 	var configuration OneBuildConfiguration
-	fileContent, err := ReadFile(configFilePath)
+	fileContent, err := ReadFile()
 	if err != nil {
 		return OneBuildConfiguration{}, err
 	}
