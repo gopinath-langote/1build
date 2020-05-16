@@ -1,11 +1,12 @@
 package fixtures
 
 import (
+	"io/ioutil"
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func featureSetTestsData() []Test {
@@ -86,7 +87,7 @@ func shouldFailWhenConfigurationFileIsNotFound(feature string) Test {
 		Name:    "shouldFailWhenConfigurationFileIsNotFound",
 		CmdArgs: []string{"set", "build", "go build -o"},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found in current directory")
+			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
 	}
 }

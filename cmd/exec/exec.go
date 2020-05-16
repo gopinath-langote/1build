@@ -95,7 +95,7 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 }
 
 func bashCommand(s *sh.Session, command string) *sh.Session {
-	configFileAbsoluteDir, _ := config.GetAbsoluteDirFromConfigFile()
+	configFileAbsoluteDir, _ := config.GetAbsoluteDirPathOfConfigFile()
 	s.SetDir(configFileAbsoluteDir)
 	return s.Command("bash", "-c", command)
 }

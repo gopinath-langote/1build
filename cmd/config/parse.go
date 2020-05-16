@@ -30,8 +30,8 @@ type OneBuildConfiguration struct {
 	Commands []map[string]string `yaml:"commands"`
 }
 
-// GetConfigFile returns the 1build configuration file from root file flag or global file variable
-func GetConfigFile() string {
+// getConfigFile returns the 1build configuration file from root file flag or global file variable
+func getConfigFile() string {
 	fileFlag := viper.GetString("file")
 	if fileFlag == "" {
 		return OneBuildConfigFileName

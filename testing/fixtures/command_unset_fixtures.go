@@ -85,7 +85,7 @@ func unsetShouldFailWhenConfigurationFileIsNotFound(feature string) Test {
 		Name:    "unsetShouldFailWhenConfigurationFileIsNotFound",
 		CmdArgs: []string{"unset", "build"},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found in current directory")
+			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
 	}
 }

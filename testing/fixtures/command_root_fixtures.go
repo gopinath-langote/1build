@@ -1,10 +1,11 @@
 package fixtures
 
 import (
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func featureRootTestData() []Test {
@@ -23,7 +24,7 @@ func shouldFailIfYamlFileIsNotPresent(feature string) Test {
 		Name:    "shouldFailIfYamlFileIsNotPresent",
 		CmdArgs: []string{},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found in current directory")
+			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
 	}
 }

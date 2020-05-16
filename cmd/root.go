@@ -11,9 +11,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-// FileFlag is a persistent (global) file flag for Root *cobra.Command
-var FileFlag string
-
 var rootCmd = &cobra.Command{
 	Use:     "1build",
 	Version: "1.4.0",
@@ -30,7 +27,6 @@ var rootCmd = &cobra.Command{
 		if len(args) < 1 {
 			listCmd.Run(cmd, args)
 		} else {
-			fmt.Print(args, cmd)
 			exec.ExecutePlan(args...)
 		}
 	},
@@ -46,7 +42,7 @@ func Execute() {
 
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
-	rootCmd.PersistentFlags().StringVarP(&FileFlag, "file", "f", config.OneBuildConfigFileName,
+	rootCmd.PersistentFlags().StringP("file", "f", config.OneBuildConfigFileName,
 	"The file path for 1build configuration file.")
 	rootCmd.PersistentFlags().BoolP("quiet", "q", false,
 		"Hide output log of command & only show SUCCESS/FAILURE result")
