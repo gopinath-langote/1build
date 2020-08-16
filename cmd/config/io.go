@@ -2,11 +2,11 @@ package config
 
 import (
 	"errors"
-	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
+	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 )
 

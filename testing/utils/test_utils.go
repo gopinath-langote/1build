@@ -30,7 +30,7 @@ func CreateTempDir() (string, error) {
 	return ioutil.TempDir("", "onebuild_test")
 }
 
-// CreateTempDir created temporary directory
+// CreateCustomTestResourceSubDir created temporary directory
 func CreateCustomTestResourceSubDir(testDir string, subDirectoryName string) error {
 	return os.MkdirAll(testDir+"/"+subDirectoryName, 0750)
 }

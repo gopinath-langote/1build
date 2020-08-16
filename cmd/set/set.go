@@ -97,6 +97,7 @@ func setCommand(configuration config.OneBuildConfiguration, name string, value s
 	return configuration
 }
 
+// IndexOfCommandIfPresent returns index in configuration for command if exists
 func IndexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
 	return utils.SliceIndex(len(configuration.Commands), func(i int) bool {
 		i2 := configuration.Commands[i]
