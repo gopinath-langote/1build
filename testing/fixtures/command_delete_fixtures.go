@@ -13,6 +13,7 @@ func featureDeleteTestData() []Test {
 	feature := "delete"
 	return []Test{
 		shouldDeleteConfigFile(feature),
+		shouldDeleteConfigSpecifiedFile(feature),
 		shouldFailIfFileDoesntExists(feature, ""),
 		shouldFailIfFileDoesntExists(feature, "--force"),
 	}
@@ -22,7 +23,7 @@ func shouldDeleteConfigFile(feature string) Test {
 	return Test{
 		Feature: feature,
 		Name:    "shouldDeleteConfigFile",
-		CmdArgs: []string{"delete", "--force"},
+		CmdArgs: Args("delete", "--force"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, "project: Sample Project\ncommands:\n")
 		},
@@ -32,12 +33,30 @@ func shouldDeleteConfigFile(feature string) Test {
 	}
 }
 
+func shouldDeleteConfigSpecifiedFile(feature string) Test {
+	return Test{
+		Feature: feature,
+		Name:    "shouldDeleteConfigSpecifiedFile",
+		CmdArgs: func(dir string) []string {
+			return []string{"delete", "-f", dir + "/custom-directory/some-file.yaml", "--force"}
+		},
+		Setup: func(dir string) error {
+			_ = os.MkdirAll(dir+"/custom-directory", 0750)
+			return utils.CreateConfigFileWithName(
+				dir+"/custom-directory", "some-file.yaml", "project: Sample Project\ncommands:\n")
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return assertFileNotExists(t, dir+"/custom-directory/some-file.yaml")
+		},
+	}
+}
+
 func shouldFailIfFileDoesntExists(feature string, arg string) Test {
 	expectedOutput := "No configuration file found!"
 	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfFileDoesntExists",
-		CmdArgs: []string{"delete", arg},
+		CmdArgs: Args("delete", arg),
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, expectedOutput)
 		},

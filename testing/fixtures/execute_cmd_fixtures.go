@@ -1,6 +1,7 @@
 package fixtures
 
 import (
+	"os"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/utils"
@@ -11,6 +12,7 @@ func featureExecuteCmdTestData() []Test {
 
 	return []Test{
 		shouldExecuteAvailableCommand(feature),
+		shouldExecuteAvailableCommandFromSpecifiedFile(feature),
 		shouldShowErrorIfCommandNotFound(feature),
 		shouldExecuteBeforeCommand(feature),
 		shouldExecuteAfterCommand(feature),
@@ -40,9 +42,43 @@ building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAvailableCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return utils.AssertContains(t, actualOutput, expectedOutput) &&
+				assertSuccessBanner(t, actualOutput)
+		},
+	}
+}
+
+func shouldExecuteAvailableCommandFromSpecifiedFile(feature string) Test {
+	fileContent := `
+project: Sample Project
+commands:
+  - build: echo building project
+`
+	expectedOutput := `
+-----    ---------------------
+Phase    Command
+-----    ---------------------
+build    echo building project
+
+
+-------------------------------[ ` + "build" + ` ]--------------------------------
+building project
+
+`
+	return Test{
+		Feature: feature,
+		Name:    "shouldExecuteAvailableCommandFromSpecifiedFile",
+		CmdArgs: func(dir string) []string {
+			return []string{"build", "-f", dir + "/some-dir/some-config.yaml"}
+		},
+		Setup: func(dir string) error {
+			_ = os.MkdirAll(dir+"/some-dir/", 0750)
+			return utils.CreateConfigFileWithName(dir+"/some-dir", "some-config.yaml", fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
@@ -68,7 +104,7 @@ build | echo building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldShowErrorIfCommandNotFound",
-		CmdArgs: []string{"random"},
+		CmdArgs: Args("random"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -102,7 +138,7 @@ building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -137,7 +173,7 @@ running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -176,7 +212,7 @@ running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommand",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -209,7 +245,7 @@ after     echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfBeforeCommandFailed",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -246,7 +282,7 @@ running pre-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfCommandFailed",
-		CmdArgs: []string{"build"},
+		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
