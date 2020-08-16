@@ -13,6 +13,7 @@ import (
 
 var shouldDelete bool
 
+// Cmd cobra command for delete one build configuration
 var Cmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Deletes project configuration",

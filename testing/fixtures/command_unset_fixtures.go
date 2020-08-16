@@ -79,7 +79,7 @@ commands: []
 			return []string{"unset", "build", "-f", dir + "/some-dir/some-config.yaml"}
 		},
 		Setup: func(dir string) error {
-			_ = os.MkdirAll(dir+"/some-dir", 0777)
+			_ = os.MkdirAll(dir+"/some-dir", 0750)
 			return utils.CreateConfigFileWithName(dir+"/some-dir", "some-config.yaml", defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {

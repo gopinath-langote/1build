@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Cmd cobra command for listing one build configuration
 var Cmd = &cobra.Command{
 	Use:   "list",
 	Short: "Show all available commands from the current project configuration",

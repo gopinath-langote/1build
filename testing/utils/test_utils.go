@@ -17,12 +17,12 @@ var regex = regexp.MustCompile(ansi)
 
 // CreateConfigFile creates a config file
 func CreateConfigFile(dir string, content string) error {
-	return ioutil.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0777)
+	return ioutil.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0750)
 }
 
-// CreateConfigFile creates a config file with specified name
+// CreateConfigFileWithName creates a config file with specified name
 func CreateConfigFileWithName(dir string, fileName string, content string) error {
-	return ioutil.WriteFile(dir+"/"+fileName, []byte(content), 0777)
+	return ioutil.WriteFile(dir+"/"+fileName, []byte(content), 0750)
 }
 
 // CreateTempDir created temporary directory
@@ -32,7 +32,7 @@ func CreateTempDir() (string, error) {
 
 // CreateTempDir created temporary directory
 func CreateCustomTestResourceSubDir(testDir string, subDirectoryName string) error {
-	return os.MkdirAll(testDir+"/"+subDirectoryName, 0777)
+	return os.MkdirAll(testDir+"/"+subDirectoryName, 0750)
 }
 
 // RemoveAllFilesFromDir Cleans up the directory
@@ -44,7 +44,7 @@ func RemoveAllFilesFromDir(dir string) {
 func RecreateTestResourceDirectory(dir string) string {
 	restResourceDirectory := dir + "/resources"
 	RemoveAllFilesFromDir(restResourceDirectory)
-	_ = os.Mkdir(restResourceDirectory, 0777)
+	_ = os.Mkdir(restResourceDirectory, 0750)
 	return restResourceDirectory
 }
 

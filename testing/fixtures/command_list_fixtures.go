@@ -64,7 +64,7 @@ commands:
 			return strings
 		},
 		Setup: func(dir string) error {
-			_ = os.MkdirAll(dir+"/custom-directory", 0777)
+			_ = os.MkdirAll(dir+"/custom-directory", 0750)
 			err := utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
 			return err
 		},
@@ -93,7 +93,7 @@ commands:
 			return strings
 		},
 		Setup: func(dir string) error {
-			_ = os.MkdirAll(dir+"/custom-directory", 0777)
+			_ = os.MkdirAll(dir+"/custom-directory", 0750)
 			err := utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
 			return err
 		},

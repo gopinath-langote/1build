@@ -41,6 +41,7 @@ func GetFixtures() []Test {
 	return r1
 }
 
+// Args returns argument function
 func Args(args ...string) func(dir string) []string {
 	return func(dir string) []string {
 		return args

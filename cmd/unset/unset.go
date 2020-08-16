@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Cmd cobra command for unsetting one build configuration command
 var Cmd = &cobra.Command{
 	Use:   "unset",
 	Short: "Remove one or more existing command(s) in the current project configuration",

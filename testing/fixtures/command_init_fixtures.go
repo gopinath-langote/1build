@@ -49,7 +49,7 @@ commands:
 			return []string{"init", "--name", "trial", "-f", dir + "/some-dir/some-config.yaml"}
 		},
 		Setup: func(dir string) error {
-			return os.MkdirAll(dir+"/some-dir/", 0777)
+			return os.MkdirAll(dir+"/some-dir/", 0750)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/some-dir/some-config.yaml"

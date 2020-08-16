@@ -15,6 +15,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Cmd cobra for root level
 var Cmd = &cobra.Command{
 	Use:     "1build",
 	Version: "1.4.0",
@@ -48,7 +49,8 @@ func init() {
 	Cmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
 	Cmd.PersistentFlags().BoolP("quiet", "q", false,
 		"Hide output log of command & only show SUCCESS/FAILURE result")
-	Cmd.PersistentFlags().StringP("file", "f", configuration.OneBuildConfigFileName, "The file path for 1build configuration file.")
+	Cmd.PersistentFlags().
+		StringP("file", "f", configuration.OneBuildConfigFileName, "The file path for 1build configuration file.")
 	_ = viper.BindPFlags(Cmd.PersistentFlags())
 
 	Cmd.AddCommand(list.Cmd)

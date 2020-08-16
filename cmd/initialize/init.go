@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Cmd cobra command for initializing one build configuration
 var Cmd = &cobra.Command{
 	Use:   "init",
 	Short: "Create default project configuration",

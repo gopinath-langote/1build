@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Cmd cobra command for setting one build configuration command
 var Cmd = &cobra.Command{
 	Use:   "set",
 	Short: "Set new or update the existing command in the current project configuration",

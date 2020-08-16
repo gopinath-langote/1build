@@ -41,8 +41,9 @@ func shouldDeleteConfigSpecifiedFile(feature string) Test {
 			return []string{"delete", "-f", dir + "/custom-directory/some-file.yaml", "--force"}
 		},
 		Setup: func(dir string) error {
-			_ = os.MkdirAll(dir+"/custom-directory", 0777)
-			return utils.CreateConfigFileWithName(dir+"/custom-directory", "some-file.yaml", "project: Sample Project\ncommands:\n")
+			_ = os.MkdirAll(dir+"/custom-directory", 0750)
+			return utils.CreateConfigFileWithName(
+				dir+"/custom-directory", "some-file.yaml", "project: Sample Project\ncommands:\n")
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assertFileNotExists(t, dir+"/custom-directory/some-file.yaml")

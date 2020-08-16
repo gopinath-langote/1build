@@ -40,7 +40,7 @@ func WriteConfigFile(configuration OneBuildConfiguration) error {
 	oneBuildConfigFile := getConfigFile()
 	yamlData, _ := yaml.Marshal(&configuration)
 	content := string(yamlData)
-	return ioutil.WriteFile(oneBuildConfigFile, []byte(content), 0777)
+	return ioutil.WriteFile(oneBuildConfigFile, []byte(content), 0750)
 }
 
 // DeleteConfigFile deletes the config file
