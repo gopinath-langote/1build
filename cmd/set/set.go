@@ -1,4 +1,4 @@
-package cmd
+package set
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var setCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:   "set",
 	Short: "Set new or update the existing command in the current project configuration",
 	Long: `Set new or update the existing command in the current project configuration
@@ -86,7 +86,7 @@ func setCommand(configuration config.OneBuildConfiguration, name string, value s
 	command := map[string]string{}
 	command[name] = value
 
-	index := indexOfCommandIfPresent(configuration, name)
+	index := IndexOfCommandIfPresent(configuration, name)
 	if index == -1 {
 		strings := append(configuration.Commands, command)
 		configuration.Commands = strings
@@ -96,7 +96,7 @@ func setCommand(configuration config.OneBuildConfiguration, name string, value s
 	return configuration
 }
 
-func indexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
+func IndexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
 	return utils.SliceIndex(len(configuration.Commands), func(i int) bool {
 		i2 := configuration.Commands[i]
 		for k := range i2 {
@@ -106,8 +106,4 @@ func indexOfCommandIfPresent(configuration config.OneBuildConfiguration, command
 		}
 		return false
 	})
-}
-
-func init() {
-	rootCmd.AddCommand(setCmd)
 }

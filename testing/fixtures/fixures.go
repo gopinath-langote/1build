@@ -2,6 +2,7 @@ package fixtures
 
 import "testing"
 
+type cmdArgs func(dir string) []string
 type setup func(dir string) error
 type assertion func(dir string, actualOutput string, t *testing.T) bool
 type teardown func(dir string) error
@@ -10,7 +11,7 @@ type teardown func(dir string) error
 type Test struct {
 	Feature   string
 	Name      string
-	CmdArgs   []string
+	CmdArgs   cmdArgs
 	Setup     setup
 	Assertion assertion
 	Teardown  teardown
@@ -38,4 +39,10 @@ func GetFixtures() []Test {
 		r1 = append(r1, r...)
 	}
 	return r1
+}
+
+func Args(args ...string) func(dir string) []string {
+	return func(dir string) []string {
+		return args
+	}
 }

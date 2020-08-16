@@ -25,7 +25,11 @@ func TestAll(t *testing.T) {
 			if tt.Setup != nil {
 				_ = tt.Setup(testResourceDirectory)
 			}
-			cmd := exec.Command(binaryPath, tt.CmdArgs...)
+			var args []string
+			if tt.CmdArgs != nil {
+				args = tt.CmdArgs(testResourceDirectory)
+			}
+			cmd := exec.Command(binaryPath, args...)
 			cmd.Dir = testResourceDirectory
 			out, _ := cmd.Output()
 			_ = tt.Assertion(testResourceDirectory, string(out), t)

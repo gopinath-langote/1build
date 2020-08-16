@@ -67,9 +67,9 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 
 }
 
-func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {
+func buildExecutionPlan(config config.OneBuildConfiguration, commands ...string) models.OneBuildExecutionPlan {
 
-	before := onebuildConfig.Before
+	before := config.Before
 	var executionPlan models.OneBuildExecutionPlan
 	if before != "" {
 		executionPlan.Before = &models.CommandContext{
@@ -77,18 +77,18 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 	}
 
 	for _, name := range commands {
-		executionCommand := onebuildConfig.GetCommand(name)
+		executionCommand := config.GetCommand(name)
 		if executionCommand == "" {
 			utils.CPrintln("\nError building execution plan. Command \""+name+"\" not found.",
 				utils.Style{Color: utils.RED, Bold: true})
-			onebuildConfig.Print()
+			config.Print()
 			utils.ExitWithCode("127")
 		}
 		executionPlan.Commands = append(executionPlan.Commands, &models.CommandContext{
 			Name: name, Command: executionCommand, CommandSession: bashCommand(sh.NewSession(), executionCommand)})
 	}
 
-	after := onebuildConfig.After
+	after := config.After
 	if after != "" {
 		executionPlan.After = &models.CommandContext{
 			Name: "after", Command: after, CommandSession: bashCommand(sh.NewSession(), after)}
@@ -98,6 +98,8 @@ func buildExecutionPlan(onebuildConfig config.OneBuildConfiguration, commands ..
 }
 
 func bashCommand(s *sh.Session, command string) *sh.Session {
+	configFileAbsoluteDir, _ := config.GetAbsoluteDirPathOfConfigFile()
+	s.SetDir(configFileAbsoluteDir)
 	return s.Command("bash", "-c", command)
 }
 

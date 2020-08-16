@@ -1,4 +1,4 @@
-package cmd
+package initialize
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var initCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:   "init",
 	Short: "Create default project configuration",
 	Long: `Create default project configuration
@@ -16,8 +16,8 @@ var initCmd = &cobra.Command{
 
 For example:
 
-  1build init --name project
-  1build init --name "My favorite project"`,
+  1build initialize --name project
+  1build initialize --name "My favorite project"`,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if config.IsConfigFilePresent() {
 			fmt.Println("'" + config.OneBuildConfigFileName + "' configuration file already exists.")
@@ -43,8 +43,6 @@ For example:
 }
 
 func init() {
-	rootCmd.AddCommand(initCmd)
-
-	initCmd.Flags().StringP("name", "n", "", "Project name")
-	_ = initCmd.MarkFlagRequired("name")
+	Cmd.Flags().StringP("name", "n", "", "Project name")
+	_ = Cmd.MarkFlagRequired("name")
 }

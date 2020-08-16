@@ -1,4 +1,4 @@
-package cmd
+package del
 
 import (
 	"bufio"
@@ -13,7 +13,7 @@ import (
 
 var shouldDelete bool
 
-var deleteCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Deletes project configuration",
 	Long: `Deletes project configuration
@@ -49,6 +49,5 @@ For example:
 }
 
 func init() {
-	rootCmd.AddCommand(deleteCmd)
-	deleteCmd.Flags().BoolVarP(&shouldDelete, "force", "f", false, "Forcibly delete configuration file")
+	Cmd.Flags().BoolVar(&shouldDelete, "force", false, "Forcibly del configuration file")
 }

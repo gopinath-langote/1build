@@ -1,7 +1,8 @@
-package cmd
+package unset
 
 import (
 	"fmt"
+	"github.com/gopinath-langote/1build/cmd/set"
 	"regexp"
 	"strings"
 
@@ -11,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var unsetCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:   "unset",
 	Short: "Remove one or more existing command(s) in the current project configuration",
 	Long: `Remove one or more existing command(s) in the current project configuration
@@ -88,7 +89,7 @@ func findIndex(configuration config.OneBuildConfiguration, name string) int {
 	case config.BeforeCommand, config.AfterCommand:
 		return callbackExistence(configuration, name)
 	default:
-		return indexOfCommandIfPresent(configuration, name)
+		return set.IndexOfCommandIfPresent(configuration, name)
 	}
 }
 
@@ -115,6 +116,3 @@ func removeCommand(configuration config.OneBuildConfiguration, name string, inde
 	return configuration
 }
 
-func init() {
-	rootCmd.AddCommand(unsetCmd)
-}

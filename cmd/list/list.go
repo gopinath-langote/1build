@@ -1,4 +1,4 @@
-package cmd
+package list
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var listCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:   "list",
 	Short: "Show all available commands from the current project configuration",
 	Long:  "Show all available commands from the current project configuration",
@@ -18,8 +18,4 @@ var listCmd = &cobra.Command{
 		}
 		oneBuildConfig.Print()
 	},
-}
-
-func init() {
-	rootCmd.AddCommand(listCmd)
 }
