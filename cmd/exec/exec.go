@@ -2,6 +2,7 @@ package exec
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/codeskyblue/go-sh"
@@ -45,7 +46,9 @@ func ExecutePlan(commands ...string) {
 func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
 	command.PrintPhaseBanner()
 	if !viper.GetBool("quiet") {
-		err := command.CommandSession.Run()
+		session := command.CommandSession
+		session.SetStdin(os.Stdin)
+		err := session.Run()
 		if err != nil {
 			exitCode := (err.Error())[12:]
 			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
