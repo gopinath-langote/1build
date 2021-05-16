@@ -2,6 +2,7 @@ package fixtures
 
 import (
 	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/gopinath-langote/1build/testing/def"
@@ -14,6 +15,7 @@ func featureUnsetTestsData() []Test {
 
 	return []Test{
 		shouldUnsetTheExistingCommand(feature),
+		shouldUnsetTheExistingCommandFromSpecifiedFile(feature),
 		unsetShouldFailWhenConfigurationFileIsNotFound(feature),
 		unsetShouldFailWhenConfigurationFileIsInInvalidFormat(feature),
 		unsetShouldFailWhenCommandIsNotFound(feature),
@@ -45,13 +47,44 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetTheExistingCommand",
-		CmdArgs: []string{"unset", "build"},
+		CmdArgs: Args("unset", "build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
+			content, _ := ioutil.ReadFile(filePath)
+			return assert.Exactly(t, expectedOutput, string(content))
+		},
+	}
+}
+
+func shouldUnsetTheExistingCommandFromSpecifiedFile(feature string) Test {
+
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+`
+
+	expectedOutput := `project: Sample Project
+commands: []
+`
+
+	return Test{
+		Feature: feature,
+		Name:    "shouldUnsetTheExistingCommandFromSpecifiedFile",
+		CmdArgs: func(dir string) []string {
+			return []string{"unset", "build", "-f", dir + "/some-dir/some-config.yaml"}
+		},
+		Setup: func(dir string) error {
+			_ = os.MkdirAll(dir+"/some-dir", 0750)
+			return utils.CreateConfigFileWithName(dir+"/some-dir", "some-config.yaml", defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			filePath := dir + "/some-dir/some-config.yaml"
+			assert.FileExists(t, filePath)
 			content, _ := ioutil.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
@@ -69,7 +102,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenCommandIsNotFound",
-		CmdArgs: []string{"unset", "Test"},
+		CmdArgs: Args("unset", "Test"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -83,9 +116,9 @@ func unsetShouldFailWhenConfigurationFileIsNotFound(feature string) Test {
 	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenConfigurationFileIsNotFound",
-		CmdArgs: []string{"unset", "build"},
+		CmdArgs: Args("unset", "build"),
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found in current directory")
+			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
 	}
 }
@@ -94,7 +127,7 @@ func unsetShouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test 
 	return Test{
 		Feature: feature,
 		Name:    "unsetShouldFailWhenConfigurationFileIsInInvalidFormat",
-		CmdArgs: []string{"unset", "build"},
+		CmdArgs: Args("unset", "build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, "invalid config content")
 		},
@@ -122,7 +155,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommands",
-		CmdArgs: []string{"unset", "build", "test", "before", "after"},
+		CmdArgs: Args("unset", "build", "test", "before", "after"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -151,7 +184,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound1",
-		CmdArgs: []string{"unset", "build", "test", "missingCmd"},
+		CmdArgs: Args("unset", "build", "test", "missingCmd"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -186,7 +219,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound2",
-		CmdArgs: []string{"unset", "build", "missingCmd", "test", "missingCmd2"},
+		CmdArgs: Args("unset", "build", "missingCmd", "test", "missingCmd2"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -218,7 +251,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound3",
-		CmdArgs: []string{"unset", "before", "after", "missingCmd"},
+		CmdArgs: Args("unset", "before", "after", "missingCmd"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -250,7 +283,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetBeforeAndAfterCommand",
-		CmdArgs: []string{"unset", "before"},
+		CmdArgs: Args("unset", "before"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -278,7 +311,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetTheAfterCommand",
-		CmdArgs: []string{"unset", "after"},
+		CmdArgs: Args("unset", "after"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -302,7 +335,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "unsetBeforeShouldFailWhenBeforeIsNotFound",
-		CmdArgs: []string{"unset", "before"},
+		CmdArgs: Args("unset", "before"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -323,7 +356,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "unsetAfterShouldFailWhenAfterIsNotFound",
-		CmdArgs: []string{"unset", "after"},
+		CmdArgs: Args("unset", "after"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -345,7 +378,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered",
-		CmdArgs: []string{"unset", invalidName},
+		CmdArgs: Args("unset", invalidName),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -367,7 +400,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered",
-		CmdArgs: []string{"unset", "build", invalidName},
+		CmdArgs: Args("unset", "build", invalidName),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},

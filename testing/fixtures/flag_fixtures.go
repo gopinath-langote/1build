@@ -37,7 +37,7 @@ build    echo building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteCommandWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -70,7 +70,7 @@ build     echo building project
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeCommandWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -103,7 +103,7 @@ after    echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteAfterCommandWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -139,7 +139,7 @@ after     echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldExecuteBeforeAndAfterCommandWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -174,7 +174,7 @@ after     echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -211,7 +211,7 @@ after     echo running post-command
 	return Test{
 		Feature: feature,
 		Name:    "shouldStopExecutionIfCommandFailedWithquietFlag",
-		CmdArgs: []string{"build", "--quiet"},
+		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},

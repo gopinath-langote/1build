@@ -21,9 +21,8 @@ func shouldFailIfYamlFileIsNotPresent(feature string) Test {
 	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfYamlFileIsNotPresent",
-		CmdArgs: []string{},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found in current directory")
+			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
 	}
 }
@@ -43,7 +42,6 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfYamlFileIsNotInCorrectYamlFormat",
-		CmdArgs: []string{},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, "invalid yaml file")
 		},
@@ -71,7 +69,6 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldShowListOfCommandsIfNoCommandSpecified",
-		CmdArgs: []string{},
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
