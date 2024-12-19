@@ -36,7 +36,7 @@ With `1build`, once you setup the environment for your `research projects`, youâ
 
 `1build` also takes care of `programming language setup`, `creating a virtual environment`, and `automating the installation of librarires`, for example, Machine Learning and Deep Learning Libraries. 
   
-In addition to this, `1build` has been developed to a high degree of `best practice in research software development` [@jime2017], and is thoroughly documented: https://1build.gitbook.io/. The documentation has been well formatted with the aim of easy learning and accessibilty. Furthermore, `1build` is automatically tested using Travis CI integration, unit tests with code coverage and [A+ on Go Report Card](https://goreportcard.com/report/github.com/gopinath-langote/1build). The current version of `1build` will be archived on [Zenodo](https://zenodo.org).
+In addition to this, `1build` has been developed to a high degree of `best practice in research software development` [@jime2017], and is thoroughly documented: https://1build.gitbook.io/. The documentation has been well formatted with the aim of easy learning and accessibilty. Furthermore, `1build` is automatically tested using Github actions CI integration, unit tests with code coverage and [A+ on Go Report Card](https://goreportcard.com/report/github.com/gopinath-langote/1build). The current version of `1build` will be archived on [Zenodo](https://zenodo.org).
 
 With its active community of developers, timely announcement of the updates and releases on [Twitter](https://twitter.com/GopinathLangote) and with its easy contibuting guide,  it is used by many undergraduate and graduate students around the world.
 
