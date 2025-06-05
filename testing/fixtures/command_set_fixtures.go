@@ -1,12 +1,13 @@
 package fixtures
 
 import (
-	"github.com/gopinath-langote/1build/testing/def"
-	"github.com/gopinath-langote/1build/testing/utils"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
 	"testing"
+
+	"github.com/gopinath-langote/1build/testing/def"
+	"github.com/gopinath-langote/1build/testing/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 func featureSetTestsData() []Test {
@@ -18,8 +19,8 @@ func featureSetTestsData() []Test {
 		shouldUpdateExistingCommand(feature),
 		shouldFailWhenConfigurationFileIsNotFound(feature),
 		shouldFailWhenConfigurationFileIsInInvalidFormat(feature),
-		shouldSetBeforeCommand(feature),
-		shouldSetAfterCommand(feature),
+		shouldSetBeforeAllCommand(feature),
+		shouldSetAfterAllCommand(feature),
 	}
 }
 
@@ -28,13 +29,16 @@ func shouldSetNewCommand(feature string) Test {
 	defaultFileContent := `
 project: Sample Project
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	expectedOutput := `project: Sample Project
 commands:
-  - build: go build
-  - Test: go Test
+  - build:
+        command: go build
+  - Test:
+        command: go Test
 `
 
 	return Test{
@@ -58,13 +62,16 @@ func shouldSetNewCommandInSpecifiedFile(feature string) Test {
 	defaultFileContent := `
 project: Sample Project
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	expectedOutput := `project: Sample Project
 commands:
-  - build: go build
-  - Test: go Test
+  - build:
+        command: go build
+  - Test:
+        command: go Test
 `
 
 	return Test{
@@ -91,12 +98,14 @@ func shouldUpdateExistingCommand(feature string) Test {
 	defaultFileContent := `
 project: Sample Project
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	expectedOutput := `project: Sample Project
 commands:
-  - build: go build -o
+  - build:
+        command: go build -o
 `
 
 	return Test{
@@ -140,24 +149,26 @@ func shouldFailWhenConfigurationFileIsInInvalidFormat(feature string) Test {
 	}
 }
 
-func shouldSetBeforeCommand(feature string) Test {
+func shouldSetBeforeAllCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	expectedOutput := `project: Sample Project
-after: yo
+beforeAll: yo
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldSetBeforeCommand",
-		CmdArgs: Args("set", "after", "yo"),
+		Name:    "shouldSetBeforeAllCommand",
+		CmdArgs: Args("set", "--beforeAll", "yo"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -170,24 +181,26 @@ commands:
 	}
 }
 
-func shouldSetAfterCommand(feature string) Test {
+func shouldSetAfterAllCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	expectedOutput := `project: Sample Project
-after: yo
+afterAll: yo
 commands:
-  - build: go build
+  - build:
+        command: go build
 `
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldSetBeforeCommand",
-		CmdArgs: Args("set", "after", "yo"),
+		Name:    "shouldSetAfterCommand",
+		CmdArgs: Args("set", "--afterAll", "yo"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -198,4 +211,54 @@ commands:
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
+}
+
+var SetFixtures = []struct {
+	Name         string
+	Args         []string
+	InitialYAML  string
+	ExpectedYAML string
+}{
+	{
+		Name: "set simple command with positional",
+		Args: []string{"set", "build", "go build"},
+		InitialYAML: `
+project: test
+commands: []
+`,
+		ExpectedYAML: `
+project: test
+commands:
+  - build: go build
+`,
+	},
+	{
+		Name: "set simple command with flag",
+		Args: []string{"set", "build", "--command", "go build"},
+		InitialYAML: `
+project: test
+commands: []
+`,
+		ExpectedYAML: `
+project: test
+commands:
+  - build: go build
+`,
+	},
+	{
+		Name: "set command with hooks",
+		Args: []string{"set", "build", "--command", "go build", "--before", "echo before", "--after", "echo after"},
+		InitialYAML: `
+project: test
+commands: []
+`,
+		ExpectedYAML: `
+project: test
+commands:
+  - build:
+      before: echo before
+      command: go build
+      after: echo after
+`,
+	},
 }

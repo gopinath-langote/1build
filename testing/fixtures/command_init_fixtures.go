@@ -20,9 +20,18 @@ func featureInitTestsData() []Test {
 }
 
 func shouldInitialiseNewProject(feature string) Test {
-	expectedOutput := `project: trial
+	expectedOutput := `project: Sample Project
 commands:
-  - build: echo 'Running build'
+  - setup:
+        command: go get -u golang.org/x/lint/golint
+  - test:
+        command: go test ./...
+  - lint:
+        command: golint ./...
+  - build:
+        before: echo "before build"
+        command: go build
+        after: echo "after build"
 `
 	return Test{
 		Feature: feature,
@@ -38,9 +47,18 @@ commands:
 }
 
 func shouldInitialiseNewProjectInSpecifiedFile(feature string) Test {
-	expectedOutput := `project: trial
+	expectedOutput := `project: Sample Project
 commands:
-  - build: echo 'Running build'
+  - setup:
+        command: go get -u golang.org/x/lint/golint
+  - test:
+        command: go test ./...
+  - lint:
+        command: golint ./...
+  - build:
+        before: echo "before build"
+        command: go build
+        after: echo "after build"
 `
 	return Test{
 		Feature: feature,
@@ -67,7 +85,7 @@ commands:
   - build: npm run build
   - lint: eslint
 `
-	expectedOutput := "'" + def.ConfigFileName + "' configuration file already exists."
+	expectedOutput := "'" + def.ConfigFileName + "' already exists in the current directory."
 	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfFileAlreadyExists",
@@ -79,4 +97,24 @@ commands:
 			return assert.Contains(t, actualOutput, expectedOutput)
 		},
 	}
+}
+
+var InitFixtures = []struct {
+	Name         string
+	ExpectedYAML string
+}{
+	{
+		Name: "init sample config",
+		ExpectedYAML: `
+project: Sample Project
+commands:
+  - setup: go get -u golang.org/x/lint/golint
+  - test: go test ./...
+  - lint: golint ./...
+  - build:
+      before: echo "before build"
+      command: go build
+      after: echo "after build"
+`,
+	},
 }

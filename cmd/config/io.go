@@ -38,7 +38,16 @@ func IsConfigFilePresent() bool {
 // If there is an error, it will be of type *Error.
 func WriteConfigFile(configuration OneBuildConfiguration) error {
 	oneBuildConfigFile := getConfigFile()
-	yamlData, _ := yaml.Marshal(&configuration)
+
+	// Deep copy configuration and remove all raw fields
+	cleanConfig := configuration
+	for i, cmdMap := range cleanConfig.Commands {
+		for name, def := range cmdMap {
+			cleanConfig.Commands[i][name] = def
+		}
+	}
+
+	yamlData, _ := yaml.Marshal(&cleanConfig)
 	content := string(yamlData)
 	return ioutil.WriteFile(oneBuildConfigFile, []byte(content), 0750)
 }

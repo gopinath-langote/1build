@@ -1,10 +1,11 @@
 package fixtures
 
 import (
-	"github.com/gopinath-langote/1build/testing/utils"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+
+	"github.com/gopinath-langote/1build/testing/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 func featureListTestData() []Test {
@@ -15,18 +16,17 @@ func featureListTestData() []Test {
 		shouldShowListOfCommandsFromSpecifiedConfigFileWithFullFlagName(feature),
 		shouldNotShowAnyCommandsIfNoCommandsFound(feature),
 		shouldShowCommandsWithBeforeAndAfterIfPresent(feature),
+		shouldShowListWithNestedAndInline(feature),
 	}
 }
 
 func shouldShowListOfCommands(feature string) Test {
-	commandListMessage := utils.PlainBanner() + `
-project: Sample Project
+	commandListMessage := `Project: Sample Project
 commands:
-build | npm run build
-lint | eslint
-` + utils.PlainBanner()
-	defaultFileContent := `
-project: Sample Project
+  build: npm run build
+  lint: eslint
+`
+	defaultFileContent := `project: Sample Project
 commands:
   - build: npm run build
   - lint: eslint
@@ -46,13 +46,11 @@ commands:
 }
 
 func shouldShowListOfCommandsFromSpecifiedConfigFile(feature string) Test {
-	commandListMessage := utils.PlainBanner() + `
-project: Sample Project
+	commandListMessage := `Project: Sample Project
 commands:
-build | npm run build
-` + utils.PlainBanner()
-	defaultFileContent := `
-project: Sample Project
+  build: npm run build
+`
+	defaultFileContent := `project: Sample Project
 commands:
   - build: npm run build
 `
@@ -60,13 +58,11 @@ commands:
 		Feature: feature,
 		Name:    "shouldShowListOfCommandsFromSpecifiedConfigFile",
 		CmdArgs: func(dir string) []string {
-			strings := []string{"list", "-f", dir + "/custom-directory/some-config.yaml"}
-			return strings
+			return []string{"list", "-f", dir + "/custom-directory/some-config.yaml"}
 		},
 		Setup: func(dir string) error {
 			_ = os.MkdirAll(dir+"/custom-directory", 0750)
-			err := utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
-			return err
+			return utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, commandListMessage)
@@ -75,13 +71,11 @@ commands:
 }
 
 func shouldShowListOfCommandsFromSpecifiedConfigFileWithFullFlagName(feature string) Test {
-	commandListMessage := utils.PlainBanner() + `
-project: Sample Project
+	commandListMessage := `Project: Sample Project
 commands:
-build | npm run build
-` + utils.PlainBanner()
-	defaultFileContent := `
-project: Sample Project
+  build: npm run build
+`
+	defaultFileContent := `project: Sample Project
 commands:
   - build: npm run build
 `
@@ -89,13 +83,11 @@ commands:
 		Feature: feature,
 		Name:    "shouldShowListOfCommandsFromSpecifiedConfigFileWithFullFlagName",
 		CmdArgs: func(dir string) []string {
-			strings := []string{"list", "--file", dir + "/custom-directory/some-config.yaml"}
-			return strings
+			return []string{"list", "--file", dir + "/custom-directory/some-config.yaml"}
 		},
 		Setup: func(dir string) error {
 			_ = os.MkdirAll(dir+"/custom-directory", 0750)
-			err := utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
-			return err
+			return utils.CreateConfigFileWithName(dir+"/custom-directory", "some-config.yaml", defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, commandListMessage)
@@ -104,10 +96,9 @@ commands:
 }
 
 func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) Test {
-	emptyCommandListMessage := utils.PlainBanner() + `
-project: Sample Project
+	emptyCommandListMessage := `Project: Sample Project
 commands:
-` + utils.PlainBanner()
+`
 	return Test{
 		Feature: feature,
 		Name:    "shouldNotShowAnyCommandsIfNoCommandsFound",
@@ -121,17 +112,15 @@ commands:
 }
 
 func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) Test {
-	expectedOutput := utils.PlainBanner() + `
-project: Sample Project
-before: pre_command
-after: post_command
+	expectedOutput := `Project: Sample Project
+beforeAll: pre_command
+afterAll: post_command
 commands:
-build | npm run build
-` + utils.PlainBanner()
-	fileContent := `
-project: Sample Project
-before: pre_command
-after: post_command
+  build: npm run build
+`
+	fileContent := `project: Sample Project
+beforeAll: pre_command
+afterAll: post_command
 commands:
   - build: npm run build
 `
@@ -148,3 +137,35 @@ commands:
 		},
 	}
 }
+
+func shouldShowListWithNestedAndInline(feature string) Test {
+	expectedOutput := `Project: test
+commands:
+  build:
+    before: echo before
+    command: go build
+    after: echo after
+  test: go test
+`
+	fileContent := `project: test
+commands:
+  - build:
+      before: echo before
+      command: go build
+      after: echo after
+  - test: go test
+`
+	return Test{
+		Feature: feature,
+		Name:    "list with nested and inline",
+		CmdArgs: Args("list"),
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, fileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return assert.Contains(t, actualOutput, expectedOutput)
+		},
+	}
+}
+
+// No extra closing brace here!

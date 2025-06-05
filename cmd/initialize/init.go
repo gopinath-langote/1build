@@ -2,44 +2,46 @@ package initialize
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/gopinath-langote/1build/cmd/config"
-	"github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/spf13/cobra"
 )
 
 // Cmd cobra command for initializing one build configuration
 var Cmd = &cobra.Command{
 	Use:   "init",
-	Short: "Create default project configuration",
-	Long: `Create default project configuration
+	Short: "Initialize 1build configuration file in the current directory",
+	Long: `Initialize 1build configuration file in the current directory.
 
-- Name of the project needs be passed as parameter - 'name' 
-
-For example:
-
-  1build initialize --name project
-  1build initialize --name "My favorite project"`,
-	PreRun: func(cmd *cobra.Command, args []string) {
-		if config.IsConfigFilePresent() {
-			fmt.Println("'" + config.OneBuildConfigFileName + "' configuration file already exists.")
-			utils.ExitError()
-		}
-	},
+This will create a sample 1build.yaml file if it does not exist.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		projectName, _ := cmd.Flags().GetString("name")
-
-		defaultCommand := map[string]string{}
-		defaultCommand["build"] = "echo 'Running build'"
-
-		oneBuildConfiguration := config.OneBuildConfiguration{
-			Project:  projectName,
-			Commands: []map[string]string{defaultCommand},
+		if _, err := os.Stat(config.OneBuildConfigFileName); err == nil {
+			fmt.Printf("'%s' already exists in the current directory.\n", config.OneBuildConfigFileName)
+			return
 		}
 
-		err := config.WriteConfigFile(oneBuildConfiguration)
+		configuration := config.OneBuildConfiguration{
+			Project: "Sample Project",
+			Commands: []map[string]config.CommandDefinition{
+				{"setup": {Command: "go get -u golang.org/x/lint/golint"}},
+				{"test": {Command: "go test ./..."}},
+				{"lint": {Command: "golint ./..."}},
+				{"build": {
+					Before:  "echo \"before build\"",
+					Command: "go build",
+					After:   "echo \"after build\"",
+				}},
+			},
+		}
+
+		err := config.WriteConfigFile(configuration)
 		if err != nil {
-			fmt.Println("Failed to create file '" + config.OneBuildConfigFileName + "'")
+			fmt.Println("Failed to create configuration file:", err)
+			return
 		}
+
+		fmt.Printf("Created '%s' in the current directory.\n", config.OneBuildConfigFileName)
 	},
 }
 

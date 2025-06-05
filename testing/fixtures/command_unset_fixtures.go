@@ -213,7 +213,8 @@ commands:
 
 	expectedOutput := `project: Sample Project
 commands:
-  - lint: go lint
+  - lint:
+        command: go lint
 `
 
 	return Test{
@@ -240,8 +241,8 @@ func shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound3(feature string) Test 
 
 	defaultFileContent := `
 project: Sample Project
-before: go before
-after: go after
+beforeAll: go before
+afterAll: go after
 `
 
 	expectedOutput := `project: Sample Project
@@ -251,7 +252,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound3",
-		CmdArgs: Args("unset", "before", "after", "missingCmd"),
+		CmdArgs: Args("unset", "--beforeAll", "--afterAll", "missingCmd"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -272,7 +273,7 @@ func shouldUnsetTheBeforeCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
-before: yo
+beforeAll: yo
 commands: []
 `
 
@@ -282,8 +283,8 @@ commands: []
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldUnsetBeforeAndAfterCommand",
-		CmdArgs: Args("unset", "before"),
+		Name:    "shouldUnsetBeforeAllCommand",
+		CmdArgs: Args("unset", "--beforeAll"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -300,7 +301,7 @@ func shouldUnsetTheAfterCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
-after: yo
+afterAll: yo
 commands: []
 `
 
@@ -310,8 +311,8 @@ commands: []
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldUnsetTheAfterCommand",
-		CmdArgs: Args("unset", "after"),
+		Name:    "shouldUnsetTheAfterAllCommand",
+		CmdArgs: Args("unset", "--afterAll"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},

@@ -57,17 +57,17 @@ func (executionPlan *OneBuildExecutionPlan) Print() {
 	fmt.Fprintf(w, "%s\t%s\n", dashesOfLength(phase), dashesOfLength(cmd))
 
 	if executionPlan.HasBefore() {
-		fmt.Fprintln(w, fmt.Sprintf("%s\t%s", executionPlan.Before.Name, executionPlan.Before.Command))
+		fmt.Fprintf(w, "%s\t%s\n", executionPlan.Before.Name, executionPlan.Before.Command)
 	}
 
 	if executionPlan.HasCommands() {
 		for _, command := range executionPlan.Commands {
-			fmt.Fprintln(w, fmt.Sprintf("%s\t%s", command.Name, command.Command))
+			fmt.Fprintf(w, "%s\t%s\n", command.Name, command.Command)
 		}
 	}
 
 	if executionPlan.HasAfter() {
-		fmt.Fprintln(w, fmt.Sprintf("%s\t%s", executionPlan.After.Name, executionPlan.After.Command))
+		fmt.Fprintf(w, "%s\t%s\n", executionPlan.After.Name, executionPlan.After.Command)
 	}
 
 	_ = w.Flush()
@@ -123,4 +123,19 @@ func (c *CommandContext) PrintPhaseBanner() {
 	fmt.Print(bannerClose)
 	fmt.Print(strings.Repeat("-", numDashesRight))
 	fmt.Println()
+}
+
+type CommandDefinition struct {
+	Before  string `yaml:"before,omitempty"`
+	Command string `yaml:"command,omitempty"`
+	After   string `yaml:"after,omitempty"`
+	// For backward compatibility, support string value
+	Raw string `yaml:",inline"`
+}
+
+type OneBuildConfiguration struct {
+	Project  string                         `yaml:"project"`
+	Before   string                         `yaml:"before,omitempty"`
+	After    string                         `yaml:"after,omitempty"`
+	Commands []map[string]CommandDefinition `yaml:"commands"`
 }

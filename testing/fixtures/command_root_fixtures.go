@@ -1,10 +1,11 @@
 package fixtures
 
 import (
+	"testing"
+
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/gopinath-langote/1build/testing/utils"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func featureRootTestData() []Test {
@@ -37,6 +38,10 @@ project: Sample Project
 commands:
   - build: npm run build
   - lint: eslint
+  - build:
+      before: echo "before"
+      command: npm run build
+      after: echo "after"
 ------------------------------------------------------------------------
 `
 	return Test{
@@ -52,15 +57,12 @@ commands:
 }
 
 func shouldShowListOfCommandsIfNoCommandSpecified(feature string) Test {
-	commandListMessage := `------------------------------------------------------------------------
-project: Sample Project
+	commandListMessage := `Project: Sample Project
 commands:
-build | npm run build
-lint | eslint
-------------------------------------------------------------------------
+  build: npm run build
+  lint: eslint
 `
-	defaultFileContent := `
-project: Sample Project
+	defaultFileContent := `project: Sample Project
 commands:
   - build: npm run build
   - lint: eslint
