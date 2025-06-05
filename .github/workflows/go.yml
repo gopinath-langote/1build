@@ -31,4 +31,4 @@ jobs:
       - name: Build
         run: go build -v .
       - name: Test
-        run: go test -v -cover github.com/gopinath-langote/1build/testing -run .
+        run: go test -v -cover github.com/gopinath-langote/1build/testing -run . 
