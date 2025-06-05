@@ -213,6 +213,7 @@ commands:
 	}
 }
 
+// SetFixtures contains test fixtures for command set tests.
 var SetFixtures = []struct {
 	Name         string
 	Args         []string

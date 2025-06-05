@@ -27,7 +27,7 @@ type CommandDefinition struct {
 	After   string `yaml:"after,omitempty"`
 }
 
-// Custom unmarshal to support both string and map
+// UnmarshalYAML implements the yaml.Unmarshaler interface for CommandDefinition.
 func (c *CommandDefinition) UnmarshalYAML(value *yaml.Node) error {
 	if value.Kind == yaml.ScalarNode {
 		// Inline command: build: "go build"

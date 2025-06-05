@@ -99,6 +99,7 @@ commands:
 	}
 }
 
+// InitFixtures contains test fixtures for command initialization tests.
 var InitFixtures = []struct {
 	Name         string
 	ExpectedYAML string

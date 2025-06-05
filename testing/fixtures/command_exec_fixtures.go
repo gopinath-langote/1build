@@ -1,5 +1,6 @@
 package fixtures
 
+// ExecFixtures contains test fixtures for command execution tests.
 var ExecFixtures = []struct {
 	Name                string
 	InitialYAML         string

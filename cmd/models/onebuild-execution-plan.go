@@ -125,6 +125,7 @@ func (c *CommandContext) PrintPhaseBanner() {
 	fmt.Println()
 }
 
+// CommandDefinition represents a single command in the 1build configuration.
 type CommandDefinition struct {
 	Before  string `yaml:"before,omitempty"`
 	Command string `yaml:"command,omitempty"`
@@ -133,6 +134,7 @@ type CommandDefinition struct {
 	Raw string `yaml:",inline"`
 }
 
+// OneBuildConfiguration represents the full 1build configuration.
 type OneBuildConfiguration struct {
 	Project  string                         `yaml:"project"`
 	Before   string                         `yaml:"before,omitempty"`
