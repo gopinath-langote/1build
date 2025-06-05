@@ -1,27 +1,34 @@
-stages:
-  - build
-  - test
+name: Go CI
 
-variables:
-  GO_VERSION: "1.22"
-  GOMODCACHE: "$CI_PROJECT_DIR/.cache/go/pkg/mod"
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-default:
-  image: golang:${GO_VERSION}
-  before_script:
-    - go version
-    - go mod download
-
-build:
-  stage: build
-  script:
-    - go build -v .
-  artifacts:
-    paths:
-      - 1build
-    expire_in: 1 hour
-
-test:
-  stage: test
-  script:
-    - go test -v -cover github.com/gopinath-langote/1build/testing -run .
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        go-version: [1.22]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Build
+        run: go build -v .
+      - name: Test
+        run: go test -v -cover github.com/gopinath-langote/1build/testing -run .
