@@ -44,8 +44,3 @@ This will create a sample 1build.yaml file if it does not exist.`,
 		fmt.Printf("Created '%s' in the current directory.\n", config.OneBuildConfigFileName)
 	},
 }
-
-func init() {
-	Cmd.Flags().StringP("name", "n", "", "Project name")
-	_ = Cmd.MarkFlagRequired("name")
-}

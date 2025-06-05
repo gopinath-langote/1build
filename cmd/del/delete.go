@@ -11,8 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var shouldDelete bool
-
 // Cmd cobra command for delete one build configuration
 var Cmd = &cobra.Command{
 	Use:   "delete",
@@ -28,11 +26,11 @@ For example:
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if !config.IsConfigFilePresent() {
 			utils.CPrintln("No configuration file found!", utils.Style{Color: utils.RED})
-			//fmt.Println(utils.Colored("No configuration file found!", utils.RED))
 			utils.ExitError()
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
+		shouldDelete, _ := cmd.Flags().GetBool("force")
 		if !shouldDelete {
 			fmt.Printf("Delete 1build configuration file? (y/N) ")
 			reader := bufio.NewReader(os.Stdin)
@@ -47,8 +45,4 @@ For example:
 			}
 		}
 	},
-}
-
-func init() {
-	Cmd.Flags().BoolVar(&shouldDelete, "force", false, "Forcibly del configuration file")
 }

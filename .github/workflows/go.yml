@@ -6,15 +6,16 @@ variables:
   GO_VERSION: "1.22"
   GOMODCACHE: "$CI_PROJECT_DIR/.cache/go/pkg/mod"
 
-before_script:
-  - go version
+default:
+  image: golang:${GO_VERSION}
+  before_script:
+    - go version
+    - go mod download
 
 build:
   stage: build
-  image: golang:${GO_VERSION}
   script:
-    - go mod download
-    - go build -v ./...
+    - go build -v .
   artifacts:
     paths:
       - 1build
@@ -22,6 +23,5 @@ build:
 
 test:
   stage: test
-  image: golang:${GO_VERSION}
   script:
-    - go test -v -cover ./...
+    - go test -v -cover github.com/gopinath-langote/1build/testing -run .
