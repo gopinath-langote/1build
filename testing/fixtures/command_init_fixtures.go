@@ -99,14 +99,18 @@ commands:
 	}
 }
 
-// InitFixtures contains test fixtures for command initialization tests.
-var InitFixtures = []struct {
+// InitFixtures returns test fixtures for command initialization tests.
+func InitFixtures() []struct {
 	Name         string
 	ExpectedYAML string
-}{
-	{
-		Name: "init sample config",
-		ExpectedYAML: `
+} {
+	return []struct {
+		Name         string
+		ExpectedYAML string
+	}{
+		{
+			Name: "init sample config",
+			ExpectedYAML: `
 project: Sample Project
 commands:
   - setup: go get -u golang.org/x/lint/golint
@@ -117,5 +121,6 @@ commands:
       command: go build
       after: echo "after build"
 `,
-	},
+		},
+	}
 }

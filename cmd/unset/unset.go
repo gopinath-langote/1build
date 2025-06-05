@@ -83,9 +83,13 @@ This will remove the specified commands and/or project-level hooks from the conf
 	},
 }
 
-func init() {
+func initUnsetFlags() {
 	Cmd.Flags().Bool("beforeAll", false, "Remove project-level beforeAll hook")
 	Cmd.Flags().Bool("afterAll", false, "Remove project-level afterAll hook")
+}
+
+func init() {
+	initUnsetFlags()
 }
 
 // IndexOfCommandIfPresent returns index in configuration for command if exists

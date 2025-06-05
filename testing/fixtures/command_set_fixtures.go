@@ -213,47 +213,53 @@ commands:
 	}
 }
 
-// SetFixtures contains test fixtures for command set tests.
-var SetFixtures = []struct {
+// SetFixtures returns test fixtures for command set tests.
+func SetFixtures() []struct {
 	Name         string
 	Args         []string
 	InitialYAML  string
 	ExpectedYAML string
-}{
-	{
-		Name: "set simple command with positional",
-		Args: []string{"set", "build", "go build"},
-		InitialYAML: `
+} {
+	return []struct {
+		Name         string
+		Args         []string
+		InitialYAML  string
+		ExpectedYAML string
+	}{
+		{
+			Name: "set simple command with positional",
+			Args: []string{"set", "build", "go build"},
+			InitialYAML: `
 project: test
 commands: []
 `,
-		ExpectedYAML: `
+			ExpectedYAML: `
 project: test
 commands:
   - build: go build
 `,
-	},
-	{
-		Name: "set simple command with flag",
-		Args: []string{"set", "build", "--command", "go build"},
-		InitialYAML: `
+		},
+		{
+			Name: "set simple command with flag",
+			Args: []string{"set", "build", "--command", "go build"},
+			InitialYAML: `
 project: test
 commands: []
 `,
-		ExpectedYAML: `
+			ExpectedYAML: `
 project: test
 commands:
   - build: go build
 `,
-	},
-	{
-		Name: "set command with hooks",
-		Args: []string{"set", "build", "--command", "go build", "--before", "echo before", "--after", "echo after"},
-		InitialYAML: `
+		},
+		{
+			Name: "set command with hooks",
+			Args: []string{"set", "build", "--command", "go build", "--before", "echo before", "--after", "echo after"},
+			InitialYAML: `
 project: test
 commands: []
 `,
-		ExpectedYAML: `
+			ExpectedYAML: `
 project: test
 commands:
   - build:
@@ -261,5 +267,6 @@ commands:
       command: go build
       after: echo after
 `,
-	},
+		},
+	}
 }
