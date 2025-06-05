@@ -12,7 +12,8 @@ import (
 
 // Cmd cobra command for setting one build configuration command or project-level hooks
 var Cmd = &cobra.Command{
-	Use:   "set <name> [command] [--command <command>] [--before <before>] [--after <after>] [--beforeAll <beforeAll>] [--afterAll <afterAll>]",
+	 Use: "set <name> [command] [--command <command>] [--before <before>] [--after <after>] " +
+        "[--beforeAll <beforeAll>] [--afterAll <afterAll>]",
 	Short: "Set or update a command or project-level hooks in the current project configuration",
 	Long: `Set or update a command or project-level hooks in the current project configuration.
 
@@ -118,7 +119,11 @@ This will update the current project configuration file.`,
 	},
 }
 
-// IndexOfCommandIfPresent returns index in configuration for command if exists
+var Cmd = &cobra.Command{
+    Use: "set <name> [command] [--command <command>] [--before <before>] [--after <after>] " +
+        "[--beforeAll <beforeAll>] [--afterAll <afterAll>]",
+    Short: "Set or update a command or project-level hooks in the current project configuration",
+    // ...existing code...// IndexOfCommandIfPresent returns index in configuration for command if exists
 func IndexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
 	return utils.SliceIndex(len(configuration.Commands), func(i int) bool {
 		i2 := configuration.Commands[i]
