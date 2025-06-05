@@ -1,31 +1,27 @@
-name: Go
-on: [push]
-jobs:
+stages:
+  - build
+  - test
 
-  build:
-    name: Build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macOS-10.14, ubuntu-18.04]
+variables:
+  GO_VERSION: "1.22"
+  GOMODCACHE: "$CI_PROJECT_DIR/.cache/go/pkg/mod"
 
-    steps:
+before_script:
+  - go version
 
-    - name: Set up Go 1.12
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.12
-      id: go
+build:
+  stage: build
+  image: golang:${GO_VERSION}
+  script:
+    - go mod download
+    - go build -v ./...
+  artifacts:
+    paths:
+      - 1build
+    expire_in: 1 hour
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
-
-    - name: Build
-      env:
-        GO111MODULE: on
-      run: go build -v .
-    
-    - name: Test
-      env:
-        GO111MODULE: on
-      run: go test -v -cover github.com/gopinath-langote/1build/testing -run .
+test:
+  stage: test
+  image: golang:${GO_VERSION}
+  script:
+    - go test -v -cover ./...
