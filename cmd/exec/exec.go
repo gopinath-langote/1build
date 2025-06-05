@@ -142,6 +142,6 @@ func printResultsBanner(isSuccess bool, startTime time.Time) {
 	} else {
 		utils.CPrint("FAILURE", utils.Style{Color: utils.RED, Bold: true})
 	}
-	fmt.Println(fmt.Sprintf(" - Total Time: %s", timeStr))
+	fmt.Printf(" - Total Time: %s\n", timeStr)
 	fmt.Println(utils.Dash())
 }

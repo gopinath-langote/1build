@@ -52,10 +52,10 @@ This will remove the specified commands and/or project-level hooks from the conf
 			}
 		}
 
+		reValidName := regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`)
 		// Remove commands by name
 		for _, commandName := range args {
-			matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
-			if !matched {
+			if !reValidName.MatchString(commandName) {
 				fmt.Printf("1build unset: '%s' is not a valid command name. See '1build unset --help'.\n", commandName)
 				utils.ExitError()
 			}

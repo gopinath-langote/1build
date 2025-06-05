@@ -52,22 +52,22 @@ func (executionPlan *OneBuildExecutionPlan) Print() {
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.TabIndent)
 
 	phase, cmd := longestPhaseAndCommandValue(executionPlan)
-	fmt.Fprintf(w, "%s\t%s\n", dashesOfLength(phase), dashesOfLength(cmd))
-	fmt.Fprintln(w, "Phase\tCommand")
-	fmt.Fprintf(w, "%s\t%s\n", dashesOfLength(phase), dashesOfLength(cmd))
+	_, _ = fmt.Fprintf(w, "%s\t%s\n", dashesOfLength(phase), dashesOfLength(cmd))
+	_, _ = fmt.Fprintln(w, "Phase\tCommand")
+	_, _ = fmt.Fprintf(w, "%s\t%s\n", dashesOfLength(phase), dashesOfLength(cmd))
 
 	if executionPlan.HasBefore() {
-		fmt.Fprintf(w, "%s\t%s\n", executionPlan.Before.Name, executionPlan.Before.Command)
+		_, _ = fmt.Fprintf(w, "%s\t%s\n", executionPlan.Before.Name, executionPlan.Before.Command)
 	}
 
 	if executionPlan.HasCommands() {
 		for _, command := range executionPlan.Commands {
-			fmt.Fprintf(w, "%s\t%s\n", command.Name, command.Command)
+			_, _ = fmt.Fprintf(w, "%s\t%s\n", command.Name, command.Command)
 		}
 	}
 
 	if executionPlan.HasAfter() {
-		fmt.Fprintf(w, "%s\t%s\n", executionPlan.After.Name, executionPlan.After.Command)
+		_, _ = fmt.Fprintf(w, "%s\t%s\n", executionPlan.After.Name, executionPlan.After.Command)
 	}
 
 	_ = w.Flush()
