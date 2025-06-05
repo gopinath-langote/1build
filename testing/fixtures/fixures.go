@@ -7,7 +7,7 @@ type setup func(dir string) error
 type assertion func(dir string, actualOutput string, t *testing.T) bool
 type teardown func(dir string) error
 
-//Test represents all the necessary information to run the test case
+// Test represents all the necessary information to run the test case
 type Test struct {
 	Feature   string
 	Name      string
