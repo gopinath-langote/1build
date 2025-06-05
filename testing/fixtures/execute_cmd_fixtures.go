@@ -29,13 +29,7 @@ commands:
   - build: echo building project
 `
 	expectedOutput := `
------    ---------------------
-Phase    Command
------    ---------------------
-build    echo building project
-
-
--------------------------------[ ` + "build" + ` ]--------------------------------
+-------------------------------[ build ]--------------------------------
 building project
 
 `
@@ -60,13 +54,7 @@ commands:
   - build: echo building project
 `
 	expectedOutput := `
------    ---------------------
-Phase    Command
------    ---------------------
-build    echo building project
-
-
--------------------------------[ ` + "build" + ` ]--------------------------------
+-------------------------------[ build ]--------------------------------
 building project
 
 `
@@ -94,7 +82,8 @@ commands:
   - build: echo building project
 `
 
-	expectedOutput := "\nError building execution plan. Command \"random\" not found." + `
+	expectedOutput := `
+Error: Command "random" not found.
 ------------------------------------------------------------------------
 project: Sample Project
 commands:
@@ -117,23 +106,21 @@ build | echo building project
 func shouldExecuteBeforeCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-before: echo running pre-command
+beforeAll: echo running pre-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `
-------    ------------------------
-Phase     Command
-------    ------------------------
-before    echo running pre-command
-build     echo building project
-
-
--------------------------------[ ` + "before" + ` ]-------------------------------
+	expectedOutput := `beforeAll: echo running pre-command
+-----------------------------[ beforeAll ]------------------------------
 running pre-command
--------------------------------[ ` + "build" + ` ]--------------------------------
+Executing command: build
+  command: echo building project
+-------------------------------[ build ]--------------------------------
 building project
 
+------------------------------------------------------------------------
+SUCCESS - Total Time: 00s
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -152,23 +139,21 @@ building project
 func shouldExecuteAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-after: echo running post-command
+afterAll: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `
------    -------------------------
-Phase    Command
------    -------------------------
-build    echo building project
-after    echo running post-command
-
-
--------------------------------[ ` + "build" + ` ]--------------------------------
+	expectedOutput := `Executing command: build
+  command: echo building project
+-------------------------------[ build ]--------------------------------
 building project
--------------------------------[ ` + "after" + ` ]--------------------------------
+afterAll: echo running post-command
+------------------------------[ afterAll ]------------------------------
 running post-command
 
+------------------------------------------------------------------------
+SUCCESS - Total Time: 00s
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -187,27 +172,25 @@ running post-command
 func shouldExecuteBeforeAndAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-before: echo running pre-command
-after: echo running post-command
+beforeAll: echo running pre-command
+afterAll: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `
-------    -------------------------
-Phase     Command
-------    -------------------------
-before    echo running pre-command
-build     echo building project
-after     echo running post-command
-
-
--------------------------------[ ` + "before" + ` ]-------------------------------
+	expectedOutput := `beforeAll: echo running pre-command
+-----------------------------[ beforeAll ]------------------------------
 running pre-command
--------------------------------[ ` + "build" + ` ]--------------------------------
+Executing command: build
+  command: echo building project
+-------------------------------[ build ]--------------------------------
 building project
--------------------------------[ ` + "after" + ` ]--------------------------------
+afterAll: echo running post-command
+------------------------------[ afterAll ]------------------------------
 running post-command
 
+------------------------------------------------------------------------
+SUCCESS - Total Time: 00s
+------------------------------------------------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -226,21 +209,14 @@ running post-command
 func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
-before: exit 10
-after: echo running post-command
+beforeAll: exit 10
+afterAll: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `
-------    -------------------------
-Phase     Command
-------    -------------------------
-before    exit 10
-build     echo building project
-after     echo running post-command
+	expectedOutput := `beforeAll: exit 10
+-----------------------------[ beforeAll ]------------------------------
 
-
--------------------------------[ ` + "before" + ` ]-------------------------------
 `
 	return Test{
 		Feature: feature,
@@ -251,9 +227,8 @@ after     echo running post-command
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessage(t, actualOutput, "before", "10") &&
+				assertFailureMessage(t, actualOutput, "beforeAll", "10") &&
 				assertFailureBanner(t, actualOutput)
-
 		},
 	}
 }
@@ -261,23 +236,18 @@ after     echo running post-command
 func shouldStopExecutionIfCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
-before: echo running pre-command
-after: echo running post-command
+beforeAll: echo running pre-command
+afterAll: echo running post-command
 commands:
   - build: invalid_command
 `
-	expectedOutput := `
-------    -------------------------
-Phase     Command
-------    -------------------------
-before    echo running pre-command
-build     invalid_command
-after     echo running post-command
-
-
--------------------------------[ ` + "before" + ` ]-------------------------------
+	expectedOutput := `beforeAll: echo running pre-command
+-----------------------------[ beforeAll ]------------------------------
 running pre-command
--------------------------------[ ` + "build" + ` ]--------------------------------
+Executing command: build
+  command: invalid_command
+-------------------------------[ build ]--------------------------------
+
 `
 	return Test{
 		Feature: feature,

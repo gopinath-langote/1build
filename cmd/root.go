@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/gopinath-langote/1build/cmd/del"
 	"github.com/gopinath-langote/1build/cmd/initialize"
 	"github.com/gopinath-langote/1build/cmd/list"
@@ -58,4 +59,22 @@ func init() {
 	Cmd.AddCommand(initialize.Cmd)
 	Cmd.AddCommand(set.Cmd)
 	Cmd.AddCommand(unset.Cmd)
+
+	// set command flags
+	set.Cmd.Flags().String("before", "", "Command to execute before the main command")
+	set.Cmd.Flags().String("command", "", "Main command to execute (can also be provided as a positional argument)")
+	set.Cmd.Flags().String("after", "", "Command to execute after the main command")
+	set.Cmd.Flags().String("beforeAll", "", "Project-level command to execute before all commands")
+	set.Cmd.Flags().String("afterAll", "", "Project-level command to execute after all commands")
+
+	// unset command flags
+	unset.Cmd.Flags().Bool("beforeAll", false, "Remove project-level beforeAll hook")
+	unset.Cmd.Flags().Bool("afterAll", false, "Remove project-level afterAll hook")
+
+	// del command flags
+	del.Cmd.Flags().Bool("force", false, "Force delete command")
+
+	// init command flags
+	initialize.Cmd.Flags().String("name", "", "Project name")
+	_ = Cmd.MarkFlagRequired("name")
 }
