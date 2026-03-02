@@ -29,83 +29,77 @@ jobs:
 
       - name: Update Homebrew formula
         run: |
-          set -e
           VERSION=${GITHUB_REF#refs/tags/}
           VERSION_NO_V=${VERSION#v}
+          RELEASE_URL="https://github.com/gopinath-langote/1build/releases/download/$VERSION"
           
           # Clone the homebrew tap repo
           git clone https://${{ secrets.GORELEASER_GITHUB_TOKEN }}@github.com/gopinath-langote/homebrew-one-build.git /tmp/homebrew-tap
           cd /tmp/homebrew-tap
           
-          # Download checksums
-          curl -sL https://github.com/gopinath-langote/1build/releases/download/$VERSION/1build_${VERSION_NO_V}_checksums.txt -o checksums.txt
+          # Download and parse checksums into a temporary script
+          curl -sL "$RELEASE_URL/1build_${VERSION_NO_V}_checksums.txt" -o checksums.txt
           
-          # Parse checksums
-          SHA_X86_64_DARWIN=$(awk '/1build_Darwin_x86_64\.tar\.gz/ {print $1}' checksums.txt)
-          SHA_ARM64_DARWIN=$(awk '/1build_Darwin_arm64\.tar\.gz/ {print $1}' checksums.txt)
-          SHA_X86_64_LINUX=$(awk '/1build_Linux_x86_64\.tar\.gz/ {print $1}' checksums.txt)
-          SHA_ARM64_LINUX=$(awk '/1build_Linux_arm64\.tar\.gz/ {print $1}' checksums.txt)
-          
-          # Generate formula using Python to avoid sed compatibility issues
-          python3 << 'PYTHON'
-version = "${{ env.VERSION_NO_V }}"
-sha_x86_darwin = "${{ env.SHA_X86_64_DARWIN }}"
-sha_arm64_darwin = "${{ env.SHA_ARM64_DARWIN }}"
-sha_x86_linux = "${{ env.SHA_X86_64_LINUX }}"
-sha_arm64_linux = "${{ env.SHA_ARM64_LINUX }}"
+          # Generate formula directly in Python
+          python3 -c "
+import re
+with open('checksums.txt', 'r') as f:
+    checksums = f.read()
 
-formula = f"""# typed: false
+# Extract SHAs
+sha_x86_darwin = re.search(r'(\w+)\s+1build_Darwin_x86_64\.tar\.gz', checksums).group(1)
+sha_arm64_darwin = re.search(r'(\w+)\s+1build_Darwin_arm64\.tar\.gz', checksums).group(1)
+sha_x86_linux = re.search(r'(\w+)\s+1build_Linux_x86_64\.tar\.gz', checksums).group(1)
+sha_arm64_linux = re.search(r'(\w+)\s+1build_Linux_arm64\.tar\.gz', checksums).group(1)
+
+formula = f'''# typed: false
 # frozen_string_literal: true
 
 class OneBuild < Formula
-  desc "Frictionless way of managing project-specific commands"
-  homepage "https://github.com/gopinath-langote/1build"
-  version "{version}"
+  desc \"Frictionless way of managing project-specific commands\"
+  homepage \"https://github.com/gopinath-langote/1build\"
+  version \"{VERSION_NO_V}\"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/gopinath-langote/1build/releases/download/v{version}/1build_Darwin_x86_64.tar.gz"
-      sha256 "{sha_x86_darwin}"
+      url \"$RELEASE_URL/1build_Darwin_x86_64.tar.gz\"
+      sha256 \"{sha_x86_darwin}\"
     elsif Hardware::CPU.arm?
-      url "https://github.com/gopinath-langote/1build/releases/download/v{version}/1build_Darwin_arm64.tar.gz"
-      sha256 "{sha_arm64_darwin}"
+      url \"$RELEASE_URL/1build_Darwin_arm64.tar.gz\"
+      sha256 \"{sha_arm64_darwin}\"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/gopinath-langote/1build/releases/download/v{version}/1build_Linux_x86_64.tar.gz"
-      sha256 "{sha_x86_linux}"
+      url \"$RELEASE_URL/1build_Linux_x86_64.tar.gz\"
+      sha256 \"{sha_x86_linux}\"
     elsif Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/gopinath-langote/1build/releases/download/v{version}/1build_Linux_arm64.tar.gz"
-      sha256 "{sha_arm64_linux}"
+      url \"$RELEASE_URL/1build_Linux_arm64.tar.gz\"
+      sha256 \"{sha_arm64_linux}\"
     end
   end
 
   def install
-    bin.install "1build"
+    bin.install \"1build\"
   end
 
   test do
-    system "#{bin}/1build", "--version"
+    system \"#{{bin}}/1build\", \"--version\"
   end
 end
-"""
+'''
+
 with open('one-build.rb', 'w') as f:
     f.write(formula)
-PYTHON
+" VERSION_NO_V="$VERSION_NO_V" RELEASE_URL="$RELEASE_URL"
           
           # Commit and push
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add one-build.rb
-          git commit -m "Brew formula update for 1build version $VERSION" || true
+          git diff --cached --exit-code > /dev/null || git commit -m "Brew formula update for 1build version $VERSION"
           git push origin master
         env:
           GITHUB_REF: ${{ github.ref }}
-          VERSION_NO_V: ${{ github.ref_name }}
-          SHA_X86_64_DARWIN: ${{ env.SHA_X86_64_DARWIN }}
-          SHA_ARM64_DARWIN: ${{ env.SHA_ARM64_DARWIN }}
-          SHA_X86_64_LINUX: ${{ env.SHA_X86_64_LINUX }}
-          SHA_ARM64_LINUX: ${{ env.SHA_ARM64_LINUX }}
 
