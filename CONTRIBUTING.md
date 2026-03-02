@@ -42,9 +42,9 @@ Create or find an issue you would like to implement:
 
 # 1build Version Release
 
-1. Install [goreleaser](https://github.com/goreleaser/goreleaser)
+The release process is fully automated via GitHub Actions:
 
-2. Create & push git tag (version higher that already released version tag)
+1. Create & push a git tag with the version (version higher than already released version)
     Example:
     
    ```shell script
@@ -52,6 +52,10 @@ Create or find an issue you would like to implement:
    git push origin --tags
     ```
 
-3. On 1build project directory run: `goreleaser`
-    > This will automatically create changelog on release page.
+2. The [GoReleaser workflow](.github/workflows/goreleaser.yml) will automatically:
+    - Build binaries for multiple platforms (Linux, macOS, Windows)
+    - Create a GitHub Release with the changelog
+    - Update the Homebrew formula in the [homebrew-one-build](https://github.com/gopinath-langote/homebrew-one-build) tap
+    
+> The release process uses [GoReleaser](https://goreleaser.com/) configured in `.goreleaser.yaml`. The workflow is triggered on any git tag push and requires no manual intervention.
 
