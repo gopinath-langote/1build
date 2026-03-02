@@ -58,8 +58,12 @@ The release process is mostly automated via GitHub Actions:
     
 > The release process uses [GoReleaser](https://goreleaser.com/) configured in `.goreleaser.yaml`. The workflow is triggered on any git tag push and requires no manual intervention.
 
-3. **Homebrew Formula Update (Manual)**:
-   - After the release is created, manually update the formula in [homebrew-one-build](https://github.com/gopinath-langote/homebrew-one-build) tap
-   - Download the release artifacts, calculate checksums, and update `one-build.rb` with new URLs and checksums
-   - This is maintained separately due to GoReleaser v2 template limitations with multi-architecture formulas
+3. **Update Homebrew Formula**:
+   - After the release is created, run the formula update script:
+     ```bash
+     ./scripts/update-homebrew-formula.sh v1.5.7
+     ```
+   - This downloads checksums from the release and generates a properly formatted Homebrew formula
+   - The script handles all complexity of multi-architecture builds and pushes to the [homebrew-one-build](https://github.com/gopinath-langote/homebrew-one-build) tap
+   - Note: This is manual because GoReleaser v2 has a bug with multi-architecture formula generation that produces invalid Ruby syntax
 
