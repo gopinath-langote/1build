@@ -35,19 +35,6 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}
       {{- if .Arm }}v{{ .Arm }}{{ end }}
 
-brews:
-  - name: one-build
-    repository:
-      owner: gopinath-langote
-      name: homebrew-one-build
-    commit_author:
-      name: github-actions[bot]
-      email: github-actions[bot]@users.noreply.github.com
-    commit_msg_template: Brew formula update for {{ .ProjectName }} version {{ .Tag }}
-    description: Frictionless way of managing project-specific commands
-    homepage: https://github.com/gopinath-langote/1build
-    skip_upload: true
-
 changelog:
   sort: asc
   filters:

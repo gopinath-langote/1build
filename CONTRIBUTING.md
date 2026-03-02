@@ -42,7 +42,7 @@ Create or find an issue you would like to implement:
 
 # 1build Version Release
 
-The release process is fully automated via GitHub Actions:
+The release process is mostly automated via GitHub Actions:
 
 1. Create & push a git tag with the version (version higher than already released version)
     Example:
@@ -54,8 +54,12 @@ The release process is fully automated via GitHub Actions:
 
 2. The [GoReleaser workflow](.github/workflows/goreleaser.yml) will automatically:
     - Build binaries for multiple platforms (Linux, macOS, Windows)
-    - Create a GitHub Release with the changelog
-    - Update the Homebrew formula in the [homebrew-one-build](https://github.com/gopinath-langote/homebrew-one-build) tap
+    - Create a GitHub Release with the changelog and checksums
     
 > The release process uses [GoReleaser](https://goreleaser.com/) configured in `.goreleaser.yaml`. The workflow is triggered on any git tag push and requires no manual intervention.
+
+3. **Homebrew Formula Update (Manual)**:
+   - After the release is created, manually update the formula in [homebrew-one-build](https://github.com/gopinath-langote/homebrew-one-build) tap
+   - Download the release artifacts, calculate checksums, and update `one-build.rb` with new URLs and checksums
+   - This is maintained separately due to GoReleaser v2 template limitations with multi-architecture formulas
 
