@@ -24,31 +24,30 @@ trap "rm -rf $TEMP_DIR" EXIT
 git clone https://github.com/gopinath-langote/homebrew-one-build.git "$TEMP_DIR/homebrew-one-build"
 
 # Download checksums file from the release
-CHECKSUMS_URL="$RELEASE_URL/checksums.txt"
+# Note: GoReleaser v2 names it as "1build_VERSION_checksums.txt"
+CHECKSUMS_URL="$RELEASE_URL/1build_${VERSION_NO_V}_checksums.txt"
 CHECKSUMS=$(mktemp)
 if curl -sL "$CHECKSUMS_URL" -o "$CHECKSUMS" 2>/dev/null && [ -s "$CHECKSUMS" ]; then
     echo "Downloaded checksums from release"
 else
     echo "Error: Could not download checksums.txt from release"
+    echo "Tried: $CHECKSUMS_URL"
     exit 1
 fi
 
-# Parse checksums and create the formula
-declare -A SHA256_MAP
-while IFS=' ' read -r sha256 filename; do
-    SHA256_MAP["$filename"]=$sha256
-done < "$CHECKSUMS"
+# Parse checksums from the file
+SHA_X86_64_DARWIN=$(awk '/1build_Darwin_x86_64\.tar\.gz/ {print $1}' "$CHECKSUMS")
+SHA_ARM64_DARWIN=$(awk '/1build_Darwin_arm64\.tar\.gz/ {print $1}' "$CHECKSUMS")
+SHA_X86_64_LINUX=$(awk '/1build_Linux_x86_64\.tar\.gz/ {print $1}' "$CHECKSUMS")
+SHA_ARM64_LINUX=$(awk '/1build_Linux_arm64\.tar\.gz/ {print $1}' "$CHECKSUMS")
 
-# Validate we have all required architectures
-REQUIRED=("1build_Darwin_x86_64.tar.gz" "1build_Darwin_arm64.tar.gz" "1build_Linux_x86_64.tar.gz" "1build_Linux_arm64.tar.gz")
-for arch in "${REQUIRED[@]}"; do
-    if [ -z "${SHA256_MAP[$arch]}" ]; then
-        echo "Error: Missing checksums for $arch"
-        echo "Available files:"
-        printf '%s\n' "${!SHA256_MAP[@]}"
-        exit 1
-    fi
-done
+# Validate we have all required checksums
+if [ -z "$SHA_X86_64_DARWIN" ] || [ -z "$SHA_ARM64_DARWIN" ] || [ -z "$SHA_X86_64_LINUX" ] || [ -z "$SHA_ARM64_LINUX" ]; then
+    echo "Error: Missing checksums for required architectures"
+    echo "Available checksums:"
+    cat "$CHECKSUMS"
+    exit 1
+fi
 
 # Generate the formula
 cat > "$TEMP_DIR/homebrew-one-build/one-build.rb" << EOF
@@ -63,20 +62,20 @@ class OneBuild < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "$RELEASE_URL/1build_Darwin_x86_64.tar.gz"
-      sha256 "${SHA256_MAP[1build_Darwin_x86_64.tar.gz]}"
+      sha256 "$SHA_X86_64_DARWIN"
     elsif Hardware::CPU.arm?
       url "$RELEASE_URL/1build_Darwin_arm64.tar.gz"
-      sha256 "${SHA256_MAP[1build_Darwin_arm64.tar.gz]}"
+      sha256 "$SHA_ARM64_DARWIN"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "$RELEASE_URL/1build_Linux_x86_64.tar.gz"
-      sha256 "${SHA256_MAP[1build_Linux_x86_64.tar.gz]}"
+      sha256 "$SHA_X86_64_LINUX"
     elsif Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "$RELEASE_URL/1build_Linux_arm64.tar.gz"
-      sha256 "${SHA256_MAP[1build_Linux_arm64.tar.gz]}"
+      sha256 "$SHA_ARM64_LINUX"
     end
   end
 
