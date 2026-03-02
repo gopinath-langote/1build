@@ -46,8 +46,6 @@ brews:
     commit_msg_template: Brew formula update for {{ .ProjectName }} version {{ .Tag }}
     description: Frictionless way of managing project-specific commands
     homepage: https://github.com/gopinath-langote/1build
-    install: |
-      bin.install "1build"
     test: |
       system "#{bin}/1build --version"
 
