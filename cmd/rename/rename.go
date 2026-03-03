@@ -23,6 +23,7 @@ For example:
 	Run: func(cmd *cobra.Command, args []string) {
 		oldName := args[0]
 		newName := args[1]
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
 
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
@@ -39,6 +40,11 @@ For example:
 		if configuration.IndexOfCommand(newName) != -1 {
 			fmt.Fprintf(os.Stderr, "Error: command '%s' already exists in configuration.\n", newName)
 			utils.ExitError()
+		}
+
+		if dryRun {
+			fmt.Printf("[dry-run] Would rename command '%s' to '%s'.\n", oldName, newName)
+			return
 		}
 
 		// Replace the key in the map at the found index while preserving the definition.

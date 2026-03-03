@@ -48,7 +48,7 @@ var Cmd = &cobra.Command{
 func Execute() {
 	if err := Cmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
-		utils.ExitError()
+		utils.ExitUsage()
 	}
 }
 
@@ -58,6 +58,9 @@ func init() {
 	Cmd.PersistentFlags().
 		StringP("file", "f", configuration.OneBuildConfigFileName, "The file path for 1build configuration file.")
 	_ = viper.BindPFlags(Cmd.PersistentFlags())
+
+	// Register -v as an alias for --version
+	Cmd.Flags().BoolP("version", "v", false, "version for 1build")
 
 	Cmd.AddCommand(list.Cmd)
 	Cmd.AddCommand(del.Cmd)
@@ -71,15 +74,21 @@ func init() {
 	set.Cmd.Flags().String("before", "", "Command to execute before the main command")
 	set.Cmd.Flags().String("command", "", "Main command to execute (can also be provided as a positional argument)")
 	set.Cmd.Flags().String("after", "", "Command to execute after the main command")
-	set.Cmd.Flags().String("beforeAll", "", "Project-level command to execute before all commands")
-	set.Cmd.Flags().String("afterAll", "", "Project-level command to execute after all commands")
+	set.Cmd.Flags().String("before-all", "", "Project-level command to execute before all commands")
+	set.Cmd.Flags().String("after-all", "", "Project-level command to execute after all commands")
+	set.Cmd.Flags().Bool("dry-run", false, "Preview changes without writing to disk")
 
 	// unset command flags
-	unset.Cmd.Flags().Bool("beforeAll", false, "Remove project-level beforeAll hook")
-	unset.Cmd.Flags().Bool("afterAll", false, "Remove project-level afterAll hook")
+	unset.Cmd.Flags().Bool("before-all", false, "Remove project-level beforeAll hook")
+	unset.Cmd.Flags().Bool("after-all", false, "Remove project-level afterAll hook")
+	unset.Cmd.Flags().Bool("dry-run", false, "Preview changes without writing to disk")
 
 	// del command flags
 	del.Cmd.Flags().Bool("force", false, "Force delete command")
+	del.Cmd.Flags().Bool("dry-run", false, "Preview what would be deleted without deleting")
+
+	// rename command flags
+	rename.Cmd.Flags().Bool("dry-run", false, "Preview changes without writing to disk")
 
 	// init command flags
 	initialize.Cmd.Flags().String("name", "", "Project name to use in the generated 1build.yaml")

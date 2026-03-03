@@ -24,6 +24,11 @@ func ExitError() {
 	ExitWithCode("1")
 }
 
+// ExitUsage exits the program with exit code 2 (misuse of CLI — wrong arguments).
+func ExitUsage() {
+	ExitWithCode("2")
+}
+
 // SliceIndex find the index of element matching given predicate
 func SliceIndex(limit int, predicate func(i int) bool) int {
 	for i := 0; i < limit; i++ {

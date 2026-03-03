@@ -3,7 +3,9 @@ package exec
 import (
 	"fmt"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/codeskyblue/go-sh"
@@ -19,9 +21,19 @@ func ExecutePlan(commands ...string) {
 
 	configuration, err := config.LoadOneBuildConfiguration()
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Fprintln(os.Stderr, err)
+		utils.ExitError()
 	}
+
+	// Handle SIGINT / SIGTERM: print FAILURE banner before exiting.
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		<-sigs
+		fmt.Fprintln(os.Stderr, "\nInterrupted.")
+		printResultsBanner(false, executeStart)
+		os.Exit(1)
+	}()
 
 	// Print and execute global beforeAll
 	if configuration.BeforeAll != "" {
@@ -97,9 +109,10 @@ func ExecutePlan(commands ...string) {
 
 func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Time) {
 	command.PrintPhaseBanner()
+	session := command.CommandSession
+	session.SetStdin(os.Stdin)
+
 	if !viper.GetBool("quiet") {
-		session := command.CommandSession
-		session.SetStdin(os.Stdin)
 		err := session.Run()
 		if err != nil {
 			exitCode := strings.TrimPrefix(err.Error(), "exit status ")
@@ -109,14 +122,15 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 			utils.ExitWithCode(exitCode)
 		}
 	} else {
-		_, err := command.CommandSession.CombinedOutput()
+		_, err := session.CombinedOutput()
 		if err != nil {
 			exitCode := strings.TrimPrefix(err.Error(), "exit status ")
+			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
+			utils.CPrintlnErr(text, utils.Style{Color: utils.RED})
 			printResultsBanner(false, executeStart)
 			utils.ExitWithCode(exitCode)
 		}
 	}
-
 }
 
 func bashCommand(s *sh.Session, command string) *sh.Session {

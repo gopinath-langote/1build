@@ -13,7 +13,7 @@ import (
 func ReadFile() (string, error) {
 	oneBuildConfigFile := getConfigFile()
 	if _, err := os.Stat(oneBuildConfigFile); os.IsNotExist(err) {
-		return "", errors.New("no '" + oneBuildConfigFile + "' file found")
+		return "", errors.New("no '" + oneBuildConfigFile + "' file found – run '1build init' to create one")
 	}
 	yamlFile, err := os.ReadFile(oneBuildConfigFile)
 	if err != nil {

@@ -20,6 +20,7 @@ func featureSetTestsData() []Test {
 		shouldFailWhenConfigurationFileIsInInvalidFormat(feature),
 		shouldSetBeforeAllCommand(feature),
 		shouldSetAfterAllCommand(feature),
+		shouldDryRunSet(feature),
 	}
 }
 
@@ -167,7 +168,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldSetBeforeAllCommand",
-		CmdArgs: Args("set", "--beforeAll", "yo"),
+		CmdArgs: Args("set", "--before-all", "yo"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -199,7 +200,7 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldSetAfterCommand",
-		CmdArgs: Args("set", "--afterAll", "yo"),
+		CmdArgs: Args("set", "--after-all", "yo"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -208,6 +209,34 @@ commands:
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
 			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
+		},
+	}
+}
+
+func shouldDryRunSet(feature string) Test {
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build:
+        command: go build
+`
+
+	return Test{
+		Feature: feature,
+		Name:    "shouldDryRunSet",
+		CmdArgs: Args("set", "release", "go build -o dist/app", "--dry-run"),
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			// Output should indicate dry-run
+			if !assert.Contains(t, actualOutput, "[dry-run]") {
+				return false
+			}
+			// The config file must NOT have been modified
+			filePath := dir + "/" + def.ConfigFileName
+			content, _ := os.ReadFile(filePath)
+			return assert.NotContains(t, string(content), "release")
 		},
 	}
 }
