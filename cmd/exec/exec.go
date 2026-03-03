@@ -3,6 +3,7 @@ package exec
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/codeskyblue/go-sh"
@@ -101,7 +102,7 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 		session.SetStdin(os.Stdin)
 		err := session.Run()
 		if err != nil {
-			exitCode := (err.Error())[12:]
+			exitCode := strings.TrimPrefix(err.Error(), "exit status ")
 			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
 			utils.CPrintln(text, utils.Style{Color: utils.RED})
 			printResultsBanner(false, executeStart)
@@ -110,7 +111,7 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 	} else {
 		_, err := command.CommandSession.CombinedOutput()
 		if err != nil {
-			exitCode := (err.Error())[12:]
+			exitCode := strings.TrimPrefix(err.Error(), "exit status ")
 			printResultsBanner(false, executeStart)
 			utils.ExitWithCode(exitCode)
 		}

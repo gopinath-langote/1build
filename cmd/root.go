@@ -75,6 +75,5 @@ func init() {
 	del.Cmd.Flags().Bool("force", false, "Force delete command")
 
 	// init command flags
-	initialize.Cmd.Flags().String("name", "", "Project name")
-	_ = Cmd.MarkFlagRequired("name")
+	initialize.Cmd.Flags().String("name", "", "Project name to use in the generated 1build.yaml")
 }

@@ -1,7 +1,6 @@
 package fixtures
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -54,7 +53,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
 	}
@@ -85,7 +84,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/some-dir/some-config.yaml"
 			assert.FileExists(t, filePath)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
 	}
@@ -162,7 +161,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
 	}
@@ -191,7 +190,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd") &&
 				assert.Exactly(t, expectedOutput, string(content))
@@ -227,7 +226,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd, missingCmd2") &&
 				assert.Exactly(t, expectedOutput, string(content))
@@ -259,7 +258,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 
 			testResult := assert.Contains(t, actualOutput, "Following command(s) not found: missingCmd") &&
 				assert.Exactly(t, expectedOutput, string(content))
@@ -291,7 +290,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
 	}
@@ -319,7 +318,7 @@ commands: []
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Exactly(t, expectedOutput, string(content))
 		},
 	}

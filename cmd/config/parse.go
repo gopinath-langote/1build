@@ -98,6 +98,19 @@ func (oneBuildConfiguration *OneBuildConfiguration) GetCommand(name string) (val
 	return
 }
 
+// IndexOfCommand returns the slice index of the named command, or -1 if not found.
+// Use this instead of duplicating the search loop in every subcommand package.
+func (oneBuildConfiguration *OneBuildConfiguration) IndexOfCommand(name string) int {
+	return utils.SliceIndex(len(oneBuildConfiguration.Commands), func(i int) bool {
+		for k := range oneBuildConfiguration.Commands[i] {
+			if k == name {
+				return true
+			}
+		}
+		return false
+	})
+}
+
 // Print prints the configuration to the console
 func (oneBuildConfiguration *OneBuildConfiguration) Print() {
 	fmt.Println(utils.Dash() + "\nproject: " + oneBuildConfiguration.Project)

@@ -96,7 +96,7 @@ This will update the current project configuration file.`,
 				commandName: def,
 			}
 
-			index := IndexOfCommandIfPresent(configuration, commandName)
+			index := configuration.IndexOfCommand(commandName)
 			if index == -1 {
 				configuration.Commands = append(configuration.Commands, cmdMap)
 			} else {
@@ -117,17 +117,4 @@ This will update the current project configuration file.`,
 			fmt.Println("No changes made to configuration.")
 		}
 	},
-}
-
-// IndexOfCommandIfPresent returns index in configuration for command if exists
-func IndexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
-	return utils.SliceIndex(len(configuration.Commands), func(i int) bool {
-		i2 := configuration.Commands[i]
-		for k := range i2 {
-			if k == commandName {
-				return true
-			}
-		}
-		return false
-	})
 }
