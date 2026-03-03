@@ -46,13 +46,13 @@ This will remove the specified commands and/or project-level hooks from the conf
 		if removeBeforeAll {
 			if configuration.BeforeAll != "" {
 				configuration.BeforeAll = ""
-				removed = append(removed, "beforeAll")
+				removed = append(removed, "before-all")
 			}
 		}
 		if removeAfterAll {
 			if configuration.AfterAll != "" {
 				configuration.AfterAll = ""
-				removed = append(removed, "afterAll")
+				removed = append(removed, "after-all")
 			}
 		}
 

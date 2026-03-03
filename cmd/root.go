@@ -79,8 +79,8 @@ func init() {
 	set.Cmd.Flags().Bool("dry-run", false, "Preview changes without writing to disk")
 
 	// unset command flags
-	unset.Cmd.Flags().Bool("before-all", false, "Remove project-level beforeAll hook")
-	unset.Cmd.Flags().Bool("after-all", false, "Remove project-level afterAll hook")
+	unset.Cmd.Flags().Bool("before-all", false, "Remove project-level before-all hook")
+	unset.Cmd.Flags().Bool("after-all", false, "Remove project-level after-all hook")
 	unset.Cmd.Flags().Bool("dry-run", false, "Preview changes without writing to disk")
 
 	// del command flags

@@ -35,11 +35,11 @@ func ExecutePlan(commands ...string) {
 		os.Exit(1)
 	}()
 
-	// Print and execute global beforeAll
+	// Print and execute global before-all
 	if configuration.BeforeAll != "" {
-		fmt.Printf("beforeAll: %s\n", configuration.BeforeAll)
+		fmt.Printf("before-all: %s\n", configuration.BeforeAll)
 		executeAndStopIfFailed(&models.CommandContext{
-			Name:           "beforeAll",
+			Name:           "before-all",
 			Command:        configuration.BeforeAll,
 			CommandSession: bashCommand(sh.NewSession(), configuration.BeforeAll),
 		}, executeStart)
@@ -94,11 +94,11 @@ func ExecutePlan(commands ...string) {
 		}
 	}
 
-	// Print and execute global afterAll
+	// Print and execute global after-all
 	if configuration.AfterAll != "" {
-		fmt.Printf("afterAll: %s\n", configuration.AfterAll)
+		fmt.Printf("after-all: %s\n", configuration.AfterAll)
 		executeAndStopIfFailed(&models.CommandContext{
-			Name:           "afterAll",
+			Name:           "after-all",
 			Command:        configuration.AfterAll,
 			CommandSession: bashCommand(sh.NewSession(), configuration.AfterAll),
 		}, executeStart)

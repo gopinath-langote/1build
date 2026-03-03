@@ -56,11 +56,11 @@ This will update the current project configuration file.`,
 		// Update project-level hooks if flags are set
 		if beforeAll != "" {
 			configuration.BeforeAll = beforeAll
-			updated = append(updated, "beforeAll")
+			updated = append(updated, "before-all")
 		}
 		if afterAll != "" {
 			configuration.AfterAll = afterAll
-			updated = append(updated, "afterAll")
+			updated = append(updated, "after-all")
 		}
 
 		// Command-level logic

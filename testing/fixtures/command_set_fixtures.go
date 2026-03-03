@@ -159,7 +159,7 @@ commands:
 `
 
 	expectedOutput := `project: Sample Project
-beforeAll: yo
+before-all: yo
 commands:
   - build:
         command: go build
@@ -191,7 +191,7 @@ commands:
 `
 
 	expectedOutput := `project: Sample Project
-afterAll: yo
+after-all: yo
 commands:
   - build:
         command: go build

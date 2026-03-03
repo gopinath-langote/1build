@@ -107,12 +107,12 @@ build | echo building project
 func shouldExecuteBeforeCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
+before-all: echo running pre-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: echo running pre-command
+-----------------------------[ before-all ]-----------------------------
 running pre-command
 Executing command: build
   command: echo building project
@@ -140,7 +140,7 @@ SUCCESS - Total Time: 00s
 func shouldExecuteAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-afterAll: echo running post-command
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
@@ -148,8 +148,8 @@ commands:
   command: echo building project
 -------------------------------[ build ]--------------------------------
 building project
-afterAll: echo running post-command
-------------------------------[ afterAll ]------------------------------
+after-all: echo running post-command
+-----------------------------[ after-all ]------------------------------
 running post-command
 
 ------------------------------------------------------------------------
@@ -173,20 +173,20 @@ SUCCESS - Total Time: 00s
 func shouldExecuteBeforeAndAfterCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
-afterAll: echo running post-command
+before-all: echo running pre-command
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: echo running pre-command
+-----------------------------[ before-all ]-----------------------------
 running pre-command
 Executing command: build
   command: echo building project
 -------------------------------[ build ]--------------------------------
 building project
-afterAll: echo running post-command
-------------------------------[ afterAll ]------------------------------
+after-all: echo running post-command
+-----------------------------[ after-all ]------------------------------
 running post-command
 
 ------------------------------------------------------------------------
@@ -210,13 +210,13 @@ SUCCESS - Total Time: 00s
 func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: exit 10
-afterAll: echo running post-command
+before-all: exit 10
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: exit 10
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: exit 10
+-----------------------------[ before-all ]-----------------------------
 
 `
 	return Test{
@@ -229,7 +229,7 @@ commands:
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessage(t, actualOutput, "beforeAll", "10") &&
+				assertFailureMessage(t, actualOutput, "before-all", "10") &&
 				assertFailureBanner(t, actualOutput)
 		},
 	}
@@ -238,8 +238,8 @@ commands:
 func shouldStopExecutionIfCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
-afterAll: echo running post-command
+before-all: echo running pre-command
+after-all: echo running post-command
 commands:
   - build: invalid_command
 `
@@ -252,8 +252,8 @@ commands:
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return utils.AssertContains(t, actualOutput, "beforeAll: echo running pre-command") &&
-				utils.AssertContains(t, actualOutput, "-----------------------------[ beforeAll ]------------------------------") &&
+			return utils.AssertContains(t, actualOutput, "before-all: echo running pre-command") &&
+				utils.AssertContains(t, actualOutput, "-----------------------------[ before-all ]-----------------------------") &&
 				utils.AssertContains(t, actualOutput, "Executing command: build") &&
 				utils.AssertContains(t, actualOutput, "  command: invalid_command") &&
 				utils.AssertContains(t, actualOutput, "-------------------------------[ build ]--------------------------------") &&

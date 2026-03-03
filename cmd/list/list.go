@@ -53,8 +53,8 @@ func printJSON(configuration config.OneBuildConfiguration) {
 	}
 	type output struct {
 		Project   string         `json:"project"`
-		BeforeAll string         `json:"beforeAll,omitempty"`
-		AfterAll  string         `json:"afterAll,omitempty"`
+		BeforeAll string         `json:"before-all,omitempty"`
+		AfterAll  string         `json:"after-all,omitempty"`
 		Commands  []commandEntry `json:"commands"`
 	}
 

@@ -241,8 +241,8 @@ func shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound3(feature string) Test 
 
 	defaultFileContent := `
 project: Sample Project
-beforeAll: go before
-afterAll: go after
+before-all: go before
+after-all: go after
 `
 
 	expectedOutput := `project: Sample Project
@@ -273,7 +273,7 @@ func shouldUnsetTheBeforeCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
-beforeAll: yo
+before-all: yo
 commands: []
 `
 
@@ -301,7 +301,7 @@ func shouldUnsetTheAfterCommand(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
-afterAll: yo
+after-all: yo
 commands: []
 `
 
