@@ -73,7 +73,9 @@ func buildBinary(path string) {
 		os.Exit(1)
 	}
 
-	getDep := exec.Command("go", "build", "-o", path)
+	getDep := exec.Command("go", "build",
+		"-ldflags", "-X github.com/gopinath-langote/1build/cmd.Version=test-version",
+		"-o", path)
 	if err := getDep.Run(); err != nil {
 		fmt.Printf("could not make binary for %s: %v", binaryName, err.Error())
 		os.Exit(1)

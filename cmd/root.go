@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/gopinath-langote/1build/cmd/del"
 	"github.com/gopinath-langote/1build/cmd/initialize"
 	"github.com/gopinath-langote/1build/cmd/list"
+	"github.com/gopinath-langote/1build/cmd/rename"
 	"github.com/gopinath-langote/1build/cmd/set"
 	"github.com/gopinath-langote/1build/cmd/unset"
 
@@ -16,16 +18,19 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Version is set at build time via -ldflags. Defaults to "dev" for local builds.
+var Version = "dev"
+
 // Cmd cobra for root level
 var Cmd = &cobra.Command{
 	Use:     "1build",
-	Version: "1.10.4",
+	Version: Version,
 	Short:   "Frictionless way of managing project-specific commands",
 	Args:    cobra.MinimumNArgs(0),
 	PreRun: func(cmd *cobra.Command, args []string) {
 		_, err := configuration.LoadOneBuildConfiguration()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprintln(os.Stderr, err)
 			utils.ExitError()
 		}
 	},
@@ -41,13 +46,12 @@ var Cmd = &cobra.Command{
 // Execute entry-point for cobra app
 func Execute() {
 	if err := Cmd.Execute(); err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 		utils.ExitError()
 	}
 }
 
 func init() {
-	Cmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
 	Cmd.PersistentFlags().BoolP("quiet", "q", false,
 		"Hide output log of command & only show SUCCESS/FAILURE result")
 	Cmd.PersistentFlags().
@@ -59,6 +63,7 @@ func init() {
 	Cmd.AddCommand(initialize.Cmd)
 	Cmd.AddCommand(set.Cmd)
 	Cmd.AddCommand(unset.Cmd)
+	Cmd.AddCommand(rename.Cmd)
 
 	// set command flags
 	set.Cmd.Flags().String("before", "", "Command to execute before the main command")

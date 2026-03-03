@@ -2,6 +2,7 @@ package unset
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 
@@ -31,7 +32,7 @@ This will remove the specified commands and/or project-level hooks from the conf
 
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprintln(os.Stderr, err)
 			return
 		}
 
@@ -56,7 +57,7 @@ This will remove the specified commands and/or project-level hooks from the conf
 		// Remove commands by name
 		for _, commandName := range args {
 			if !reValidName.MatchString(commandName) {
-				fmt.Printf("1build unset: '%s' is not a valid command name. See '1build unset --help'.\n", commandName)
+				fmt.Fprintf(os.Stderr, "1build unset: '%s' is not a valid command name. See '1build unset --help'.\n", commandName)
 				utils.ExitError()
 			}
 			index := configuration.IndexOfCommand(commandName)
@@ -71,7 +72,7 @@ This will remove the specified commands and/or project-level hooks from the conf
 		if len(removed) > 0 {
 			err = config.WriteConfigFile(configuration)
 			if err != nil {
-				fmt.Println("Failed to update configuration file:", err)
+				fmt.Fprintln(os.Stderr, "Failed to update configuration file:", err)
 				return
 			}
 			fmt.Printf("Removed: %s from configuration.\n", strings.Join(removed, ", "))

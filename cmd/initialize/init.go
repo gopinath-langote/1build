@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/spf13/cobra"
@@ -44,7 +45,7 @@ Use --name to set the project name in the generated configuration file.`,
 
 		err := config.WriteConfigFile(configuration)
 		if err != nil {
-			fmt.Println("Failed to create configuration file:", err)
+			fmt.Fprintln(os.Stderr, "Failed to create configuration file:", err)
 			return
 		}
 
