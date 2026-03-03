@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	cmdutils "github.com/gopinath-langote/1build/cmd/utils"
 	"github.com/gopinath-langote/1build/testing/def"
 	"github.com/stretchr/testify/assert"
 )
@@ -48,8 +49,8 @@ func RecreateTestResourceDirectory(dir string) string {
 }
 
 const (
-	// MaxOutputWidth is the number of spaces to use on a console
-	MaxOutputWidth = 72
+	// MaxOutputWidth is the number of output columns — mirrors cmd/utils.MaxOutputWidth.
+	MaxOutputWidth = cmdutils.MaxOutputWidth
 )
 
 // PlainBanner return dashes with fixed length - 72

@@ -199,7 +199,7 @@ commands:
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldSetAfterCommand",
+		Name:    "shouldSetAfterAllCommand",
 		CmdArgs: Args("set", "--after-all", "yo"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)

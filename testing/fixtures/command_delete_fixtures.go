@@ -14,8 +14,8 @@ func featureDeleteTestData() []Test {
 	return []Test{
 		shouldDeleteConfigFile(feature),
 		shouldDeleteConfigSpecifiedFile(feature),
-		shouldFailIfFileDoesntExists(feature, ""),
-		shouldFailIfFileDoesntExists(feature, "--force"),
+		shouldFailIfFileDoesntExists(feature),
+		shouldFailIfFileDoesntExistsWithForceFlag(feature),
 		shouldDryRunDelete(feature),
 	}
 }
@@ -52,12 +52,25 @@ func shouldDeleteConfigSpecifiedFile(feature string) Test {
 	}
 }
 
-func shouldFailIfFileDoesntExists(feature string, arg string) Test {
+func shouldFailIfFileDoesntExists(feature string) Test {
 	expectedOutput := "No configuration file found!"
 	return Test{
 		Feature:          feature,
 		Name:             "shouldFailIfFileDoesntExists",
-		CmdArgs:          Args("delete", arg),
+		CmdArgs:          Args("delete"),
+		ExpectedExitCode: 1,
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			return assert.Contains(t, actualOutput, expectedOutput)
+		},
+	}
+}
+
+func shouldFailIfFileDoesntExistsWithForceFlag(feature string) Test {
+	expectedOutput := "No configuration file found!"
+	return Test{
+		Feature:          feature,
+		Name:             "shouldFailIfFileDoesntExistsWithForceFlag",
+		CmdArgs:          Args("delete", "--force"),
 		ExpectedExitCode: 1,
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, expectedOutput)

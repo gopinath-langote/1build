@@ -141,8 +141,8 @@ func shouldUnsetMultipleCommands(feature string) Test {
 
 	defaultFileContent := `
 project: Sample Project
-before: go before
-after: go after
+before-all: go before
+after-all: go after
 commands:
   - build: go build
   - test: go test
@@ -155,7 +155,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommands",
-		CmdArgs: Args("unset", "build", "test", "before", "after"),
+		CmdArgs: Args("unset", "build", "test", "--before-all", "--after-all"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -283,7 +283,7 @@ commands: []
 
 	return Test{
 		Feature: feature,
-		Name:    "shouldUnsetBeforeAllCommand",
+		Name:    "shouldUnsetTheBeforeAllCommand",
 		CmdArgs: Args("unset", "--before-all"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
@@ -400,7 +400,7 @@ commands:
 
 	return Test{
 		Feature: feature,
-		Name:    "unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered",
+		Name:    "unsetMultipleCommandShouldFailWhenInvalidCommandNameIsEntered",
 		CmdArgs: Args("unset", "build", invalidName),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)

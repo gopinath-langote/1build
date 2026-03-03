@@ -7,7 +7,7 @@ import (
 )
 
 func featureFlagTestData() []Test {
-	feature := "flag"
+	feature := "quiet"
 	return []Test{
 		shouldExecuteCommandWithquietFlag(feature),
 		shouldExecuteBeforeAllCommandWithquietFlag(feature),
@@ -65,7 +65,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeCommandWithquietFlag",
+		Name:    "shouldExecuteBeforeAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -96,7 +96,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteAfterCommandWithquietFlag",
+		Name:    "shouldExecuteAfterAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -130,7 +130,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeAndAfterCommandWithquietFlag",
+		Name:    "shouldExecuteBeforeAllAndAfterAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -161,7 +161,7 @@ FAILURE - Total Time: 00s
 `
 	return Test{
 		Feature:          feature,
-		Name:             "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
+		Name:             "shouldStopExecutionIfBeforeAllCommandFailedWithquietFlag",
 		CmdArgs:          Args("build", "--quiet"),
 		ExpectedExitCode: 10,
 		Setup: func(dir string) error {

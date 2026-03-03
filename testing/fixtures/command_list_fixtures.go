@@ -136,7 +136,7 @@ commands:
 `
 	return Test{
 		Feature: feature,
-		Name:    "list with nested and inline",
+		Name:    "shouldShowListWithNestedAndInline",
 		CmdArgs: Args("list"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)

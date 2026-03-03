@@ -14,10 +14,10 @@ func featureExecuteCmdTestData() []Test {
 		shouldExecuteAvailableCommand(feature),
 		shouldExecuteAvailableCommandFromSpecifiedFile(feature),
 		shouldShowErrorIfCommandNotFound(feature),
-		shouldExecuteBeforeCommand(feature),
-		shouldExecuteAfterCommand(feature),
-		shouldExecuteBeforeAndAfterCommand(feature),
-		shouldStopExecutionIfBeforeCommandFailed(feature),
+		shouldExecuteBeforeAllCommand(feature),
+		shouldExecuteAfterAllCommand(feature),
+		shouldExecuteBeforeAndAfterAllCommand(feature),
+		shouldStopExecutionIfBeforeAllCommandFailed(feature),
 		shouldStopExecutionIfCommandFailed(feature),
 	}
 }
@@ -104,7 +104,7 @@ build | echo building project
 	}
 }
 
-func shouldExecuteBeforeCommand(feature string) Test {
+func shouldExecuteBeforeAllCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 before-all: echo running pre-command
@@ -125,7 +125,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeCommand",
+		Name:    "shouldExecuteBeforeAllCommand",
 		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -137,7 +137,7 @@ SUCCESS - Total Time: 00s
 	}
 }
 
-func shouldExecuteAfterCommand(feature string) Test {
+func shouldExecuteAfterAllCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 after-all: echo running post-command
@@ -158,7 +158,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteAfterCommand",
+		Name:    "shouldExecuteAfterAllCommand",
 		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -170,7 +170,7 @@ SUCCESS - Total Time: 00s
 	}
 }
 
-func shouldExecuteBeforeAndAfterCommand(feature string) Test {
+func shouldExecuteBeforeAndAfterAllCommand(feature string) Test {
 	fileContent := `
 project: Sample Project
 before-all: echo running pre-command
@@ -195,7 +195,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeAndAfterCommand",
+		Name:    "shouldExecuteBeforeAndAfterAllCommand",
 		CmdArgs: Args("build"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -207,7 +207,7 @@ SUCCESS - Total Time: 00s
 	}
 }
 
-func shouldStopExecutionIfBeforeCommandFailed(feature string) Test {
+func shouldStopExecutionIfBeforeAllCommandFailed(feature string) Test {
 	fileContent := `
 project: Sample Project
 before-all: exit 10
@@ -221,7 +221,7 @@ commands:
 `
 	return Test{
 		Feature:          feature,
-		Name:             "shouldStopExecutionIfBeforeCommandFailed",
+		Name:             "shouldStopExecutionIfBeforeAllCommandFailed",
 		CmdArgs:          Args("build"),
 		ExpectedExitCode: 10,
 		Setup: func(dir string) error {
