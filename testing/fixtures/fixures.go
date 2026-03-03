@@ -34,6 +34,7 @@ func GetFixtures() []Test {
 		featureFlagTestData(),
 		featureDeleteTestData(),
 		featureRenameTestData(),
+		featureCompletionTestData(),
 	}
 
 	var r1 []Test
