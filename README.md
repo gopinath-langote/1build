@@ -42,14 +42,38 @@ the things that actually matter.
 
 ### Homebrew
 
+**First time installation:**
 ```console
-brew install gopinath-langote/one-build/one-build
+brew tap gopinath-langote/one-build
+brew install one-build
+```
+
+**Subsequent installations (on other machines):**
+```console
+brew tap gopinath-langote/one-build
+brew install one-build
+```
+
+**To verify installation:**
+```console
+one-build --version
 ```
 
 ### Manual
 
 1.  Download and install binary from [the latest release](https://github.com/gopinath-langote/1build/releases/latest)
 2.  Recommended: add `1build` executable to your `$PATH`.
+
+### Troubleshooting Homebrew Installation
+
+**Checksum mismatch error:** If you see "Formula reports different checksum", try:
+```console
+brew untap gopinath-langote/one-build
+brew tap gopinath-langote/one-build
+brew install one-build
+```
+
+This clears the cached formula and fetches the latest version.
 
 ## Usage
 
