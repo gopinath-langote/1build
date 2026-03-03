@@ -16,6 +16,7 @@ func featureDeleteTestData() []Test {
 		shouldDeleteConfigSpecifiedFile(feature),
 		shouldFailIfFileDoesntExists(feature, ""),
 		shouldFailIfFileDoesntExists(feature, "--force"),
+		shouldDryRunDelete(feature),
 	}
 }
 
@@ -74,4 +75,24 @@ func assertFileNotExists(t *testing.T, path string) bool {
 		return false
 	}
 	return true
+}
+
+func shouldDryRunDelete(feature string) Test {
+	return Test{
+		Feature: feature,
+		Name:    "shouldDryRunDelete",
+		CmdArgs: Args("delete", "--dry-run"),
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, "project: Sample Project\ncommands:\n")
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			// Output should mention dry-run
+			if !assert.Contains(t, actualOutput, "[dry-run]") {
+				return false
+			}
+			// Config file must still exist
+			_, err := os.Stat(dir + "/" + def.ConfigFileName)
+			return assert.NoError(t, err, "config file should still exist after dry-run")
+		},
+	}
 }

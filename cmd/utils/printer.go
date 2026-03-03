@@ -31,14 +31,18 @@ type Style struct {
 	Bold  bool
 }
 
-// colorEnabled returns true when color output should be applied.
-// Color is disabled when the NO_COLOR env var is set (https://no-color.org/)
-// or when stdout is not connected to a terminal.
-func colorEnabled() bool {
-	if os.Getenv("NO_COLOR") != "" {
+// noColor returns true when the NO_COLOR env var is set (https://no-color.org/).
+func noColor() bool {
+	return os.Getenv("NO_COLOR") != ""
+}
+
+// colorEnabledForFd returns true when color output should be applied to the given file descriptor.
+// Color is disabled when NO_COLOR is set or the fd is not connected to a terminal.
+func colorEnabledForFd(fd uintptr) bool {
+	if noColor() {
 		return false
 	}
-	return term.IsTerminal(int(os.Stdout.Fd()))
+	return term.IsTerminal(int(fd))
 }
 
 // CPrintln prints the text with given formatting style with newline to stdout.
@@ -49,7 +53,7 @@ func CPrintln(text string, style Style) {
 
 // CPrint prints the text with given formatting style to stdout.
 func CPrint(text string, style Style) {
-	fmt.Print(format(text, style))
+	fmt.Print(formatForFd(text, style, os.Stdout.Fd()))
 }
 
 // CPrintlnErr prints the text with given formatting style with newline to stderr.
@@ -60,12 +64,12 @@ func CPrintlnErr(text string, style Style) {
 
 // CPrintErr prints the text with given formatting style to stderr.
 func CPrintErr(text string, style Style) {
-	fmt.Fprint(os.Stderr, format(text, style))
+	fmt.Fprint(os.Stderr, formatForFd(text, style, os.Stderr.Fd()))
 }
 
-// format applies color and bold styling to text, respecting NO_COLOR / TTY.
-func format(text string, style Style) string {
-	if !colorEnabled() {
+// formatForFd applies color and bold styling to text, respecting NO_COLOR / TTY for the given fd.
+func formatForFd(text string, style Style, fd uintptr) string {
+	if !colorEnabledForFd(fd) {
 		return text
 	}
 	v := colorize(text, style)

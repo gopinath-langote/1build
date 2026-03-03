@@ -95,7 +95,7 @@ func shouldFailCompletionWithUnsupportedShell(feature string) Test {
 		Feature:          feature,
 		Name:             "shouldFailCompletionWithUnsupportedShell",
 		CmdArgs:          Args("completion", "nushell"),
-		ExpectedExitCode: 1,
+		ExpectedExitCode: 2,
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "unsupported shell")
 		},
@@ -107,7 +107,7 @@ func shouldFailInstallForPowershell(feature string) Test {
 		Feature:          feature,
 		Name:             "shouldFailInstallForPowershell",
 		CmdArgs:          Args("completion", "powershell", "--install"),
-		ExpectedExitCode: 1,
+		ExpectedExitCode: 2,
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "--install is not supported for powershell")
 		},

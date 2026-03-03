@@ -59,11 +59,6 @@ commands:
 }
 
 func shouldShowListOfCommandsIfNoCommandSpecified(feature string) Test {
-	commandListMessage := `Project: Sample Project
-commands:
-  build: npm run build
-  lint: eslint
-`
 	defaultFileContent := `project: Sample Project
 commands:
   - build: npm run build
@@ -77,7 +72,9 @@ commands:
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return assert.Contains(t, actualOutput, commandListMessage)
+			return assert.Contains(t, actualOutput, "project: Sample Project") &&
+				assert.Contains(t, actualOutput, "build | npm run build") &&
+				assert.Contains(t, actualOutput, "lint | eslint")
 		},
 	}
 }

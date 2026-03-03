@@ -14,7 +14,7 @@ import (
 // Cmd cobra command for setting one build configuration command or project-level hooks
 var Cmd = &cobra.Command{
 	Use: "set <name> [command] [--command <command>] [--before <before>] [--after <after>] " +
-		"[--beforeAll <beforeAll>] [--afterAll <afterAll>]",
+		"[--before-all <cmd>] [--after-all <cmd>]",
 	Short: "Set or update a command or project-level hooks in the current project configuration",
 	Long: `Set or update a command or project-level hooks in the current project configuration.
 
@@ -27,27 +27,28 @@ You have three options:
 2. Set a nested command with before/after hooks:
    1build set build --command "npm run build" --before "echo before" --after "echo after"
 
-3. Set project-level hooks (beforeAll/afterAll):
-   1build set --beforeAll "echo before all"
-   1build set --afterAll "echo after all"
-   1build set --beforeAll "echo before all" --afterAll "echo after all"
+3. Set project-level hooks (--before-all/--after-all):
+   1build set --before-all "echo before all"
+   1build set --after-all "echo after all"
+   1build set --before-all "echo before all" --after-all "echo after all"
 
 - <name> is a single word: no spaces, dashes and underscores are allowed.
 - Command can be provided as a positional argument or with --command flag.
 - --before and --after are optional for command-level hooks.
-- --beforeAll and --afterAll set project-level hooks.
-- If you only want a simple command, just use the positional argument or --command.
+- --before-all and --after-all set project-level hooks.
+- Use --dry-run to preview changes without writing to disk.
 
 This will update the current project configuration file.`,
 	Args: cobra.ArbitraryArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		beforeAll, _ := cmd.Flags().GetString("beforeAll")
-		afterAll, _ := cmd.Flags().GetString("afterAll")
+		beforeAll, _ := cmd.Flags().GetString("before-all")
+		afterAll, _ := cmd.Flags().GetString("after-all")
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
 
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
-			return
+			utils.ExitError()
 		}
 
 		var updated []string
@@ -69,7 +70,7 @@ This will update the current project configuration file.`,
 			matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
 			if !matched {
 				fmt.Fprintln(os.Stderr, "1build set: '"+commandName+"' is not a valid command name. See '1build set --help'.")
-				utils.ExitError()
+				utils.ExitUsage()
 			}
 
 			before, _ := cmd.Flags().GetString("before")
@@ -84,7 +85,7 @@ This will update the current project configuration file.`,
 
 			if command == "" {
 				fmt.Fprintln(os.Stderr, "Error: command is required as a positional argument or with --command flag. See '1build set --help'.")
-				utils.ExitError()
+				utils.ExitUsage()
 			}
 
 			def := config.CommandDefinition{
@@ -106,16 +107,22 @@ This will update the current project configuration file.`,
 			updated = append(updated, fmt.Sprintf("command '%s'", commandName))
 		}
 
-		err = config.WriteConfigFile(configuration)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, "Failed to update configuration file:", err)
+		if len(updated) == 0 {
+			fmt.Println("No changes made to configuration.")
 			return
 		}
 
-		if len(updated) > 0 {
-			fmt.Printf("Updated: %s in configuration.\n", strings.Join(updated, ", "))
-		} else {
-			fmt.Println("No changes made to configuration.")
+		if dryRun {
+			fmt.Printf("[dry-run] Would update: %s in configuration.\n", strings.Join(updated, ", "))
+			return
 		}
+
+		err = config.WriteConfigFile(configuration)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "Failed to update configuration file:", err)
+			utils.ExitError()
+		}
+
+		fmt.Printf("Updated: %s in configuration.\n", strings.Join(updated, ", "))
 	},
 }

@@ -153,6 +153,8 @@ commands:
 	expectedOutput := `beforeAll: exit 10
 -----------------------------[ beforeAll ]------------------------------
 
+Execution failed in phase 'beforeAll' – exit code: 10
+
 ------------------------------------------------------------------------
 FAILURE - Total Time: 00s
 ------------------------------------------------------------------------
@@ -167,7 +169,7 @@ FAILURE - Total Time: 00s
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessageNone(t, actualOutput, "before", "10") &&
+				assertFailureMessage(t, actualOutput, "beforeAll", "10") &&
 				assertFailureBanner(t, actualOutput)
 
 		},
@@ -188,6 +190,8 @@ Executing command: build
   command: invalid_command
 -------------------------------[ build ]--------------------------------
 
+Execution failed in phase 'build' – exit code: 127
+
 ------------------------------------------------------------------------
 FAILURE - Total Time: 00s
 ------------------------------------------------------------------------
@@ -202,7 +206,7 @@ FAILURE - Total Time: 00s
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessageNone(t, actualOutput, "build", "127") &&
+				assertFailureMessage(t, actualOutput, "build", "127") &&
 				assertFailureBanner(t, actualOutput)
 		},
 	}

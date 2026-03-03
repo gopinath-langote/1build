@@ -28,6 +28,7 @@ func featureUnsetTestsData() []Test {
 		unsetAfterShouldFailWhenAfterIsNotFound(feature),
 		unsetSingleCommandShouldFailWhenInvalidCommandNameIsEntered(feature),
 		unsetMultipleCommandShouldFailWhenInvalidCommandNameIsEntered(feature),
+		shouldDryRunUnset(feature),
 	}
 }
 
@@ -251,7 +252,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetMultipleCommandsEvenWhenCommandIsNotFound3",
-		CmdArgs: Args("unset", "--beforeAll", "--afterAll", "missingCmd"),
+		CmdArgs: Args("unset", "--before-all", "--after-all", "missingCmd"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -283,7 +284,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetBeforeAllCommand",
-		CmdArgs: Args("unset", "--beforeAll"),
+		CmdArgs: Args("unset", "--before-all"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -311,7 +312,7 @@ commands: []
 	return Test{
 		Feature: feature,
 		Name:    "shouldUnsetTheAfterAllCommand",
-		CmdArgs: Args("unset", "--afterAll"),
+		CmdArgs: Args("unset", "--after-all"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
@@ -406,6 +407,34 @@ commands:
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, expectedOutput)
+		},
+	}
+}
+
+func shouldDryRunUnset(feature string) Test {
+	defaultFileContent := `
+project: Sample Project
+commands:
+  - build: go build
+  - test: go test
+`
+
+	return Test{
+		Feature: feature,
+		Name:    "shouldDryRunUnset",
+		CmdArgs: Args("unset", "build", "--dry-run"),
+		Setup: func(dir string) error {
+			return utils.CreateConfigFile(dir, defaultFileContent)
+		},
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			// Output should indicate dry-run
+			if !assert.Contains(t, actualOutput, "[dry-run]") {
+				return false
+			}
+			// The config file must NOT have been modified
+			filePath := dir + "/" + def.ConfigFileName
+			content, _ := os.ReadFile(filePath)
+			return assert.Contains(t, string(content), "build")
 		},
 	}
 }

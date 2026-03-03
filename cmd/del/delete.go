@@ -30,6 +30,12 @@ For example:
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		if dryRun {
+			fmt.Printf("[dry-run] Would delete configuration file: %s\n", config.OneBuildConfigFileName)
+			return
+		}
+
 		shouldDelete, _ := cmd.Flags().GetBool("force")
 		if !shouldDelete {
 			fmt.Printf("Delete 1build configuration file? (y/N) ")
