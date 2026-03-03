@@ -42,21 +42,14 @@ the things that actually matter.
 
 ### Homebrew
 
-**First time installation:**
 ```console
 brew tap gopinath-langote/one-build
 brew install one-build
 ```
 
-**Subsequent installations (on other machines):**
+Verify the installation:
 ```console
-brew tap gopinath-langote/one-build
-brew install one-build
-```
-
-**To verify installation:**
-```console
-one-build --version
+1build --version
 ```
 
 ### Manual
