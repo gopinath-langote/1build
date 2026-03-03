@@ -1,7 +1,6 @@
 package fixtures
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -51,7 +50,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
@@ -87,7 +86,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/some-dir/some-config.yaml"
 			assert.FileExists(t, filePath)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
@@ -118,7 +117,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
@@ -175,7 +174,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
@@ -207,66 +206,8 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
-		},
-	}
-}
-
-// SetFixtures returns test fixtures for command set tests.
-func SetFixtures() []struct {
-	Name         string
-	Args         []string
-	InitialYAML  string
-	ExpectedYAML string
-} {
-	return []struct {
-		Name         string
-		Args         []string
-		InitialYAML  string
-		ExpectedYAML string
-	}{
-		{
-			Name: "set simple command with positional",
-			Args: []string{"set", "build", "go build"},
-			InitialYAML: `
-project: test
-commands: []
-`,
-			ExpectedYAML: `
-project: test
-commands:
-  - build: go build
-`,
-		},
-		{
-			Name: "set simple command with flag",
-			Args: []string{"set", "build", "--command", "go build"},
-			InitialYAML: `
-project: test
-commands: []
-`,
-			ExpectedYAML: `
-project: test
-commands:
-  - build: go build
-`,
-		},
-		{
-			Name: "set command with hooks",
-			Args: []string{"set", "build", "--command", "go build", "--before", "echo before", "--after", "echo after"},
-			InitialYAML: `
-project: test
-commands: []
-`,
-			ExpectedYAML: `
-project: test
-commands:
-  - build:
-      before: echo before
-      command: go build
-      after: echo after
-`,
 		},
 	}
 }

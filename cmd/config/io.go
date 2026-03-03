@@ -2,7 +2,6 @@ package config
 
 import (
 	"errors"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -16,7 +15,7 @@ func ReadFile() (string, error) {
 	if _, err := os.Stat(oneBuildConfigFile); os.IsNotExist(err) {
 		return "", errors.New("no '" + oneBuildConfigFile + "' file found")
 	}
-	yamlFile, err := ioutil.ReadFile(oneBuildConfigFile)
+	yamlFile, err := os.ReadFile(oneBuildConfigFile)
 	if err != nil {
 		return "", errors.New("error in reading '" + oneBuildConfigFile + "' configuration file")
 	}
@@ -34,22 +33,12 @@ func IsConfigFilePresent() bool {
 	return false
 }
 
-// WriteConfigFile writes config to the file
-// If there is an error, it will be of type *Error.
+// WriteConfigFile marshals the configuration struct to YAML and writes it to the config file.
+// If there is an error, it will be of type *PathError.
 func WriteConfigFile(configuration OneBuildConfiguration) error {
 	oneBuildConfigFile := getConfigFile()
-
-	// Deep copy configuration and remove all raw fields
-	cleanConfig := configuration
-	for i, cmdMap := range cleanConfig.Commands {
-		for name, def := range cmdMap {
-			cleanConfig.Commands[i][name] = def
-		}
-	}
-
-	yamlData, _ := yaml.Marshal(&cleanConfig)
-	content := string(yamlData)
-	return ioutil.WriteFile(oneBuildConfigFile, []byte(content), 0750)
+	yamlData, _ := yaml.Marshal(&configuration)
+	return os.WriteFile(oneBuildConfigFile, yamlData, 0750)
 }
 
 // DeleteConfigFile deletes the config file

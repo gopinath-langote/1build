@@ -1,7 +1,6 @@
 package fixtures
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -16,6 +15,7 @@ func featureInitTestsData() []Test {
 		shouldInitialiseNewProject(feature),
 		shouldInitialiseNewProjectInSpecifiedFile(feature),
 		shouldFailIfFileAlreadyExists(feature),
+		shouldInitialiseNewProjectWithName(feature),
 	}
 }
 
@@ -36,12 +36,26 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldInitialiseNewProject",
-		CmdArgs: Args("init", "--name", "trial"),
+		CmdArgs: Args("init"),
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/" + def.ConfigFileName
 			assert.FileExists(t, dir+"/"+def.ConfigFileName)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
+		},
+	}
+}
+
+func shouldInitialiseNewProjectWithName(feature string) Test {
+	return Test{
+		Feature: feature,
+		Name:    "shouldInitialiseNewProjectWithName",
+		CmdArgs: Args("init", "--name", "MyAwesomeProject"),
+		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
+			filePath := dir + "/" + def.ConfigFileName
+			assert.FileExists(t, filePath)
+			content, _ := os.ReadFile(filePath)
+			return assert.Contains(t, string(content), "project: MyAwesomeProject")
 		},
 	}
 }
@@ -64,7 +78,7 @@ commands:
 		Feature: feature,
 		Name:    "shouldInitialiseNewProjectInSpecifiedFile",
 		CmdArgs: func(dir string) []string {
-			return []string{"init", "--name", "trial", "-f", dir + "/some-dir/some-config.yaml"}
+			return []string{"init", "-f", dir + "/some-dir/some-config.yaml"}
 		},
 		Setup: func(dir string) error {
 			return os.MkdirAll(dir+"/some-dir/", 0750)
@@ -72,7 +86,7 @@ commands:
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			filePath := dir + "/some-dir/some-config.yaml"
 			assert.FileExists(t, filePath)
-			content, _ := ioutil.ReadFile(filePath)
+			content, _ := os.ReadFile(filePath)
 			return assert.Contains(t, string(content), expectedOutput)
 		},
 	}
@@ -89,38 +103,12 @@ commands:
 	return Test{
 		Feature: feature,
 		Name:    "shouldFailIfFileAlreadyExists",
-		CmdArgs: Args("init", "--name", "trial"),
+		CmdArgs: Args("init"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, defaultFileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, expectedOutput)
-		},
-	}
-}
-
-// InitFixtures returns test fixtures for command initialization tests.
-func InitFixtures() []struct {
-	Name         string
-	ExpectedYAML string
-} {
-	return []struct {
-		Name         string
-		ExpectedYAML string
-	}{
-		{
-			Name: "init sample config",
-			ExpectedYAML: `
-project: Sample Project
-commands:
-  - setup: go get -u golang.org/x/lint/golint
-  - test: go test ./...
-  - lint: golint ./...
-  - build:
-      before: echo "before build"
-      command: go build
-      after: echo "after build"
-`,
 		},
 	}
 }

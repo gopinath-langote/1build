@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
@@ -17,17 +16,17 @@ var regex = regexp.MustCompile(ansi)
 
 // CreateConfigFile creates a config file
 func CreateConfigFile(dir string, content string) error {
-	return ioutil.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0750)
+	return os.WriteFile(dir+"/"+def.ConfigFileName, []byte(content), 0750)
 }
 
 // CreateConfigFileWithName creates a config file with specified name
 func CreateConfigFileWithName(dir string, fileName string, content string) error {
-	return ioutil.WriteFile(dir+"/"+fileName, []byte(content), 0750)
+	return os.WriteFile(dir+"/"+fileName, []byte(content), 0750)
 }
 
 // CreateTempDir created temporary directory
 func CreateTempDir() (string, error) {
-	return ioutil.TempDir("", "onebuild_test")
+	return os.MkdirTemp("", "onebuild_test")
 }
 
 // CreateCustomTestResourceSubDir created temporary directory

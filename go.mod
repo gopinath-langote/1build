@@ -1,6 +1,6 @@
 module github.com/gopinath-langote/1build
 
-go 1.12
+go 1.16
 
 require (
 	github.com/codegangsta/inject v0.0.0-20140425184007-37d7f8432a3e // indirect

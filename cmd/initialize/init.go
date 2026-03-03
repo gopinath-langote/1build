@@ -14,15 +14,23 @@ var Cmd = &cobra.Command{
 	Short: "Initialize 1build configuration file in the current directory",
 	Long: `Initialize 1build configuration file in the current directory.
 
-This will create a sample 1build.yaml file if it does not exist.`,
+This will create a sample 1build.yaml file if it does not exist.
+
+Use --name to set the project name in the generated configuration file.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if _, err := os.Stat(config.OneBuildConfigFileName); err == nil {
 			fmt.Printf("'%s' already exists in the current directory.\n", config.OneBuildConfigFileName)
 			return
 		}
 
+		// Use --name flag if provided, fall back to default
+		projectName, _ := cmd.Flags().GetString("name")
+		if projectName == "" {
+			projectName = "Sample Project"
+		}
+
 		configuration := config.OneBuildConfiguration{
-			Project: "Sample Project",
+			Project: projectName,
 			Commands: []map[string]config.CommandDefinition{
 				{"setup": {Command: "go get -u golang.org/x/lint/golint"}},
 				{"test": {Command: "go test ./..."}},

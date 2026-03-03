@@ -59,7 +59,7 @@ This will remove the specified commands and/or project-level hooks from the conf
 				fmt.Printf("1build unset: '%s' is not a valid command name. See '1build unset --help'.\n", commandName)
 				utils.ExitError()
 			}
-			index := IndexOfCommandIfPresent(configuration, commandName)
+			index := configuration.IndexOfCommand(commandName)
 			if index == -1 {
 				notFound = append(notFound, commandName)
 			} else {
@@ -81,19 +81,6 @@ This will remove the specified commands and/or project-level hooks from the conf
 			fmt.Printf("Following command(s) not found: %s\n", strings.Join(notFound, ", "))
 		}
 	},
-}
-
-// IndexOfCommandIfPresent returns index in configuration for command if exists
-func IndexOfCommandIfPresent(configuration config.OneBuildConfiguration, commandName string) int {
-	return utils.SliceIndex(len(configuration.Commands), func(i int) bool {
-		i2 := configuration.Commands[i]
-		for k := range i2 {
-			if k == commandName {
-				return true
-			}
-		}
-		return false
-	})
 }
 
 // removeCommandByIndex removes the command at the given index
