@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gopinath-langote/1build/cmd/completion"
 	"github.com/gopinath-langote/1build/cmd/del"
 	"github.com/gopinath-langote/1build/cmd/initialize"
 	"github.com/gopinath-langote/1build/cmd/list"
@@ -64,6 +65,7 @@ func init() {
 	Cmd.AddCommand(set.Cmd)
 	Cmd.AddCommand(unset.Cmd)
 	Cmd.AddCommand(rename.Cmd)
+	Cmd.AddCommand(completion.Cmd)
 
 	// set command flags
 	set.Cmd.Flags().String("before", "", "Command to execute before the main command")
