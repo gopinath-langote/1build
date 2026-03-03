@@ -52,21 +52,23 @@ Verify the installation:
 1build --version
 ```
 
-### Manual
+<details>
+<summary><strong>Troubleshooting: Checksum mismatch error</strong></summary>
 
-1.  Download and install binary from [the latest release](https://github.com/gopinath-langote/1build/releases/latest)
-2.  Recommended: add `1build` executable to your `$PATH`.
-
-### Troubleshooting Homebrew Installation
-
-**Checksum mismatch error:** If you see "Formula reports different checksum", try:
+If you see "Formula reports different checksum", try clearing the cached formula:
 ```console
 brew untap gopinath-langote/one-build
 brew tap gopinath-langote/one-build
 brew install one-build
 ```
 
-This clears the cached formula and fetches the latest version.
+This fetches the latest version and clears any cached formula data.
+</details>
+
+### Manual
+
+1.  Download and install binary from [the latest release](https://github.com/gopinath-langote/1build/releases/latest)
+2.  Recommended: add `1build` executable to your `$PATH`.
 
 ## Usage
 
