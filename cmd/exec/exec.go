@@ -45,7 +45,7 @@ func ExecutePlan(commands ...string) {
 			}
 		}
 		if !found {
-			utils.CPrintln("\nError: Command \""+name+"\" not found.", utils.Style{Color: utils.RED, Bold: true})
+			utils.CPrintlnErr("\nError: Command \""+name+"\" not found.", utils.Style{Color: utils.RED, Bold: true})
 			configuration.Print()
 			utils.ExitWithCode("127")
 		}
@@ -104,7 +104,7 @@ func executeAndStopIfFailed(command *models.CommandContext, executeStart time.Ti
 		if err != nil {
 			exitCode := strings.TrimPrefix(err.Error(), "exit status ")
 			text := "\nExecution failed in phase '" + command.Name + "' – exit code: " + exitCode
-			utils.CPrintln(text, utils.Style{Color: utils.RED})
+			utils.CPrintlnErr(text, utils.Style{Color: utils.RED})
 			printResultsBanner(false, executeStart)
 			utils.ExitWithCode(exitCode)
 		}

@@ -18,7 +18,7 @@ This will create a sample 1build.yaml file if it does not exist.
 
 Use --name to set the project name in the generated configuration file.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if _, err := os.Stat(config.OneBuildConfigFileName); err == nil {
+		if config.IsConfigFilePresent() {
 			fmt.Printf("'%s' already exists in the current directory.\n", config.OneBuildConfigFileName)
 			return
 		}
@@ -45,7 +45,7 @@ Use --name to set the project name in the generated configuration file.`,
 
 		err := config.WriteConfigFile(configuration)
 		if err != nil {
-			fmt.Println("Failed to create configuration file:", err)
+			fmt.Fprintln(os.Stderr, "Failed to create configuration file:", err)
 			return
 		}
 

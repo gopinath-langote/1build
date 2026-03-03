@@ -2,6 +2,7 @@ package set
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 
@@ -45,7 +46,7 @@ This will update the current project configuration file.`,
 
 		configuration, err := config.LoadOneBuildConfiguration()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Fprintln(os.Stderr, err)
 			return
 		}
 
@@ -67,7 +68,7 @@ This will update the current project configuration file.`,
 
 			matched, _ := regexp.MatchString(`^[a-zA-Z0-9\-_]+$`, commandName)
 			if !matched {
-				fmt.Println("1build set: '" + commandName + "' is not a valid command name. See '1build set --help'.")
+				fmt.Fprintln(os.Stderr, "1build set: '"+commandName+"' is not a valid command name. See '1build set --help'.")
 				utils.ExitError()
 			}
 
@@ -82,7 +83,7 @@ This will update the current project configuration file.`,
 			}
 
 			if command == "" {
-				fmt.Println("Error: command is required as a positional argument or with --command flag. See '1build set --help'.")
+				fmt.Fprintln(os.Stderr, "Error: command is required as a positional argument or with --command flag. See '1build set --help'.")
 				utils.ExitError()
 			}
 
@@ -107,7 +108,7 @@ This will update the current project configuration file.`,
 
 		err = config.WriteConfigFile(configuration)
 		if err != nil {
-			fmt.Println("Failed to update configuration file:", err)
+			fmt.Fprintln(os.Stderr, "Failed to update configuration file:", err)
 			return
 		}
 

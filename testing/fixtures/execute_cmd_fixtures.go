@@ -91,9 +91,10 @@ build | echo building project
 ------------------------------------------------------------------------
 `
 	return Test{
-		Feature: feature,
-		Name:    "shouldShowErrorIfCommandNotFound",
-		CmdArgs: Args("random"),
+		Feature:          feature,
+		Name:             "shouldShowErrorIfCommandNotFound",
+		CmdArgs:          Args("random"),
+		ExpectedExitCode: 127,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -219,9 +220,10 @@ commands:
 
 `
 	return Test{
-		Feature: feature,
-		Name:    "shouldStopExecutionIfBeforeCommandFailed",
-		CmdArgs: Args("build"),
+		Feature:          feature,
+		Name:             "shouldStopExecutionIfBeforeCommandFailed",
+		CmdArgs:          Args("build"),
+		ExpectedExitCode: 10,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -241,23 +243,20 @@ afterAll: echo running post-command
 commands:
   - build: invalid_command
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
-running pre-command
-Executing command: build
-  command: invalid_command
--------------------------------[ build ]--------------------------------
-
-`
 	return Test{
-		Feature: feature,
-		Name:    "shouldStopExecutionIfCommandFailed",
-		CmdArgs: Args("build"),
+		Feature:          feature,
+		Name:             "shouldStopExecutionIfCommandFailed",
+		CmdArgs:          Args("build"),
+		ExpectedExitCode: 127,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
-			return utils.AssertContains(t, actualOutput, expectedOutput) &&
+			return utils.AssertContains(t, actualOutput, "beforeAll: echo running pre-command") &&
+				utils.AssertContains(t, actualOutput, "-----------------------------[ beforeAll ]------------------------------") &&
+				utils.AssertContains(t, actualOutput, "Executing command: build") &&
+				utils.AssertContains(t, actualOutput, "  command: invalid_command") &&
+				utils.AssertContains(t, actualOutput, "-------------------------------[ build ]--------------------------------") &&
 				assertFailureMessage(t, actualOutput, "build", "127") &&
 				assertFailureBanner(t, actualOutput)
 		},

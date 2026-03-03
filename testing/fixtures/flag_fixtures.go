@@ -158,9 +158,10 @@ FAILURE - Total Time: 00s
 ------------------------------------------------------------------------
 `
 	return Test{
-		Feature: feature,
-		Name:    "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
-		CmdArgs: Args("build", "--quiet"),
+		Feature:          feature,
+		Name:             "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
+		CmdArgs:          Args("build", "--quiet"),
+		ExpectedExitCode: 10,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},
@@ -192,9 +193,10 @@ FAILURE - Total Time: 00s
 ------------------------------------------------------------------------
 `
 	return Test{
-		Feature: feature,
-		Name:    "shouldStopExecutionIfCommandFailedWithquietFlag",
-		CmdArgs: Args("build", "--quiet"),
+		Feature:          feature,
+		Name:             "shouldStopExecutionIfCommandFailedWithquietFlag",
+		CmdArgs:          Args("build", "--quiet"),
+		ExpectedExitCode: 127,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
 		},

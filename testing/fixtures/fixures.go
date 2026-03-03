@@ -9,12 +9,13 @@ type teardown func(dir string) error
 
 // Test represents all the necessary information to run the test case
 type Test struct {
-	Feature   string
-	Name      string
-	CmdArgs   cmdArgs
-	Setup     setup
-	Assertion assertion
-	Teardown  teardown
+	Feature          string
+	Name             string
+	CmdArgs          cmdArgs
+	Setup            setup
+	Assertion        assertion
+	Teardown         teardown
+	ExpectedExitCode int
 }
 
 // GetFixtures returns all the fixtures to be tested
@@ -32,6 +33,7 @@ func GetFixtures() []Test {
 		featureFlagVersionTestData(),
 		featureFlagTestData(),
 		featureDeleteTestData(),
+		featureRenameTestData(),
 	}
 
 	var r1 []Test

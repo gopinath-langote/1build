@@ -6,6 +6,8 @@ import (
 	"os/exec"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	utils2 "github.com/gopinath-langote/1build/cmd/utils"
 
 	"github.com/gopinath-langote/1build/testing/fixtures"
@@ -31,7 +33,14 @@ func TestAll(t *testing.T) {
 			}
 			cmd := exec.Command(binaryPath, args...)
 			cmd.Dir = testResourceDirectory
-			out, _ := cmd.Output()
+			out, err := cmd.CombinedOutput()
+			actualExitCode := 0
+			if exitErr, ok := err.(*exec.ExitError); ok {
+				actualExitCode = exitErr.ExitCode()
+			}
+			if tt.ExpectedExitCode != 0 {
+				assert.Equal(t, tt.ExpectedExitCode, actualExitCode, "exit code mismatch")
+			}
 			_ = tt.Assertion(testResourceDirectory, string(out), t)
 			if tt.Teardown != nil {
 				_ = tt.Teardown(testResourceDirectory)
@@ -64,7 +73,9 @@ func buildBinary(path string) {
 		os.Exit(1)
 	}
 
-	getDep := exec.Command("go", "build", "-o", path)
+	getDep := exec.Command("go", "build",
+		"-ldflags", "-X github.com/gopinath-langote/1build/cmd.Version=test-version",
+		"-o", path)
 	if err := getDep.Run(); err != nil {
 		fmt.Printf("could not make binary for %s: %v", binaryName, err.Error())
 		os.Exit(1)
