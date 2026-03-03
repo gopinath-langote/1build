@@ -42,6 +42,7 @@ For example:
 		if shouldDelete {
 			if err := config.DeleteConfigFile(); err != nil {
 				utils.CPrintln("Error deleting configuration file.", utils.Style{Color: utils.RED})
+				utils.ExitError()
 			}
 		}
 	},

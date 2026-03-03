@@ -2,7 +2,6 @@ package initialize
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/gopinath-langote/1build/cmd/config"
 	"github.com/spf13/cobra"
@@ -18,7 +17,7 @@ This will create a sample 1build.yaml file if it does not exist.
 
 Use --name to set the project name in the generated configuration file.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if _, err := os.Stat(config.OneBuildConfigFileName); err == nil {
+		if config.IsConfigFilePresent() {
 			fmt.Printf("'%s' already exists in the current directory.\n", config.OneBuildConfigFileName)
 			return
 		}

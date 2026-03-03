@@ -37,7 +37,10 @@ func IsConfigFilePresent() bool {
 // If there is an error, it will be of type *PathError.
 func WriteConfigFile(configuration OneBuildConfiguration) error {
 	oneBuildConfigFile := getConfigFile()
-	yamlData, _ := yaml.Marshal(&configuration)
+	yamlData, err := yaml.Marshal(&configuration)
+	if err != nil {
+		return err
+	}
 	return os.WriteFile(oneBuildConfigFile, yamlData, 0750)
 }
 

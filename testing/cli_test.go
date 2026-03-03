@@ -6,6 +6,8 @@ import (
 	"os/exec"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	utils2 "github.com/gopinath-langote/1build/cmd/utils"
 
 	"github.com/gopinath-langote/1build/testing/fixtures"
@@ -31,7 +33,14 @@ func TestAll(t *testing.T) {
 			}
 			cmd := exec.Command(binaryPath, args...)
 			cmd.Dir = testResourceDirectory
-			out, _ := cmd.Output()
+			out, err := cmd.CombinedOutput()
+			actualExitCode := 0
+			if exitErr, ok := err.(*exec.ExitError); ok {
+				actualExitCode = exitErr.ExitCode()
+			}
+			if tt.ExpectedExitCode != 0 {
+				assert.Equal(t, tt.ExpectedExitCode, actualExitCode, "exit code mismatch")
+			}
 			_ = tt.Assertion(testResourceDirectory, string(out), t)
 			if tt.Teardown != nil {
 				_ = tt.Teardown(testResourceDirectory)

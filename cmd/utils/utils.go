@@ -12,7 +12,10 @@ const (
 
 // ExitWithCode exits the current process with specified exit code provided as string
 func ExitWithCode(code string) {
-	exitCode, _ := strconv.Atoi(code)
+	exitCode, err := strconv.Atoi(code)
+	if err != nil {
+		exitCode = 1
+	}
 	os.Exit(exitCode)
 }
 

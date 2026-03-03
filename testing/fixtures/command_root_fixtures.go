@@ -20,8 +20,9 @@ func featureRootTestData() []Test {
 
 func shouldFailIfYamlFileIsNotPresent(feature string) Test {
 	return Test{
-		Feature: feature,
-		Name:    "shouldFailIfYamlFileIsNotPresent",
+		Feature:          feature,
+		Name:             "shouldFailIfYamlFileIsNotPresent",
+		ExpectedExitCode: 1,
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "no '"+def.ConfigFileName+"' file found")
 		},
@@ -45,8 +46,9 @@ commands:
 ------------------------------------------------------------------------
 `
 	return Test{
-		Feature: feature,
-		Name:    "shouldFailIfYamlFileIsNotInCorrectYamlFormat",
+		Feature:          feature,
+		Name:             "shouldFailIfYamlFileIsNotInCorrectYamlFormat",
+		ExpectedExitCode: 1,
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, "invalid yaml file")
 		},

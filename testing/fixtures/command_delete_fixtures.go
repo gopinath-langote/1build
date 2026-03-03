@@ -54,9 +54,10 @@ func shouldDeleteConfigSpecifiedFile(feature string) Test {
 func shouldFailIfFileDoesntExists(feature string, arg string) Test {
 	expectedOutput := "No configuration file found!"
 	return Test{
-		Feature: feature,
-		Name:    "shouldFailIfFileDoesntExists",
-		CmdArgs: Args("delete", arg),
+		Feature:          feature,
+		Name:             "shouldFailIfFileDoesntExists",
+		CmdArgs:          Args("delete", arg),
+		ExpectedExitCode: 1,
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, expectedOutput)
 		},

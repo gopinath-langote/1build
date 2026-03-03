@@ -36,6 +36,12 @@ func (c *CommandContext) PrintPhaseBanner() {
 	if totalDashes%2 == 1 {
 		numDashesRight++
 	}
+	if numDashesLeft < 0 {
+		numDashesLeft = 0
+	}
+	if numDashesRight < 0 {
+		numDashesRight = 0
+	}
 
 	fmt.Print(strings.Repeat("-", numDashesLeft))
 	fmt.Print(bannerOpen)
