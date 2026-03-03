@@ -103,8 +103,8 @@ func shouldNotShowAnyCommandsIfNoCommandsFound(feature string) Test {
 
 func shouldShowCommandsWithBeforeAndAfterIfPresent(feature string) Test {
 	fileContent := `project: Sample Project
-beforeAll: pre_command
-afterAll: post_command
+before-all: pre_command
+after-all: post_command
 commands:
   - build: npm run build
 `
@@ -118,8 +118,8 @@ commands:
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return assert.Contains(t, actualOutput, "project: Sample Project") &&
-				assert.Contains(t, actualOutput, "beforeAll: pre_command") &&
-				assert.Contains(t, actualOutput, "afterAll: post_command") &&
+				assert.Contains(t, actualOutput, "before-all: pre_command") &&
+				assert.Contains(t, actualOutput, "after-all: post_command") &&
 				assert.Contains(t, actualOutput, "build | npm run build")
 		},
 	}
@@ -136,7 +136,7 @@ commands:
 `
 	return Test{
 		Feature: feature,
-		Name:    "list with nested and inline",
+		Name:    "shouldShowListWithNestedAndInline",
 		CmdArgs: Args("list"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)

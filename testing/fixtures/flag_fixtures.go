@@ -7,7 +7,7 @@ import (
 )
 
 func featureFlagTestData() []Test {
-	feature := "flag"
+	feature := "quiet"
 	return []Test{
 		shouldExecuteCommandWithquietFlag(feature),
 		shouldExecuteBeforeAllCommandWithquietFlag(feature),
@@ -49,12 +49,12 @@ SUCCESS - Total Time: 00s
 func shouldExecuteBeforeAllCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
+before-all: echo running pre-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: echo running pre-command
+-----------------------------[ before-all ]-----------------------------
 Executing command: build
   command: echo building project
 -------------------------------[ build ]--------------------------------
@@ -65,7 +65,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeCommandWithquietFlag",
+		Name:    "shouldExecuteBeforeAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -80,15 +80,15 @@ SUCCESS - Total Time: 00s
 func shouldExecuteAfterAllCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
-afterAll: echo running post-command
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
 	expectedOutput := `Executing command: build
   command: echo building project
 -------------------------------[ build ]--------------------------------
-afterAll: echo running post-command
-------------------------------[ afterAll ]------------------------------
+after-all: echo running post-command
+-----------------------------[ after-all ]------------------------------
 
 ------------------------------------------------------------------------
 SUCCESS - Total Time: 00s
@@ -96,7 +96,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteAfterCommandWithquietFlag",
+		Name:    "shouldExecuteAfterAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -111,18 +111,18 @@ SUCCESS - Total Time: 00s
 func shouldExecuteBeforeAllAndAfterAllCommandWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
-afterAll: echo running post-command
+before-all: echo running pre-command
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: echo running pre-command
+-----------------------------[ before-all ]-----------------------------
 Executing command: build
   command: echo building project
 -------------------------------[ build ]--------------------------------
-afterAll: echo running post-command
-------------------------------[ afterAll ]------------------------------
+after-all: echo running post-command
+-----------------------------[ after-all ]------------------------------
 
 ------------------------------------------------------------------------
 SUCCESS - Total Time: 00s
@@ -130,7 +130,7 @@ SUCCESS - Total Time: 00s
 `
 	return Test{
 		Feature: feature,
-		Name:    "shouldExecuteBeforeAndAfterCommandWithquietFlag",
+		Name:    "shouldExecuteBeforeAllAndAfterAllCommandWithquietFlag",
 		CmdArgs: Args("build", "--quiet"),
 		Setup: func(dir string) error {
 			return utils.CreateConfigFile(dir, fileContent)
@@ -145,15 +145,15 @@ SUCCESS - Total Time: 00s
 func shouldStopExecutionIfBeforeAllCommandFailedWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: exit 10
-afterAll: echo running post-command
+before-all: exit 10
+after-all: echo running post-command
 commands:
   - build: echo building project
 `
-	expectedOutput := `beforeAll: exit 10
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: exit 10
+-----------------------------[ before-all ]-----------------------------
 
-Execution failed in phase 'beforeAll' – exit code: 10
+Execution failed in phase 'before-all' – exit code: 10
 
 ------------------------------------------------------------------------
 FAILURE - Total Time: 00s
@@ -161,7 +161,7 @@ FAILURE - Total Time: 00s
 `
 	return Test{
 		Feature:          feature,
-		Name:             "shouldStopExecutionIfBeforeCommandFailedWithquietFlag",
+		Name:             "shouldStopExecutionIfBeforeAllCommandFailedWithquietFlag",
 		CmdArgs:          Args("build", "--quiet"),
 		ExpectedExitCode: 10,
 		Setup: func(dir string) error {
@@ -169,7 +169,7 @@ FAILURE - Total Time: 00s
 		},
 		Assertion: func(dir string, actualOutput string, t *testing.T) bool {
 			return utils.AssertContains(t, actualOutput, expectedOutput) &&
-				assertFailureMessage(t, actualOutput, "beforeAll", "10") &&
+				assertFailureMessage(t, actualOutput, "before-all", "10") &&
 				assertFailureBanner(t, actualOutput)
 
 		},
@@ -179,13 +179,13 @@ FAILURE - Total Time: 00s
 func shouldStopExecutionIfCommandFailedWithquietFlag(feature string) Test {
 	fileContent := `
 project: Sample Project
-beforeAll: echo running pre-command
-afterAll: echo running post-command
+before-all: echo running pre-command
+after-all: echo running post-command
 commands:
   - build: invalid_command
 `
-	expectedOutput := `beforeAll: echo running pre-command
------------------------------[ beforeAll ]------------------------------
+	expectedOutput := `before-all: echo running pre-command
+-----------------------------[ before-all ]-----------------------------
 Executing command: build
   command: invalid_command
 -------------------------------[ build ]--------------------------------

@@ -50,8 +50,8 @@ func (c *CommandDefinition) UnmarshalYAML(value *yaml.Node) error {
 // OneBuildConfiguration is a representation of yaml configuration as struct
 type OneBuildConfiguration struct {
 	Project   string                         `yaml:"project"`
-	BeforeAll string                         `yaml:"beforeAll,omitempty"`
-	AfterAll  string                         `yaml:"afterAll,omitempty"`
+	BeforeAll string                         `yaml:"before-all,omitempty"`
+	AfterAll  string                         `yaml:"after-all,omitempty"`
 	Commands  []map[string]CommandDefinition `yaml:"commands"`
 }
 
@@ -115,10 +115,10 @@ func (oneBuildConfiguration *OneBuildConfiguration) IndexOfCommand(name string) 
 func (oneBuildConfiguration *OneBuildConfiguration) Print() {
 	fmt.Println(utils.Dash() + "\nproject: " + oneBuildConfiguration.Project)
 	if oneBuildConfiguration.BeforeAll != "" {
-		fmt.Println("beforeAll: " + oneBuildConfiguration.BeforeAll)
+		fmt.Println("before-all: " + oneBuildConfiguration.BeforeAll)
 	}
 	if oneBuildConfiguration.AfterAll != "" {
-		fmt.Println("afterAll: " + oneBuildConfiguration.AfterAll)
+		fmt.Println("after-all: " + oneBuildConfiguration.AfterAll)
 	}
 	fmt.Println("commands:")
 
